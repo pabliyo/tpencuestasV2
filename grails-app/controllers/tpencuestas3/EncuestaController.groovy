@@ -87,6 +87,13 @@ class EncuestaController {
         }
     }
 
+    def despliegaImagen = {
+        def producto = Producto.get(params.id)
+        response.contentType = "image/jpeg"
+        response.contentLength = producto?.imagen.length
+        response.outputStream.write(producto?.imagen)
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

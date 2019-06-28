@@ -6,8 +6,9 @@
     <title>
         <g:layoutTitle default="Grails"/>
     </title>
+     <link rel="shortcut icon" href="${createLinkTo(dir:'images',file:'logo.ico')}" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
+
 
     <asset:stylesheet src="application.css"/>
 
@@ -17,7 +18,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
-    <a class="navbar-brand" href="/#"><asset:image src="grails.svg" alt="Grails Logo"/></a>
+    <a class="navbar-brand" href="/#"><asset:image src="IJIJI.png" alt="Question Logo"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,11 +35,8 @@
 
 <div class="footer row" role="contentinfo">
     <div class="col">
-        <a href="http://guides.grails.org" target="_blank">
-            <asset:image src="advancedgrails.svg" alt="Grails Guides" class="float-left"/>
-        </a>
-        <strong class="centered"><a href="http://guides.grails.org" target="_blank">Grails Guides</a></strong>
-        <p>Building your first Grails app? Looking to add security, or create a Single-Page-App? Check out the <a href="http://guides.grails.org" target="_blank">Grails Guides</a> for step-by-step tutorials.</p>
+
+
 
     </div>
     <div class="col">

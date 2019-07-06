@@ -22,6 +22,7 @@
 
             <div class="pagination">
                 <g:paginate total="${encuestaCount ?: 0}" />
+
             </div>
         </div>
     </body>

@@ -1,31 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
-        <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
-        <script type="text/javascript">
-               function validarFormulario(){
-                   jQuery.validator.messages.required = 'Esta campo es obligatorio.';
-                   jQuery.validator.messages.number = 'Esta campo debe ser num&eacute;rico.';
-                   jQuery.validator.messages.email = 'La direcci&oacute;n de correo es incorrecta.';
-                   $("#enviar").click(function(){
-                      var validado = $("#formulario").valid();
-                      if(validado){
-                         alert('El formulario es correcto.');
-                      }
-                   });
-               }
-               $(document).ready(function(){
-                  validarFormulario();
-               });
-               $(document).ready(function() {
-                   $('#content').css({'left':($('#page').width()/2)-($('#content').width()/2),'top':($('#page').height()/2)-($('#content').height()/2)});
-               });
-            </script>
-            <style type="text/css">
-               .error {color: #f00;}
-            </style>
-
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'encuesta.label', default: 'Encuesta')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
@@ -39,58 +14,25 @@
             </ul>
         </div>
         <div id="create-encuesta" class="content scaffold-create" role="main">
-        <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-        <form id="formulario" action="" method="post">
-               <label for="vigencia"> (*) Vigencia: Fecha de inicio </label>
-               <br />
-
-
-               <input type="date" name="fecha_inicio"  />
-               <br />
-
-               <label for="vigencia"> (*) Vigencia: Fecha de fin </label>
-               <br />
-               <input type="date" name="fecha_fin" class="required" />
-               <br />
-
-               <label for="titulo"> (*) Titulo de la encuesta </label>
-               <br />
-               <input type="text" name="titulo" class="required" />
-               <br />
-
-               <label for="descripcion"> Descripcion de la encuesta </label>
-               <br />
-               <textarea rows="5" cols="50" name="descripcion" id="descripcion" class="required"></textarea>
-               <br />
-               (*) Campos requeridos
-               <br />
-               <input type="submit" id="enviar" value="Enviar" />
-               <div id="contenedor_errores"></div>
-            </form>
-            </div>
-
-
-
-                    <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-
-                    <g:hasErrors bean="${this.encuesta}">
-                    <ul class="errors" role="alert">
-                        <g:eachError bean="${this.encuesta}" var="error">
-                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                        </g:eachError>
-                    </ul>
-                    </g:hasErrors>
-
-                    <g:form resource="${this.encuesta}" method="POST">
-                        <fieldset class="formulario">
-                            <f:all bean="encuesta"/>
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </fieldset>
-                    </g:form>
-
+            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <g:if test="${flash.message}">
+            <div class="message" role="status">${flash.message}</div>
+            </g:if>
+            <g:hasErrors bean="${this.encuesta}">
+            <ul class="errors" role="alert">
+                <g:eachError bean="${this.encuesta}" var="error">
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                </g:eachError>
+            </ul>
+            </g:hasErrors>
+            <g:form resource="${this.encuesta}" method="POST">
+                <fieldset class="form">
+                    <f:all bean="encuesta"/>
+                </fieldset>
+                <fieldset class="buttons">
+                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                </fieldset>
+            </g:form>
+        </div>
     </body>
 </html>

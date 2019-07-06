@@ -5,11 +5,12 @@ class Pregunta {
     String enunciado
     Integer orden
 
-    static hasMany = [opciones: Opcion]
     static belongsTo = [encuesta: Encuesta]
+    static hasMany = [opciones: Opcion]
 
 
     static constraints = {
+       orden (min:1)
     }
 
     static mapping = {

@@ -10,7 +10,7 @@ class Pregunta {
 
 
     static constraints = {
-       orden (min:1)
+       orden (min:1, max:5)
     }
 
     static mapping = {

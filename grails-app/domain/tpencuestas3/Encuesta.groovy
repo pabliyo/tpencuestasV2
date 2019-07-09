@@ -4,6 +4,7 @@ class Encuesta {
 
     String titulo
     String descripcion
+    Integer cantPreguntas
     Vigencia vigencia
 
     static hasMany = [preguntas: Pregunta]
@@ -11,6 +12,7 @@ class Encuesta {
 
     static constraints = {
         vigencia(nullable:true)
+        cantPreguntas(min:5, max:5, unique:true)
     }
 
 

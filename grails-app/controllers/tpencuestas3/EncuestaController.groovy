@@ -1,8 +1,10 @@
 package tpencuestas3
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class EncuestaController {
 
     EncuestaService encuestaService

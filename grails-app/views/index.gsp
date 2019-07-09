@@ -15,11 +15,13 @@
     </li>
 </content>
 
+
+
 <div id="content" role="main">
     <section class="row colset-2-its">
         <h1>Bienvenido a Question</h1>
         <div id="controllers" role="navigation">
-            <h2>Usted puede:</h2>
+            <h2>Available Controllers:</h2>
             <ul>
                 <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
                     <li class="controller">

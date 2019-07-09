@@ -64,6 +64,7 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.grails.plugins:spring-security-core:3.2.3"
 
 
 }

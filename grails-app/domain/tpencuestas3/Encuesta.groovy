@@ -10,6 +10,7 @@ class Encuesta {
 
     static constraints = {
         vigencia(nullable:true)
+
         preguntas maxSize: 5 ,minSize: 5
     }
 

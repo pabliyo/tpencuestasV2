@@ -14,5 +14,4 @@ class Vigencia {
         fechaHoy = new Date()
         (fechaInicio<= fechaHoy && fechaHoy <=fechaFin)
     }
-
 }

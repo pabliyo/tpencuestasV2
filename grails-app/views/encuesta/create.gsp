@@ -31,15 +31,11 @@
                     <f:field bean="encuesta" property="vigencia.fechaInicio"/>
                     <f:field bean="encuesta" property="vigencia.fechaFin"/>
                     <f:field bean="encuesta" property="descripcion"/>
-                    <g:form resource="${this.encuesta.preguntas}" method="POST">
-                        <fieldset class="formulario">
-                            <f:field bean="pregunta" property="enunciado"/>
-                            <f:field bean="pregunta" property="orden"/>
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </fieldset>
-                    </g:form>
+                    <p>Preguntas:</p>
+                    <g:each in="${this.encuesta.preguntas}" var="pregunta">
+                        <p>Orden: ${pregunta.orden}</p>
+                        <p>Enuncido: ${pregunta.enunciado}</p>
+                    </g:each>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

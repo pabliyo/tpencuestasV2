@@ -27,7 +27,8 @@
             </g:hasErrors>
             <g:form resource="${this.opcion}" method="POST">
                 <fieldset class="form">
-                    <f:all bean="opcion"/>
+                    <f:field bean="opcion" property="orden"/>
+                    <f:field bean="opcion" property="descripcion"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

@@ -27,6 +27,7 @@
             </g:hasErrors>
             <g:form resource="${this.opcion}" method="POST">
                 <fieldset class="form">
+                    <f:field bean="opcion" property="pregunta"/>
                     <f:field bean="opcion" property="orden"/>
                     <f:field bean="opcion" property="descripcion"/>
                 </fieldset>

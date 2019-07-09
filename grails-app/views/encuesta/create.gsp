@@ -34,7 +34,7 @@
                     <p>Preguntas:</p>
                     <g:each in="${this.encuesta.preguntas}" var="pregunta">
                         <p>Orden: ${pregunta.orden}</p>
-                        <p>Enuncido: ${pregunta.enunciado}</p>
+                        <p>Enunciado: ${pregunta.enunciado}</p>
                     </g:each>
                 </fieldset>
                 <fieldset class="buttons">

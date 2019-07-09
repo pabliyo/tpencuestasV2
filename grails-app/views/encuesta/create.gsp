@@ -26,8 +26,20 @@
             </ul>
             </g:hasErrors>
             <g:form resource="${this.encuesta}" method="POST">
-                <fieldset class="form">
-                    <f:all bean="encuesta"/>
+                <fieldset class="formulario">
+                    <f:field bean="encuesta" property="titulo"/>
+                    <f:field bean="encuesta" property="vigencia.fechaInicio"/>
+                    <f:field bean="encuesta" property="vigencia.fechaFin"/>
+                    <f:field bean="encuesta" property="descripcion"/>
+                    <g:form resource="${this.encuesta.preguntas}" method="POST">
+                        <fieldset class="formulario">
+                            <f:field bean="pregunta" property="enunciado"/>
+                            <f:field bean="pregunta" property="orden"/>
+                        </fieldset>
+                        <fieldset class="buttons">
+                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                        </fieldset>
+                    </g:form>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

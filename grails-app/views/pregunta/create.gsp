@@ -32,7 +32,7 @@
     </g:hasErrors>
     <g:form resource="${this.pregunta}" method="POST">
         <fieldset class="form">
-            <f:all bean="pregunta"/>
+            <f:all bean="pregunta" order="enunciado,orden,opciones,encuesta"/>
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save"

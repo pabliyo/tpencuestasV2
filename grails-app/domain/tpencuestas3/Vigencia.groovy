@@ -1,5 +1,6 @@
 package tpencuestas3
 
+
 class Vigencia {
 
     Date fechaInicio

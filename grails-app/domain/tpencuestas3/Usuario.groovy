@@ -18,22 +18,26 @@ class Usuario implements Serializable {
     String email
     boolean enabled = true
     boolean cuentaPremium
-    boolean accountExpired
-    private boolean accountLocked
-    private boolean passwordExpired
+    boolean accountExpired = false
+    private boolean accountLocked = false
+    private boolean passwordExpired = false
+
+    static hasMany = [encuestas: Encuesta]
 
     Set<Rol> getAuthorities() {
         (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
     }
 
     static constraints = {
-        password nullable: false, blank: false, password: true
         username nullable: false, blank: false, unique: true
-        cuentaPremium nullable: false
+        password nullable: false, blank: false, password: true
         email nullable:false, blank: false, unique:true, email:true
+        cuentaPremium nullable: false
+        encuestas nullable:true
     }
 
     static mapping = {
 	    username column: '`username`'
+        encuestas cascade: "all-delete-orphan", sort: "id"
     }
 }

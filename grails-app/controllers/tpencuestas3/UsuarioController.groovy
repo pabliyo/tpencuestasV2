@@ -2,12 +2,16 @@ package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.springframework.transaction.annotation.Transactional
+
 import static org.springframework.http.HttpStatus.*
-import tpencuestas3.Rol
+import static tpencuestas3.Usuario.hasMany
+
 
 @Secured('permitAll')
 class UsuarioController {
 
+    EncuestaService encuestaService
     UsuarioService usuarioService
     Rol userRole = new Rol(authority: 'ROLE_USER').save()
 
@@ -26,6 +30,10 @@ class UsuarioController {
         respond new Usuario(params)
 
     }
+
+    //def propias(Usuario usuario) {
+    //    render(view: "propias")
+    //}
 
     def save(Usuario usuario) {
         if (usuario == null) {
@@ -56,6 +64,7 @@ class UsuarioController {
     def edit(Long id) {
         respond usuarioService.get(id)
     }
+
 
     def update(Usuario usuario) {
         if (usuario == null) {

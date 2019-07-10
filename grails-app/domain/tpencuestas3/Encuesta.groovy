@@ -6,10 +6,12 @@ class Encuesta {
     String descripcion
     Vigencia vigencia
 
+    static belongsTo =[usuario: Usuario]
     static hasMany = [preguntas: Pregunta]
 
     static constraints = {
         vigencia(nullable:true)
+        usuario(nullable:true)
 
         preguntas maxSize: 5 ,minSize: 5
     }

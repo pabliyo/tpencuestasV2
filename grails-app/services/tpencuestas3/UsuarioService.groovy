@@ -1,13 +1,19 @@
 package tpencuestas3
 
 import grails.gorm.services.Service
+import org.springframework.transaction.annotation.Transactional
+
 
 @Service(Usuario)
+@Transactional
 interface UsuarioService {
 
     Usuario get(Serializable id)
 
+    @Transactional (readOnly = true)
     List<Usuario> list(Map args)
+
+
 
     Long count()
 

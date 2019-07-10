@@ -29,7 +29,7 @@
                      <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola <sec:username /><span class="caret"></span></a>
                                          <ul class="dropdown-menu">
-                                                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                                                        <li>(<g:link class="home">Home</g:link>)</li>
                                                         <li>(<g:link controller='logout'>Logout</g:link>)</li>
                                          </ul>
                      </li>

@@ -35,10 +35,13 @@
             <ul>
 
                     <li>
-                        <g:link controller="encuesta" action="index">Mis encuestas creadas</g:link>
+                        <g:link controller="encuesta" action="index">Todas las encuestas creadas</g:link>
                     </li>
                     <li>
                        <g:link controller="encuesta" action="create">Crear nueva encuesta</g:link>
+                    </li>
+                    <li>
+                    <g:link controller="usuario" action="propias">Mis Encuestas</g:link>
                     </li>
             </ul>
             </sec:ifLoggedIn>

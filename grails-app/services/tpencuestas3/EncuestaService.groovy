@@ -7,6 +7,8 @@ interface EncuestaService {
 
     Encuesta get(Serializable id)
 
+    //void set(Serializable id)
+
     List<Encuesta> list(Map args)
 
     Long count()

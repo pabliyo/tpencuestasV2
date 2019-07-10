@@ -7,13 +7,20 @@ import static org.springframework.http.HttpStatus.*
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class EncuestaController {
 
+
     EncuestaService encuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond encuestaService.list(params), model:[encuestaCount: encuestaService.count()]
+    }
+
+    def propias(Long id) {
+        respond encuestaService.get(id)
     }
 
     def show(Long id) {

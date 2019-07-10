@@ -21,13 +21,15 @@
     <section class="row colset-2-its">
         <h1>Bienvenido a Question</h1>
         <div id="controllers" role="navigation">
-            <h2>Available Controllers:</h2>
+            <h2>Elige que hacer:</h2>
             <ul>
-                <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                    <li class="controller">
-                        <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
+
+                    <li>
+                        <g:link controller="encuesta" action="index">Mis encuestas creadas</g:link>
                     </li>
-                </g:each>
+                    <li>
+                       <g:link controller="encuesta" action="create">Crear nueva encuesta</g:link>
+                    </li>
             </ul>
         </div>
     </section>

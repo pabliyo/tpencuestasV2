@@ -17,4 +17,8 @@ class Encuesta {
     static mapping = {
         preguntas cascade: "all-delete-orphan", sort: "id"
     }
+
+    String toString(){
+        titulo
+    }
 }

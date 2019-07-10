@@ -28,14 +28,20 @@
             <g:form resource="${this.encuesta}" method="POST">
                 <fieldset class="formulario">
                     <f:field bean="encuesta" property="titulo"/>
-                    <f:field bean="encuesta" property="vigencia.fechaInicio"/>
-                    <f:field bean="encuesta" property="vigencia.fechaFin"/>
+                    <f:field bean="encuesta" property="vigencia.fechaInicio">
+                        <g:datePicker name="${property}" value="${value}"/>
+                    </f:field>
+                    <f:field bean="encuesta" property="vigencia.fechaFin">
+                        <g:datePicker name="${property}" value="${value}"/>
+                    </f:field>
                     <f:field bean="encuesta" property="descripcion"/>
+                    <!--
                     <p>Preguntas:</p>
                     <g:each in="${this.encuesta.preguntas}" var="pregunta">
                         <p>Orden: ${pregunta.orden}</p>
                         <p>Enunciado: ${pregunta.enunciado}</p>
                     </g:each>
+                    -->
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

@@ -11,4 +11,8 @@ class Opcion {
         orden(min:1, max:4, unique: true)
     }
 
+    String toString(){
+        descripcion
+    }
+
 }

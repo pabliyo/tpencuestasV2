@@ -16,5 +16,8 @@ class Pregunta {
         opciones cascade: "all-delete-orphan", sort: "id"
     }
 
+    String toString(){
+        enunciado
+    }
 
 }

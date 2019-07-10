@@ -8,11 +8,15 @@ class Vigencia {
 
     static constraints = {
         fechaInicio min: (new Date())
-        fechaFin  min: (new Date())
+        fechaFin min: (new Date())
     }
 
-    boolean estaVigente(){
+    boolean estaVigente() {
         fechaHoy = new Date()
-        (fechaInicio<= fechaHoy && fechaHoy <=fechaFin)
+        (fechaInicio <= fechaHoy && fechaHoy <= fechaFin)
+    }
+
+    String toString() {
+        fechaInicio.toString() + " - " + fechaFin.toString()
     }
 }

@@ -7,16 +7,13 @@ import static org.springframework.http.HttpStatus.*
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class EncuestaController {
 
-
     EncuestaService encuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond encuestaService.list(params), model:[encuestaCount: encuestaService.count()]
+        respond encuestaService.list(params), model: [encuestaCount: encuestaService.count()]
     }
 
     def propias(Long id) {
@@ -28,7 +25,7 @@ class EncuestaController {
     }
 
     def create() {
-           respond new Encuesta(params)
+        respond new Encuesta(params)
     }
 
     def save(Encuesta encuesta) {
@@ -40,7 +37,7 @@ class EncuestaController {
         try {
             encuestaService.save(encuesta)
         } catch (ValidationException e) {
-            respond encuesta.errors, view:'create'
+            respond encuesta.errors, view: 'create'
             return
         }
 
@@ -66,7 +63,7 @@ class EncuestaController {
         try {
             encuestaService.save(encuesta)
         } catch (ValidationException e) {
-            respond encuesta.errors, view:'edit'
+            respond encuesta.errors, view: 'edit'
             return
         }
 
@@ -75,7 +72,7 @@ class EncuestaController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), encuesta.id])
                 redirect encuesta
             }
-            '*'{ respond encuesta, [status: OK] }
+            '*' { respond encuesta, [status: OK] }
         }
     }
 
@@ -90,9 +87,9 @@ class EncuestaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -109,7 +106,7 @@ class EncuestaController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

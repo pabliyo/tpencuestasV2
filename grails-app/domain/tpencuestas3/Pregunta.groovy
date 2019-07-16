@@ -3,16 +3,19 @@ package tpencuestas3
 class Pregunta {
 
     String enunciado
-    Integer orden
+    Long orden
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]
 
     static constraints = {
-       orden (min:1, max:5, unique:true)
+      // orden (min:1, max:5, unique:true)
+        opciones nullable:true
+        encuesta nullable:true
     }
 
     static mapping = {
+        opciones cascade: "all-delete-orphan", sort: "id"
 
     }
 

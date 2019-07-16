@@ -1,6 +1,5 @@
 package tpencuestas3
 
-import grails.gorm.services.Service
 
 class Encuesta {
 
@@ -12,7 +11,7 @@ class Encuesta {
     static hasMany = [preguntas: Pregunta]
 
     static constraints = {
-        usuario()
+        usuario(nullable:true)
         titulo()
         descripcion()
         vigencia(nullable:true)

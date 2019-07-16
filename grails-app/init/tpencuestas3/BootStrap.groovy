@@ -18,20 +18,25 @@ class BootStrap {
         }
 
 
-        /*
+
         3.times { encuestaIndex ->
             Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
+            Long x = 0
             5.times { preguntaIndex ->
-                Pregunta pregunta = new Pregunta(enunciado: "enunciado ${encuestaIndex} - ${preguntaIndex}", orden:1)
+                x = x+1
+                Pregunta pregunta = new Pregunta(enunciado: "enunciado pregunta ${preguntaIndex}", orden:x)
                 encuesta.addToPreguntas(enunciado: pregunta.getEnunciado(), orden: pregunta.getOrden())
-                1.times { opcionIndex ->
-                    //pregunta.addToOpciones(orden:1, descripcion: "opcion")
+                Long y = 0
+                3.times { opcionIndex ->
+                    y = y+1
+                    Opcion opcion = new Opcion(descripcion: "opcion ${y}")
+                    pregunta.addToOpciones(descripcion: opcion.getDescripcion())
                 }
-               // pregunta.save()
+
             }
             encuesta.save()
         }
-        */
+
 
     }
 

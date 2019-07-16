@@ -4,11 +4,28 @@
   <title>Question - Encuestas</title>
 </head>
 <body>
+    <div class="nav" role="navigation">
+            <ul>
+                  <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>             </ul>
+          </div>
+     <h1>Encuestas Disponibles</h1>
     <g:each in="${encuestas}" var="encuesta">
-        <div style="width: 400px; float: left">
-            ${encuesta.titulo}
-        </div>
+        <div id="list-encuesta" class="content scaffold-list" role="main">
 
+         <f:table collection="${encuestaList}" properties="titulo, descipcion" />
+
+                    <div class="pagination">
+                        <li>
+                           <g:link action="participar" id="${encuesta.id}">${encuesta.titulo}
+                                                                           ${encuesta.descripcion}</g:link>
+                         </li>
+
+
+                    </div>
+
+
+        </div>
+      </div>
     </g:each>
 </body>
 </html>

@@ -22,4 +22,12 @@ class ParticipacionController {
         [encuestas: participacionService.getEncuestas()]
     }
 
+    def participar(Long id){
+        [encuesta: Encuesta.get(id)]
+    }
+
+    def guardarRespuestas(){
+
+    }
+
 }

@@ -22,18 +22,20 @@ class UsuarioController {
         respond usuarioService.list(params), model:[usuarioCount: usuarioService.count()]
     }
 
+
     def show(Long id) {
         respond usuarioService.get(id)
     }
 
     def create() {
         respond new Usuario(params)
-
     }
 
-    //def propias(Usuario usuario) {
-    //    render(view: "propias")
-    //}
+
+
+    def propias() {
+       [encuestas: Usuario.get(params.encuestas)]
+    }
 
     def save(Usuario usuario) {
         if (usuario == null) {
@@ -60,6 +62,7 @@ class UsuarioController {
             '*' { respond usuario, [status: CREATED] }
         }
     }
+
 
     def edit(Long id) {
         respond usuarioService.get(id)

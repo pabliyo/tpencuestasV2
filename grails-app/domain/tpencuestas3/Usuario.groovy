@@ -1,5 +1,6 @@
 package tpencuestas3
 
+import grails.gorm.services.Service
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
@@ -40,4 +41,13 @@ class Usuario implements Serializable {
 	    username column: '`username`'
         encuestas cascade: "all-delete-orphan", sort: "id"
     }
+
+    boolean esPremium(){
+       return cuentaPremium
+    }
+
+
+
 }
+
+

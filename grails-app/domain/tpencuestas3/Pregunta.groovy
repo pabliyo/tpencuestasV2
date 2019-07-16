@@ -9,11 +9,11 @@ class Pregunta {
     static hasMany = [opciones: Opcion]
 
     static constraints = {
-       orden (min:1, max:5)
+       orden (min:1, max:5, unique:true)
     }
 
     static mapping = {
-        opciones cascade: "all-delete-orphan", sort: "id"
+
     }
 
     String toString(){

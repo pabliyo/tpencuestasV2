@@ -26,7 +26,10 @@
             </ul>
             </g:hasErrors>
             <g:form resource="${this.encuesta}" method="POST">
-                <fieldset class="formulario">
+
+                <fieldset class="formulario"  >
+
+                    <f:field bean="encuesta" property="usuario" default="${currentUsuario}"/>
                     <f:field bean="encuesta" property="titulo"/>
                     <f:field bean="encuesta" property="descripcion"/>
                     <f:field bean="encuesta" property="vigencia.fechaInicio">
@@ -35,18 +38,13 @@
                     <f:field bean="encuesta" property="vigencia.fechaFin">
                         <g:datePicker name="${property}" value="${value}"/>
                     </f:field>
-                    <!--
                     <p>Preguntas:</p>
-                    <g:each in="${this.encuesta.preguntas}" var="pregunta">
-                        <p>Orden: ${pregunta.orden}</p>
-                        <p>Enunciado: ${pregunta.enunciado}</p>
-                    </g:each>
-                    -->
-                </fieldset>
+                    <f:field bean="encuesta" property="preguntas"/>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
             </g:form>
+
         </div>
     </body>
 </html>

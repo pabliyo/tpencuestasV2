@@ -13,11 +13,12 @@ interface UsuarioService {
     @Transactional (readOnly = true)
     List<Usuario> list(Map args)
 
-
+    //List<Encuesta> encuestaList(Usuario usuario)
 
     Long count()
 
     void delete(Serializable id)
+
 
     Usuario save(Usuario usuario)
 

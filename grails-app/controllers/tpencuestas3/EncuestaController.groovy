@@ -1,24 +1,28 @@
 package tpencuestas3
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.hibernate.mapping.Map
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class EncuestaController {
 
     EncuestaService encuestaService
+    UsuarioService usuarioService
+    UsuarioController usuarioController
+    SpringSecurityService spring
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond encuestaService.list(params), model: [encuestaCount: encuestaService.count()]
+
     }
 
-    def propias(Long id) {
-        respond encuestaService.get(id)
-    }
 
     def show(Long id) {
         respond encuestaService.get(id)
@@ -36,6 +40,7 @@ class EncuestaController {
 
         try {
             encuestaService.save(encuesta)
+
         } catch (ValidationException e) {
             respond encuesta.errors, view: 'create'
             return
@@ -48,6 +53,8 @@ class EncuestaController {
             }
             '*' { respond encuesta, [status: CREATED] }
         }
+
+
     }
 
     def edit(Long id) {

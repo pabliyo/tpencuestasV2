@@ -1,14 +1,18 @@
 <html>
 <head>
-   <meta name="layout" content="main" />
-   <title>Question - Mis Encuestas</title>
+    <title>Question - Mis Encuestas</title>
+    <meta name="layout" content="main"/>
 </head>
-<body>
-    <g:each in="${encuestas}" var="usuario">
-        <div style="width: 400px; float: left">
-            ${usuario.username}
-        </div>
 
-    </g:each>
+<body>
+<div class="nav" role="navigation">
+    <ul>
+        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li></ul>
+</div>
+<g:each in="${encuestas}" >
+    <div class="content scaffold-list" role="main">
+        ${it}
+    </div>
+</g:each>
 </body>
 </html>

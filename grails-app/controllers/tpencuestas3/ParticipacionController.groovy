@@ -17,9 +17,8 @@ class ParticipacionController {
         [encuestas: participacionService.encuestasValidas()]
     }
 
-    def propias(Long id){
-        //Usuario usuario = usuarioService.get(id)
-        [encuestas: participacionService.getEncuestas()]
+    def propias(){
+        [encuestas: participacionService.getEncuestasUsuarioActual()]
     }
 
     def participar(Long id){

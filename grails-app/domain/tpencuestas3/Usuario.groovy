@@ -7,18 +7,18 @@ import grails.compiler.GrailsCompileStatic
 import org.hibernate.validator.constraints.Email
 
 @GrailsCompileStatic
-@EqualsAndHashCode(includes='username')
-@ToString(includes='username', includeNames=true, includePackage=false)
+@EqualsAndHashCode(includes = 'username')
 class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1
-
 
     String username
     String password
     String email
     boolean enabled = true
     boolean cuentaPremium
+
+    //Variables de manejo de cuenta
     boolean accountExpired = false
     private boolean accountLocked = false
     private boolean passwordExpired = false
@@ -32,22 +32,21 @@ class Usuario implements Serializable {
     static constraints = {
         username nullable: false, blank: false, unique: true
         password nullable: false, blank: false, password: true
-        email nullable:false, blank: false, unique:true, email:true
+        email nullable: false, blank: false, unique: true, email: true
         cuentaPremium nullable: false
-        encuestas nullable:true
+        encuestas nullable: true
     }
 
     static mapping = {
-	    username column: '`username`'
+        username column: '`username`'
         encuestas cascade: "all-delete-orphan", sort: "id"
     }
 
-    boolean esPremium(){
-       return cuentaPremium
+    boolean esPremium() {
+        cuentaPremium
     }
 
-
-
+    String toString(){
+        username
+    }
 }
-
-

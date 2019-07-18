@@ -1,6 +1,5 @@
 package tpencuestas3
 
-
 class Encuesta {
 
     String titulo
@@ -25,7 +24,4 @@ class Encuesta {
     String toString(){
         titulo
     }
-
-
-
 }

@@ -4,6 +4,34 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        initUsersAndRoles()
+
+        crearEncuestasDefault()
+
+    }
+
+    private static crearEncuestasDefault() {
+        3.times { encuestaIndex ->
+            Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
+            encuesta.usuario = Usuario.first()//para que tenga un usuario asociado
+            Long x = 0
+            5.times { preguntaIndex ->
+                x = x + 1
+                Pregunta pregunta = new Pregunta(enunciado: "enunciado pregunta ${preguntaIndex}", orden: x)
+                encuesta.addToPreguntas(enunciado: pregunta.getEnunciado(), orden: pregunta.getOrden())
+                Long y = 0
+                3.times { opcionIndex ->
+                    y = y + 1
+                    Opcion opcion = new Opcion(descripcion: "opcion ${y}")
+                    pregunta.addToOpciones(descripcion: opcion.getDescripcion())
+                }
+
+            }
+            encuesta.save()
+        }
+    }
+
+    private static initUsersAndRoles() {
         Rol adminRol = new Rol(authority: 'ROLE_ADMIN').save()
         Rol userRol = new Rol(authority: 'ROLE_USER').save()
 
@@ -13,31 +41,9 @@ class BootStrap {
 
         UsuarioRol.create(usuario, userRol, true)
 
-        if(!admin.authorities.contains(adminRol)){
+        if (!admin.authorities.contains(adminRol)) {
             UsuarioRol.create(admin, adminRol, true)
         }
-
-
-
-        3.times { encuestaIndex ->
-            Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
-            Long x = 0
-            5.times { preguntaIndex ->
-                x = x+1
-                Pregunta pregunta = new Pregunta(enunciado: "enunciado pregunta ${preguntaIndex}", orden:x)
-                encuesta.addToPreguntas(enunciado: pregunta.getEnunciado(), orden: pregunta.getOrden())
-                Long y = 0
-                3.times { opcionIndex ->
-                    y = y+1
-                    Opcion opcion = new Opcion(descripcion: "opcion ${y}")
-                    pregunta.addToOpciones(descripcion: opcion.getDescripcion())
-                }
-
-            }
-            encuesta.save()
-        }
-
-
     }
 
     def destroy = {

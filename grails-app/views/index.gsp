@@ -19,8 +19,12 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Inicio</a>
                     <ul class="dropdown-menu">
-                        <li>(<g:link controller="usuario" action="create">Registrate</g:link>)</li>
-                        <li>(<g:link controller="login" action="index">LogIn</g:link>)</li>
+                        <li>
+                            <g:link controller="usuario" action="create">Registrate</g:link>
+                        </li>
+                        <li>
+                            <g:link controller="login" action="index">LogIn</g:link>
+                        </li>
                     </ul>
                 </li>
             </ul>

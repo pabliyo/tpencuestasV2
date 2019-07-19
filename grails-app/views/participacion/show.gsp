@@ -16,8 +16,10 @@
         <f:table collection="${encuestaList}" properties="titulo, descipcion"/>
         <div class="pagination">
             <li>
-                <g:link action="participar" id="${encuesta.id}">${encuesta.titulo}
-                    ${encuesta.descripcion}</g:link>
+                <g:link action="participar" id="${encuesta.id}">
+                    <b>${encuesta.titulo}</b>
+                    ${encuesta.descripcion}
+                </g:link>
             </li
         </div>
     </div>

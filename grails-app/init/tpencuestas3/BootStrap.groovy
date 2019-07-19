@@ -3,11 +3,8 @@ package tpencuestas3
 class BootStrap {
 
     def init = { servletContext ->
-
         initUsersAndRoles()
-
         crearEncuestasDefault()
-
     }
 
     private static crearEncuestasDefault() {
@@ -17,15 +14,16 @@ class BootStrap {
             Long x = 0
             5.times { preguntaIndex ->
                 x = x + 1
-                Pregunta pregunta = new Pregunta(enunciado: "enunciado pregunta ${preguntaIndex}", orden: x)
-                encuesta.addToPreguntas(enunciado: pregunta.getEnunciado(), orden: pregunta.getOrden())
+                Pregunta pregunta = new Pregunta(enunciado: "pregunta ${preguntaIndex}", orden: x)
+                pregunta.save()
+                encuesta.addToPreguntas(pregunta)
                 Long y = 0
                 3.times { opcionIndex ->
                     y = y + 1
-                    Opcion opcion = new Opcion(descripcion: "opcion ${y}")
-                    pregunta.addToOpciones(descripcion: opcion.getDescripcion())
+                    Opcion opcion = new Opcion(descripcion: "opcion ${y}", orden: y)
+                    opcion.save()
+                    pregunta.addToOpciones(opcion)
                 }
-
             }
             encuesta.save()
         }

@@ -3,7 +3,7 @@ package tpencuestas3
 
 class Vigencia {
 
-	//ver de cambiar a LocalDate
+	//ver de cambiar a LocalDateTime
     Date fechaInicio
     Date fechaFin
 

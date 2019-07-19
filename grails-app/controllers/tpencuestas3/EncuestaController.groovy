@@ -4,16 +4,19 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import org.hibernate.mapping.Map
+import org.springframework.beans.factory.annotation.Autowired
 
 import static org.springframework.http.HttpStatus.*
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class EncuestaController {
 
+    SpringSecurityService springSecurityService
+
     EncuestaService encuestaService
-    UsuarioService usuarioService
-    UsuarioController usuarioController
-    SpringSecurityService spring
+//    UsuarioService usuarioService
+//    UsuarioController usuarioController
+//    SpringSecurityService spring
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -39,8 +42,8 @@ class EncuestaController {
         }
 
         try {
+            encuesta.setUsuario(springSecurityService.getCurrentUser() as Usuario)
             encuestaService.save(encuesta)
-
         } catch (ValidationException e) {
             respond encuesta.errors, view: 'create'
             return
@@ -53,8 +56,6 @@ class EncuestaController {
             }
             '*' { respond encuesta, [status: CREATED] }
         }
-
-
     }
 
     def edit(Long id) {

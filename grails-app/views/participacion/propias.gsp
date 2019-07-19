@@ -16,7 +16,6 @@
 
 <div class="pagination">
     <g:paginate total="${encuestas ?: 0}"/>
-
 </div>
 </body>
 </html>

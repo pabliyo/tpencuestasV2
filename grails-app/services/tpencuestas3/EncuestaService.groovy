@@ -5,7 +5,6 @@ import grails.gorm.services.Service
 @Service(Encuesta)
 interface EncuestaService {
 
-
     Encuesta get(Serializable id)
 
     //Encuesta diseñar(Usuario usuario)

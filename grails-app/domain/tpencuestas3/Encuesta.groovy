@@ -10,10 +10,11 @@ class Encuesta {
     static hasMany = [preguntas: Pregunta]
 
     static constraints = {
-        usuario(nullable:true)
-        titulo()
-        descripcion()
-        vigencia(nullable:true)
+        /*Re implentear constraints
+        vigencia.fechaInicio min: (new Date())
+        vigencia.fechaFin min: (new Date())*/
+        usuario nullable:true
+        vigencia nullable:true
         preguntas maxSize:5, nullable:true
     }
 

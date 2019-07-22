@@ -7,7 +7,6 @@ class Respuesta {
     Encuesta encuesta
     List<Opcion> elecciones
 
-
     static constraints = {
     }
 }

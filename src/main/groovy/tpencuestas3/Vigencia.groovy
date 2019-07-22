@@ -8,7 +8,7 @@ class Vigencia {
     Date fechaFin
 
     boolean estaVigente() {
-        fechaHoy = new Date()
+        def fechaHoy = new Date()
         (fechaInicio <= fechaHoy && fechaHoy <= fechaFin)
     }
 

@@ -16,7 +16,6 @@ class Pregunta {
 
     static mapping = {
         opciones cascade: "all-delete-orphan", sort: "id"
-
     }
 
     String toString(){

@@ -12,9 +12,6 @@ class Encuesta {
     static embedded = ['vigencia']
 
     static constraints = {
-        /*Re implentear constraints
-        vigencia.fechaInicio min: (new Date())
-        vigencia.fechaFin min: (new Date())*/
         usuario nullable:true , editable:false //whether it can be edited from scaffolding views
         vigencia nullable:true
         preguntas maxSize:5, nullable:true

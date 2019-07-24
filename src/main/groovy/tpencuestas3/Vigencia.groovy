@@ -1,11 +1,17 @@
 package tpencuestas3
 
+import grails.validation.Validateable
 
-class Vigencia {
+class Vigencia implements Validateable {
 
-	//ver de cambiar a LocalDateTime
+    //ver de cambiar a LocalDateTime
     Date fechaInicio
     Date fechaFin
+
+    static constraints = {
+        fechaInicio min: (new Date())
+        fechaFin min: (new Date())
+    }
 
     boolean estaVigente() {
         def fechaHoy = new Date()

@@ -68,10 +68,73 @@ class HistoriasDeUsuario extends Specification {
 
     }
 
-    void "Se quiere crear una encuesta por encima del límite sin cargo y no es usuario premium"() {
+    void "Se quiere crear una encuesta por encima del límite y no es usuario premium"() {
         given: "un usuario que ya creó 3 encuestas quiere crear una 4a"
 
         then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium"
+
+    }
+
+    void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
+        given: "encuesta ya tiene 5 preguntas"
+
+        when: "quiera crea una nueva"
+
+        then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium."
+
+    }
+
+    void "se quiere agregar una opcion a una pregunta por encima del límite y no es usuario premium"() {
+        given: "la pregunta ya tiene 3 opciones"
+
+        when: "quiera crea una nueva"
+
+        then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium."
+
+    }
+
+    void "El usuario premium no tiene restricciones"() {//agregar lo mismo para preg , enc , opc
+        given: "la pregunta ya tiene 3 opciones"
+
+        when: "quiera crea una nueva"
+
+        then: "debe poder hacerlo"
+
+    }
+
+    void "Modificar una encuesta"() {
+        given: "no entró en vigencia"
+
+        when: "seleccione una encuesta creada"
+
+        then: "debe poder modificarla"
+
+    }
+
+    void "Responder una encuesta"() {
+        given: "un usuario quiere responder una encuesta y está vigente"
+
+        when: "selecciona responder encuesta y elige la encuesta a responder"
+
+        then: "se carga la misma para ser respondida"
+
+    }
+
+    void "Guardar las respuestas a una encuesta"() {
+        given:
+        "un usuario quiere dar por terminado el ingreso de datos " +
+                "y respondió todas las preguntas obligatorias"
+
+        when: "quiere terminar"
+
+        then: "se guardan los datos ingresados."
+
+    }
+
+    void "Saber cuántas personas respondieron a una encuesta"() {
+        given: "quiere conocer cantidad de encuestados"
+
+        then: "se le muestra un informe con la cantidad de encuestados y las opciones elegidas"
 
     }
 }

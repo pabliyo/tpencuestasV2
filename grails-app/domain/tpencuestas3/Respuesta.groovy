@@ -8,5 +8,6 @@ class Respuesta {
     List<Opcion> elecciones
 
     static constraints = {
+        fechaVoto (nullable:true)
     }
 }

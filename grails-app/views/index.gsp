@@ -42,7 +42,7 @@
                 <h2>Elige que hacer:</h2>
                 <ul>
                     <li>
-                        <g:link controller="encuesta" action="index">Todas las encuestas creadas</g:link>
+                        <g:link controller="participacion" action="show">Participar en encuestas disponibles</g:link>
                     </li>
                     <li>
                         <g:link controller="encuesta" action="create"
@@ -53,7 +53,7 @@
                                 id="${usuarioInstance?.id}">Mis Encuestas</g:link>
                     </li>
                     <li>
-                        <g:link controller="participacion" action="show">Participar</g:link>
+                        <g:link controller="participacion" action="resultados">Ver resultados</g:link>
                     </li>
                 </ul>
             </sec:ifLoggedIn>

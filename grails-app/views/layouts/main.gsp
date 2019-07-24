@@ -30,7 +30,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Hola <sec:username/><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li>(<g:link class="home">Home</g:link>)</li>
+                        <li>(<g:link class="edit">Home</g:link>)</li>
                         <li>(<g:link controller='logout'>Logout</g:link>)</li>
                     </ul>
                 </li>

@@ -4,13 +4,13 @@ class BootStrap {
 
     def init = { servletContext ->
         initUsersAndRoles()
-        crearEncuestasDefault()
+
     }
 
-    private static crearEncuestasDefault() {
+    private static crearEncuestasDefault(Usuario creador) {
         3.times { encuestaIndex ->
             Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
-            encuesta.usuario = Usuario.first()//para que tenga un usuario asociado
+            encuesta.usuario = creador
             Long x = 0
             5.times { preguntaIndex ->
                 x = x + 1
@@ -42,6 +42,8 @@ class BootStrap {
         if (!admin.authorities.contains(adminRol)) {
             UsuarioRol.create(admin, adminRol, true)
         }
+        crearEncuestasDefault(admin)
+        crearEncuestasDefault(usuario)
     }
 
     def destroy = {

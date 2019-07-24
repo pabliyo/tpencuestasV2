@@ -1,6 +1,9 @@
 package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
+import jdk.nashorn.internal.runtime.options.Option
+import org.hibernate.mapping.List
+import org.hibernate.mapping.Map
 
 @Secured('permitAll')
 class ParticipacionController {
@@ -26,7 +29,17 @@ class ParticipacionController {
     }
 
     def guardarRespuestas(){
+        Usuario usuario = participacionService.getUsuarioActual()
+        Encuesta encuesta = Encuesta.get(params.encuestaId)
+        println("aquiiii")
 
+        participacionService.guardarRespuestas(usuario, encuesta)
+
+        [encuesta: encuesta]
+    }
+
+    def resultados(){
+        [encuesta: participacionService.getRespondidas()]
     }
 
 }

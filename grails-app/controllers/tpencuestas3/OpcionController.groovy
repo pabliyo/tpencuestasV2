@@ -1,5 +1,6 @@
 package tpencuestas3
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -8,6 +9,7 @@ import static org.springframework.http.HttpStatus.*
 class OpcionController {
 
     OpcionService opcionService
+    SpringSecurityService springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -24,14 +26,33 @@ class OpcionController {
         respond new Opcion(params)
     }
 
+    def validacion(){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'Ha superado el limite de opciones para esta pregunta, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
+                redirect action: "create", method: "GET"
+            }
+            '*' { render status: NOT_FOUND }
+        }
+    }
+
     def save(Opcion opcion) {
         if (opcion == null) {
             notFound()
             return
         }
 
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+        Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
+
+
         try {
-            opcionService.save(opcion)
+            if(pregunta.puedeAgregarOpciones(usuario)) {
+                opcionService.save(opcion)
+            }else{
+                validacion()
+                return
+            }
         } catch (ValidationException e) {
             respond opcion.errors, view:'create'
             return

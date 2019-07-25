@@ -19,6 +19,22 @@ class Pregunta {
 
     }
 
+    int cantidadOpciones(){
+        opciones.size()
+    }
+
+    boolean puedeAgregarOpciones(Usuario usuario){
+        if (usuario.esPremium()) {
+            true
+        }else{
+            if ((!usuario.esPremium())&&(cantidadOpciones()<3)) {
+                true
+            } else {
+                false
+            }
+        }
+    }
+
     String toString(){
         enunciado
     }

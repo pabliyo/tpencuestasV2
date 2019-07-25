@@ -31,9 +31,11 @@ class ParticipacionController {
     def guardarRespuestas(){
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.encuestaId)
+        Respuesta respuestas = new Respuesta(params)
         println("aquiiii")
+        println(respuestas)
 
-        participacionService.guardarRespuestas(usuario, encuesta)
+        //participacionService.guardarRespuestas(usuario, encuesta)
 
         [encuesta: encuesta]
     }

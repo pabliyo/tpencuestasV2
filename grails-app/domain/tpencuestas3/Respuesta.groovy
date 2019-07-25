@@ -1,14 +1,17 @@
 package tpencuestas3
 
+import org.hibernate.mapping.List
+
 class Respuesta {
 
     Date fechaVoto
     Usuario votante
     Encuesta encuesta
-    List<Opcion> elecciones
+    Map<Pregunta,Opcion> respuestas
 
 
     static constraints = {
         fechaVoto (nullable:true)
+        votante (nullable:true)
     }
 }

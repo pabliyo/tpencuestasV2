@@ -46,6 +46,11 @@ class Usuario implements Serializable {
         cuentaPremium
     }
 
+    int cantidadEncuestas(){
+        encuestas.size()
+    }
+
+
     String toString(){
         username
     }

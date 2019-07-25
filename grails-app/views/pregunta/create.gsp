@@ -31,6 +31,7 @@
         </ul>
     </g:hasErrors>
     <g:form resource="${this.pregunta}" method="POST">
+    <g:hiddenField name="version" value="${this.encuesta?.version}" />
         <fieldset class="form">
             <f:all bean="pregunta" order="enunciado,orden,opciones,encuesta"/>
         </fieldset>

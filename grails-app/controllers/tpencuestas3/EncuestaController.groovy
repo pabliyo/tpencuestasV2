@@ -14,9 +14,7 @@ class EncuestaController {
     SpringSecurityService springSecurityService
 
     EncuestaService encuestaService
-//    UsuarioService usuarioService
-//    UsuarioController usuarioController
-//    SpringSecurityService spring
+
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -35,6 +33,16 @@ class EncuestaController {
         respond new Encuesta(params)
     }
 
+    def validacion(){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'Ha superado el limite de creacion de encuestas, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
+                redirect action: "create", method: "GET"
+            }
+            '*' { render status: NOT_FOUND }
+        }
+    }
+
     def save(Encuesta encuesta) {
         if (encuesta == null) {
             notFound()
@@ -42,8 +50,12 @@ class EncuestaController {
         }
 
         try {
-            encuesta.setUsuario(springSecurityService.getCurrentUser() as Usuario)
-            encuestaService.save(encuesta)
+             if(encuesta.puedeCrearEncuesta(springSecurityService.getCurrentUser() as Usuario)) {
+                encuestaService.save(encuesta)
+            }else{
+                validacion()
+                return
+            }
         } catch (ValidationException e) {
             respond encuesta.errors, view: 'create'
             return

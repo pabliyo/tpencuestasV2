@@ -41,6 +41,14 @@
             <sec:ifLoggedIn>
                 <h2>Elige que hacer:</h2>
                 <ul>
+                   <sec:ifAnyGranted roles='ROLE_ADMIN'>
+                    <li>
+                       <g:link controller="encuesta" action="index">Todas las encuestas</g:link>
+                    </li>
+                    <li>
+                       <g:link controller="usuario" action="index">Todos los usuarios</g:link>
+                    </li>
+                   </sec:ifAnyGranted>
                     <li>
                         <g:link controller="participacion" action="show">Participar en encuestas disponibles</g:link>
                     </li>

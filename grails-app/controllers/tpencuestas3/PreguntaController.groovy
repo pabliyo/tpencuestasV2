@@ -1,5 +1,6 @@
 package tpencuestas3
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -7,7 +8,9 @@ import static org.springframework.http.HttpStatus.*
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class PreguntaController {
 
+    SpringSecurityService springSecurityService
     PreguntaService preguntaService
+    EncuestaService encuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -24,14 +27,33 @@ class PreguntaController {
         respond new Pregunta(params)
     }
 
+    def validacion(){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'Ha superado el limite de preguntas para esta encuesta, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
+                redirect action: "create", method: "GET"
+            }
+            '*' { render status: NOT_FOUND }
+        }
+    }
+
     def save(Pregunta pregunta) {
         if (pregunta == null) {
             notFound()
             return
         }
 
+        Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
+        println(encuesta.titulo)
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+
         try {
-            preguntaService.save(pregunta)
+           if(encuesta.puedeAgregarPreguntas(usuario)) {
+               preguntaService.save(pregunta)
+           }else{
+               validacion()
+               return
+           }
         } catch (ValidationException e) {
             respond pregunta.errors, view:'create'
             return

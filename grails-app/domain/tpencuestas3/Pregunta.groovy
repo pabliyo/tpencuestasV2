@@ -11,7 +11,7 @@ class Pregunta {
     static constraints = {
       // orden (min:1, max:5, unique:true)
         opciones nullable:true
-        encuesta nullable:true
+        encuesta nullable:true, editable:false
     }
 
     static mapping = {

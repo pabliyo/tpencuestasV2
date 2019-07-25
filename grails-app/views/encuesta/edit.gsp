@@ -10,7 +10,7 @@
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+                <li><g:link class="list" controller="participacion" action="propias"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
@@ -29,7 +29,16 @@
             <g:form resource="${this.encuesta}" method="PUT">
                 <g:hiddenField name="version" value="${this.encuesta?.version}" />
                 <fieldset class="form">
-                    <f:all bean="encuesta" order="titulo,descripcion,preguntas,vigencia"/>
+                    <f:field bean="encuesta" property="titulo"/>
+                    <f:field bean="encuesta" property="descripcion"/>
+                    <f:field bean="encuesta" property="vigencia.fechaInicio">
+                        <g:datePicker name="${property}" value="${value}"/>
+                    </f:field>
+                    <f:field bean="encuesta" property="vigencia.fechaFin">
+                        <g:datePicker name="${property}" value="${value}"/>
+                    </f:field>
+                    <!--p>Preguntas:</p-->
+                    <f:field bean="encuesta" property="preguntas"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

@@ -29,7 +29,7 @@ class ParticipacionService {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser())
     }
 
-    void guardarRespuestas(Usuario usuario, Encuesta encuesta) {
+    /*void guardarRespuestas(Usuario usuario, Encuesta encuesta) {
         def respuesta = new Respuesta(votante: usuario, encuesta: encuesta)
         def preguntas = encuesta.preguntas
         preguntas.each { preguntaId ->
@@ -52,7 +52,7 @@ class ParticipacionService {
 
         }
         respuesta.save()
-    }
+    } */
 
 
 

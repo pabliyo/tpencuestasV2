@@ -7,10 +7,11 @@ class BootStrap {
 
     }
 
-    private static crearEncuestasDefault(Usuario creador) {
+    private static crearEncuestas(Usuario creador) {
         3.times { encuestaIndex ->
             Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
             encuesta.usuario = creador
+            Date ahora = new Date()
             Long x = 0
             5.times { preguntaIndex ->
                 x = x + 1
@@ -26,28 +27,8 @@ class BootStrap {
                 }
             }
             encuesta.save()
-        }
-    }
-
-    private static crearEncuestasNoPremium(Usuario creador) {
-        3.times { encuestaIndex ->
-            Encuesta encuesta = new Encuesta(titulo: "encuesta ${encuestaIndex}", descripcion: "la encuesta se trata de..")
-            encuesta.usuario = creador
-            Long x = 0
-            5.times { preguntaIndex ->
-                x = x + 1
-                Pregunta pregunta = new Pregunta(enunciado: "pregunta ${preguntaIndex}", orden: x)
-                pregunta.save()
-                encuesta.addToPreguntas(pregunta)
-                Long y = 0
-                3.times { opcionIndex ->
-                    y = y + 1
-                    Opcion opcion = new Opcion(descripcion: "opcion ${y}", orden: y)
-                    opcion.save()
-                    pregunta.addToOpciones(opcion)
-                }
-            }
-            encuesta.save()
+            Vigencia vigencia = new Vigencia(fechaInicio: ahora, fechaFin: new Date(ahora.getTime() + (24 * 60 * 60 * 1000)))
+            encuesta.vigencia = vigencia
         }
     }
 
@@ -63,9 +44,9 @@ class BootStrap {
         UsuarioRol.create(nopremium, userRol, true)
         UsuarioRol.create(admin, adminRol, true)
 
-        crearEncuestasDefault(admin)
-        crearEncuestasDefault(usuario)
-        crearEncuestasNoPremium(nopremium)
+        crearEncuestas(admin)
+        crearEncuestas(usuario)
+        crearEncuestas(nopremium)
     }
 
     def destroy = {

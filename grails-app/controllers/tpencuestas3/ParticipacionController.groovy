@@ -25,7 +25,8 @@ class ParticipacionController {
     }
 
     def participar(Long id){
-        [encuesta: Encuesta.get(id)]
+        [encuesta: Encuesta.get(id) , respuestas: Respuesta.crearListaDeRespuestas(Encuesta.get(id))]
+        //inicializar rta con los valores ya conociods fecha usr ect
     }
 
     def guardarRespuestas(){

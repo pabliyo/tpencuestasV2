@@ -2,6 +2,7 @@ package tpencuestas3
 
 import grails.gorm.services.Service
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.mapping.Map
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -10,6 +11,8 @@ class ParticipacionService {
 
     @Autowired
     SpringSecurityService springSecurityService
+    PreguntaService preguntaService
+    OpcionService opcionService
 
     Usuario getUsuarioActual() {
         springSecurityService.getCurrentUser() as Usuario
@@ -29,30 +32,18 @@ class ParticipacionService {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser())
     }
 
-    /*void guardarRespuestas(Usuario usuario, Encuesta encuesta) {
-        def respuesta = new Respuesta(votante: usuario, encuesta: encuesta)
-        def preguntas = encuesta.preguntas
-        preguntas.each { preguntaId ->
-
-            println(preguntaId)
-            if(preguntaId){
-                preguntaId. { opcionValue ->
-
-                    println(opcionId)
-
-                }
-            }
-
-                //def opcion = new Opcion(pregunta: preguntas, orden: preguntaId.opciones.getOrden() ,descripcion: Opcion.getDescripcion())
-
-               // print(opcion)
-               // respuesta.pregunta=preguntaId
-               // respuesta.elecciones.add(preguntas.get(preguntaId).getOrden(), preguntaId.opciones)
-
-
+    Respuesta guardarVotacion(Respuesta respuestas, GrailsParameterMap params) {
+        int cantidadPreguntas = respuestas.getEncuesta().cantidadPreguntas()
+        params.each{ preguntaId, opcionId ->
+            if(preguntaId.isLong())
+                respuestas.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
         }
-        respuesta.save()
-    } */
+        respuestas.save()
+        respuestas
+    }
+    //retocar detalles
+
+
 
 
 

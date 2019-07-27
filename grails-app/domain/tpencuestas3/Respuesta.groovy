@@ -1,23 +1,19 @@
 package tpencuestas3
 
+import org.hibernate.mapping.Map
+
 class Respuesta {
 
     Date fechaVoto
     Usuario votante
     Encuesta encuesta
-    Map<Pregunta,Opcion> respuestas
+    def respuestas = [:] //mapa <k,v> inicializado vacio
 
     static constraints = {
         fechaVoto (nullable:true)
-        votante (nullable:true)
+        respuestas (nullable:true)
     }
 
-    static List<Respuesta> crearListaDeRespuestas(Encuesta encuesta){
-        def respuestas = new ArrayList<Respuesta>()
-        encuesta.getPreguntas().size().times {
-            respuestas.add(new Respuesta())
-            //todo inicializar correctamente Respuesta
-        }
-        respuestas
-    }
+
+
 }

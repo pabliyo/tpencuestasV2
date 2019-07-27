@@ -25,18 +25,25 @@ class ParticipacionController {
     }
 
     def participar(Long id){
-        [encuesta: Encuesta.get(id) , respuestas: Respuesta.crearListaDeRespuestas(Encuesta.get(id))]
-        //inicializar rta con los valores ya conociods fecha usr ect
+        [encuesta: Encuesta.get(id)]
     }
 
     def guardarRespuestas(){
         Usuario usuario = participacionService.getUsuarioActual()
-        Encuesta encuesta = Encuesta.get(params.encuestaId)
-        Respuesta respuestas = new Respuesta(params)
-        println("aquiiii")
-        println(respuestas)
+        Encuesta encuesta = Encuesta.get(params.id)
+        def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-        //participacionService.guardarRespuestas(usuario, encuesta)
+
+        println("ids de respuestas!!")
+        println(params)
+
+        respuestas = participacionService.guardarVotacion(respuestas,params)
+
+        println("guardado")
+        println(respuestas.respuestas)
+
+        //falta implementar busquedas para quitar la encuesta respondida por el usuario
+
 
         [encuesta: encuesta]
     }

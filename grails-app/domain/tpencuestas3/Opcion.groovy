@@ -10,9 +10,9 @@ class Opcion {
     static constraints = {
         //orden(min:1, max:4)
         pregunta nullable:true, editable:false
+        orden nullable:true
+        descripcion nullable:true
     }
-
-
 
 
     String toString(){

@@ -33,6 +33,7 @@ class EncuestaController {
         respond new Encuesta(params)
     }
 
+
     def validacion(){
         request.withFormat {
             form multipartForm {

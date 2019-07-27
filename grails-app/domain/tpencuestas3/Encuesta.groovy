@@ -12,9 +12,9 @@ class Encuesta {
     static embedded = ['vigencia']
 
     static constraints = {
-        usuario nullable: true, editable: false //whether it can be edited from scaffolding views
-        vigencia nullable: true
+        usuario editable: false //whether it can be edited from scaffolding views
         preguntas nullable: true
+        vigencia nullable:true
     }
 
     static mapping = {
@@ -45,7 +45,13 @@ class Encuesta {
         }
     }
 
+    boolean vigenciaCorrecta(Vigencia vigencia){
+        //if(vigencia.fechaInicio)
+
+    }
+
     String toString() {
         titulo
     }
+
 }

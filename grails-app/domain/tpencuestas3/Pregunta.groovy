@@ -3,13 +3,13 @@ package tpencuestas3
 class Pregunta {
 
     String enunciado
-    Long orden
+    int orden
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]
 
     static constraints = {
-      // orden (min:1, max:5, unique:true)
+        orden (min:1)
         opciones nullable:true
         encuesta nullable:true, editable:false
     }

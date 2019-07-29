@@ -2,7 +2,6 @@ package tpencuestas3
 
 import grails.gorm.services.Service
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.mapping.Map
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -24,17 +23,17 @@ class ParticipacionService {
         //Encuesta.findAllByStartDateLessThanAndExpirationDateGreaterThan(now, now)
     }
 
-    List getEncuestasUsuarioActual(){
+    List getEncuestasUsuarioActual() {
         Encuesta.findAllByUsuario(springSecurityService.getCurrentUser() as Usuario)
     }
 
-    List getRespondidas(){
+    List getRespondidas() {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser())
     }
 
-    Respuesta guardarVotacion(Respuesta respuesta, GrailsParameterMap params) {
-        params.each{ preguntaId, opcionId ->
-            if(preguntaId.isLong())
+    Respuesta guardarVotacion(Respuesta respuesta, Map params) {
+        params.each { Serializable preguntaId, Serializable opcionId ->
+            if (preguntaId.isLong())
                 respuesta.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
         }
         respuesta.save()

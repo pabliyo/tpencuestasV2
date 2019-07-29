@@ -4,6 +4,7 @@ class Pregunta {
 
     String enunciado
     int orden
+    public static final int limiteOpcionesSiNoPremium = 3;
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]
@@ -23,7 +24,7 @@ class Pregunta {
     }
 
     boolean puedeAgregarOpciones(Usuario usuario) {
-        usuario.esPremium() || cantidadOpciones() < 3
+        usuario.esPremium() || cantidadOpciones() < limiteOpcionesSiNoPremium
     }
 
     String toString() {

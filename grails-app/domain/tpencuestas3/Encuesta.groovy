@@ -5,6 +5,8 @@ class Encuesta {
     String titulo
     String descripcion
     Vigencia vigencia
+    public static final int limiteEncuestasSiNoPremium = 3;
+    public static final int limitePreguntasSiNoPremium = 5;
 
     static belongsTo = [usuario: Usuario]
     static hasMany = [preguntas: Pregunta]
@@ -21,7 +23,7 @@ class Encuesta {
     }
 
     boolean puedeCrearEncuesta(Usuario usuario) {
-        usuario.esPremium() || usuario.cantidadEncuestas() < 3
+        usuario.esPremium() || usuario.cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
     int cantidadPreguntas() {
@@ -29,7 +31,7 @@ class Encuesta {
     }
 
     boolean puedeAgregarPreguntas(Usuario usuario) {
-        usuario.esPremium() || cantidadPreguntas() < 5
+        usuario.esPremium() || cantidadPreguntas() < limitePreguntasSiNoPremium
     }
 
     String toString() {

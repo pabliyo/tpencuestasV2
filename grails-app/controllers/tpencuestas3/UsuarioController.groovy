@@ -2,26 +2,22 @@ package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
-import org.springframework.transaction.annotation.Transactional
 
 import static org.springframework.http.HttpStatus.*
-import static tpencuestas3.Usuario.hasMany
-
 
 @Secured('permitAll')
 class UsuarioController {
 
-    EncuestaService encuestaService
     UsuarioService usuarioService
     Rol userRole = new Rol(authority: 'ROLE_USER').save()
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
     @Secured('ROLE_ADMIN')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond usuarioService.list(params), model:[usuarioCount: usuarioService.count()]
+        respond usuarioService.list(params), model: [usuarioCount: usuarioService.count()]
     }
-
 
     def show(Long id) {
         respond usuarioService.get(id)
@@ -31,10 +27,8 @@ class UsuarioController {
         respond new Usuario(params)
     }
 
-
-
     def propias() {
-       [encuestas: Usuario.get(params.encuestas)]
+        [encuestas: Usuario.get(params.encuestas)]
     }
 
     def save(Usuario usuario) {
@@ -46,13 +40,11 @@ class UsuarioController {
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond usuario.errors, view:'create'
+            respond usuario.errors, view: 'create'
             return
         }
 
-
         UsuarioRol.create(usuario, userRole, true)
-
 
         request.withFormat {
             form multipartForm {
@@ -63,11 +55,9 @@ class UsuarioController {
         }
     }
 
-
     def edit(Long id) {
         respond usuarioService.get(id)
     }
-
 
     def update(Usuario usuario) {
         if (usuario == null) {
@@ -78,7 +68,7 @@ class UsuarioController {
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond usuario.errors, view:'edit'
+            respond usuario.errors, view: 'edit'
             return
         }
 
@@ -87,7 +77,7 @@ class UsuarioController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuario.id])
                 redirect usuario
             }
-            '*'{ respond usuario, [status: OK] }
+            '*' { respond usuario, [status: OK] }
         }
     }
 
@@ -102,9 +92,9 @@ class UsuarioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -114,7 +104,7 @@ class UsuarioController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

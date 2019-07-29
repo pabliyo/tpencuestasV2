@@ -4,7 +4,6 @@ import grails.validation.Validateable
 
 class Vigencia implements Validateable {
 
-    //ver de cambiar a LocalDateTime
     Date fechaInicio
     Date fechaFin
 

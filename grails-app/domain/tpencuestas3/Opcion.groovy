@@ -13,7 +13,6 @@ class Opcion {
         descripcion()
     }
 
-
     String toString(){
         descripcion
     }

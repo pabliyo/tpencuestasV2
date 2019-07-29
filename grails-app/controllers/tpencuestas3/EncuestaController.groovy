@@ -3,8 +3,6 @@ package tpencuestas3
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
-import org.hibernate.mapping.Map
-import org.springframework.beans.factory.annotation.Autowired
 
 import static org.springframework.http.HttpStatus.*
 
@@ -12,9 +10,7 @@ import static org.springframework.http.HttpStatus.*
 class EncuestaController {
 
     SpringSecurityService springSecurityService
-
     EncuestaService encuestaService
-
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -24,7 +20,6 @@ class EncuestaController {
 
     }
 
-
     def show(Long id) {
         respond encuestaService.get(id)
     }
@@ -33,8 +28,7 @@ class EncuestaController {
         respond new Encuesta(params)
     }
 
-
-    def validacion(){
+    def validacion() {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'Ha superado el limite de creacion de encuestas, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
@@ -51,9 +45,9 @@ class EncuestaController {
         }
 
         try {
-             if(encuesta.puedeCrearEncuesta(springSecurityService.getCurrentUser() as Usuario)) {
+            if (encuesta.puedeCrearEncuesta(springSecurityService.getCurrentUser() as Usuario)) {
                 encuestaService.save(encuesta)
-            }else{
+            } else {
                 validacion()
                 return
             }

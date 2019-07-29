@@ -16,7 +16,7 @@ class PreguntaController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond preguntaService.list(params), model:[preguntaCount: preguntaService.count()]
+        respond preguntaService.list(params), model: [preguntaCount: preguntaService.count()]
     }
 
     def show(Long id) {
@@ -27,7 +27,7 @@ class PreguntaController {
         respond new Pregunta(params)
     }
 
-    def validacion(){
+    def validacion() {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'Ha superado el limite de preguntas para esta encuesta, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
@@ -47,14 +47,14 @@ class PreguntaController {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
         try {
-           if(encuesta.puedeAgregarPreguntas(usuario)) {
-               preguntaService.save(pregunta)
-           }else{
-               validacion()
-               return
-           }
+            if (encuesta.puedeAgregarPreguntas(usuario)) {
+                preguntaService.save(pregunta)
+            } else {
+                validacion()
+                return
+            }
         } catch (ValidationException e) {
-            respond pregunta.errors, view:'create'
+            respond pregunta.errors, view: 'create'
             return
         }
 
@@ -80,7 +80,7 @@ class PreguntaController {
         try {
             preguntaService.save(pregunta)
         } catch (ValidationException e) {
-            respond pregunta.errors, view:'edit'
+            respond pregunta.errors, view: 'edit'
             return
         }
 
@@ -89,7 +89,7 @@ class PreguntaController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), pregunta.id])
                 redirect pregunta
             }
-            '*'{ respond pregunta, [status: OK] }
+            '*' { respond pregunta, [status: OK] }
         }
     }
 
@@ -104,9 +104,9 @@ class PreguntaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -116,7 +116,7 @@ class PreguntaController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

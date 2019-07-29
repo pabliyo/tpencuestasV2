@@ -9,33 +9,24 @@ class Pregunta {
     static hasMany = [opciones: Opcion]
 
     static constraints = {
-        orden (min:1)
-        opciones nullable:true
-        encuesta nullable:true, editable:false
+        orden min: 1
+        opciones nullable: true
+        encuesta nullable: true, editable: false
     }
 
     static mapping = {
         opciones cascade: "all-delete-orphan", sort: "id"
-
     }
 
-    int cantidadOpciones(){
+    int cantidadOpciones() {
         opciones.size()
     }
 
-    boolean puedeAgregarOpciones(Usuario usuario){
-        if (usuario.esPremium()) {
-            true
-        }else{
-            if ((!usuario.esPremium())&&(cantidadOpciones()<3)) {
-                true
-            } else {
-                false
-            }
-        }
+    boolean puedeAgregarOpciones(Usuario usuario) {
+        usuario.esPremium() || cantidadOpciones() < 3
     }
 
-    String toString(){
+    String toString() {
         enunciado
     }
 

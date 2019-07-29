@@ -1,16 +1,11 @@
 package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
-import jdk.nashorn.internal.runtime.options.Option
-import org.hibernate.mapping.List
-import org.hibernate.mapping.Map
 
 @Secured('permitAll')
 class ParticipacionController {
 
     ParticipacionService participacionService
-    UsuarioService usuarioService
-    EncuestaService encuestaService
 
     def index(){
         redirect(uri:"/")
@@ -33,7 +28,6 @@ class ParticipacionController {
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-
         println("ids de respuestas!!")
         println(params)
 
@@ -43,7 +37,6 @@ class ParticipacionController {
         println(respuestas.respuestas)
 
         //falta implementar busquedas para quitar la encuesta respondida por el usuario
-
 
         [encuesta: encuesta]
     }

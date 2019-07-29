@@ -10,8 +10,6 @@ class ParticipacionService {
 
     @Autowired
     SpringSecurityService springSecurityService
-    PreguntaService preguntaService
-    OpcionService opcionService
 
     Usuario getUsuarioActual() {
         springSecurityService.getCurrentUser() as Usuario
@@ -39,6 +37,5 @@ class ParticipacionService {
         respuesta.save()
         respuesta
     }
-    //retocar detalles
 
 }

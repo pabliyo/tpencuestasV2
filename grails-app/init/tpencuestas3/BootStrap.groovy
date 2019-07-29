@@ -3,8 +3,7 @@ package tpencuestas3
 class BootStrap {
 
     def init = { servletContext ->
-        initUsersAndRoles()
-
+        initUsersRolesAndEncuestas()
     }
 
     private static crearEncuestas(Usuario creador) {
@@ -33,7 +32,7 @@ class BootStrap {
         }
     }
 
-    private static initUsersAndRoles() {
+    private static initUsersRolesAndEncuestas() {
         Rol adminRol = new Rol(authority: 'ROLE_ADMIN').save()
         Rol userRol = new Rol(authority: 'ROLE_USER').save()
 

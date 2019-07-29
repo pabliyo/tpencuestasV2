@@ -32,19 +32,14 @@ class ParticipacionService {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser())
     }
 
-    Respuesta guardarVotacion(Respuesta respuestas, GrailsParameterMap params) {
-        int cantidadPreguntas = respuestas.getEncuesta().cantidadPreguntas()
+    Respuesta guardarVotacion(Respuesta respuesta, GrailsParameterMap params) {
         params.each{ preguntaId, opcionId ->
             if(preguntaId.isLong())
-                respuestas.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
+                respuesta.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
         }
-        respuestas.save()
-        respuestas
+        respuesta.save()
+        respuesta
     }
     //retocar detalles
-
-
-
-
 
 }

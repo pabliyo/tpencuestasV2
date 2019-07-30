@@ -1,10 +1,7 @@
 package tpencuestas3
 
-import grails.gorm.services.Service
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
-import org.hibernate.validator.constraints.Email
+import groovy.transform.EqualsAndHashCode
 
 @GrailsCompileStatic
 @EqualsAndHashCode(includes = 'username')
@@ -15,19 +12,15 @@ class Usuario implements Serializable {
     String username
     String password
     String email
-    boolean enabled = true
     boolean cuentaPremium
 
-    //Variables de manejo de cuenta
+    //Variables de manejo de cuenta usado por spring security core
+    boolean enabled = true
     boolean accountExpired = false
     private boolean accountLocked = false
     private boolean passwordExpired = false
 
     static hasMany = [encuestas: Encuesta]
-
-    Set<Rol> getAuthorities() {
-        (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
-    }
 
     static constraints = {
         username nullable: false, blank: false, unique: true
@@ -46,12 +39,15 @@ class Usuario implements Serializable {
         cuentaPremium
     }
 
-    int cantidadEncuestas(){
+    Set<Rol> getAuthorities() {//usado por spring security core
+        (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
+    }
+
+    int cantidadEncuestas() {
         encuestas.size()
     }
 
-
-    String toString(){
+    String toString() {
         username
     }
 }

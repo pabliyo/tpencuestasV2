@@ -1,12 +1,17 @@
 <html>
 <head>
-  <title></title>
+    <title>Question - Responder</title>
+    <meta name="layout" content="main">
 </head>
-<body>
-    Gracias por participar en Question
-    <p/>
 
-    <p/>
-    Responder mas encuestas <g:link action="show">Aqui</g:link>
+<body>
+<div role="mail">
+    <p>
+        Gracias por participar en Question
+    </p>
+    <p>
+        Responder mas encuestas <g:link action="show">Aqui</g:link>
+    </p>
+</div>
 </body>
 </html>

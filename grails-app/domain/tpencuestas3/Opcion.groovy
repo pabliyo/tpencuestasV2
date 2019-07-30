@@ -8,13 +8,12 @@ class Opcion {
     static belongsTo = [pregunta: Pregunta]
 
     static constraints = {
-        pregunta nullable:true, editable:false
-        orden min:1
+        pregunta nullable: true, editable: false
+        orden min: 1
         descripcion()
     }
 
-
-    String toString(){
+    String toString() {
         descripcion
     }
 

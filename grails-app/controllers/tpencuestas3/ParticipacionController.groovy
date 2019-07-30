@@ -1,9 +1,8 @@
 package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
-import jdk.nashorn.internal.runtime.options.Option
-import org.hibernate.mapping.List
-import org.hibernate.mapping.Map
+
+import java.util.Map
 
 import static org.springframework.http.HttpStatus.NOT_FOUND
 
@@ -13,8 +12,6 @@ class ParticipacionController {
     ParticipacionService participacionService
     UsuarioService usuarioService
     EncuestaService encuestaService
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(){
         redirect(uri:"/")
@@ -62,8 +59,6 @@ class ParticipacionController {
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-        //println("respondio")
-        //println(encuesta.preguntas.respondio)
 
         println("ids de respuestas!!")
         println(params)
@@ -84,6 +79,16 @@ class ParticipacionController {
 
     def resultados(){
         [encuesta: participacionService.getRespondidas()]
+    }
+
+    private Map generarMapFromParams
+    {
+        Map paramsMap = new HashMap()
+
+        params.each { key, value ->
+            paramsMap.put(key, value)
+        }
+        paramsMap
     }
 
 }

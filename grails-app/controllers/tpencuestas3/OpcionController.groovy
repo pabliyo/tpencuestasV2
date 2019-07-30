@@ -15,7 +15,7 @@ class OpcionController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond opcionService.list(params), model:[opcionCount: opcionService.count()]
+        respond opcionService.list(params), model: [opcionCount: opcionService.count()]
     }
 
     def show(Long id) {
@@ -26,7 +26,7 @@ class OpcionController {
         respond new Opcion(params)
     }
 
-    def validacion(){
+    def validacion() {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'Ha superado el limite de opciones para esta pregunta, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
@@ -47,14 +47,14 @@ class OpcionController {
 
 
         try {
-            if(pregunta.puedeAgregarOpciones(usuario)) {
+            if (pregunta.puedeAgregarOpciones(usuario)) {
                 opcionService.save(opcion)
-            }else{
+            } else {
                 validacion()
                 return
             }
         } catch (ValidationException e) {
-            respond opcion.errors, view:'create'
+            respond opcion.errors, view: 'create'
             return
         }
 
@@ -80,7 +80,7 @@ class OpcionController {
         try {
             opcionService.save(opcion)
         } catch (ValidationException e) {
-            respond opcion.errors, view:'edit'
+            respond opcion.errors, view: 'edit'
             return
         }
 
@@ -89,7 +89,7 @@ class OpcionController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'opcion.label', default: 'Opcion'), opcion.id])
                 redirect opcion
             }
-            '*'{ respond opcion, [status: OK] }
+            '*' { respond opcion, [status: OK] }
         }
     }
 
@@ -104,9 +104,9 @@ class OpcionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'opcion.label', default: 'Opcion'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -116,7 +116,7 @@ class OpcionController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'opcion.label', default: 'Opcion'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

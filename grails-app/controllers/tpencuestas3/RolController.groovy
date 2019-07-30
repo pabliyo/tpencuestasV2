@@ -13,7 +13,7 @@ class RolController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond rolService.list(params), model:[rolCount: rolService.count()]
+        respond rolService.list(params), model: [rolCount: rolService.count()]
     }
 
     def show(Long id) {
@@ -33,7 +33,7 @@ class RolController {
         try {
             rolService.save(rol)
         } catch (ValidationException e) {
-            respond rol.errors, view:'create'
+            respond rol.errors, view: 'create'
             return
         }
 
@@ -59,7 +59,7 @@ class RolController {
         try {
             rolService.save(rol)
         } catch (ValidationException e) {
-            respond rol.errors, view:'edit'
+            respond rol.errors, view: 'edit'
             return
         }
 
@@ -68,7 +68,7 @@ class RolController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'rol.label', default: 'Rol'), rol.id])
                 redirect rol
             }
-            '*'{ respond rol, [status: OK] }
+            '*' { respond rol, [status: OK] }
         }
     }
 
@@ -83,9 +83,9 @@ class RolController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'rol.label', default: 'Rol'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -95,7 +95,7 @@ class RolController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'rol.label', default: 'Rol'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

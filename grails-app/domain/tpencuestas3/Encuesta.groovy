@@ -5,16 +5,17 @@ class Encuesta {
     String titulo
     String descripcion
     Vigencia vigencia
+    public static final int limiteEncuestasSiNoPremium = 3;
+    public static final int limitePreguntasSiNoPremium = 5;
 
     static belongsTo = [usuario: Usuario]
     static hasMany = [preguntas: Pregunta]
-
     static embedded = ['vigencia']
 
     static constraints = {
         usuario editable: false //whether it can be edited from scaffolding views
         preguntas nullable: true
-        vigencia nullable:true
+        vigencia nullable: true
     }
 
     static mapping = {
@@ -22,11 +23,7 @@ class Encuesta {
     }
 
     boolean puedeCrearEncuesta(Usuario usuario) {
-        if (usuario.esPremium()) {
-            true
-        } else {
-            !usuario.esPremium() && usuario.cantidadEncuestas() < 3
-        }
+        usuario.esPremium() || usuario.cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
     int cantidadPreguntas() {
@@ -34,20 +31,7 @@ class Encuesta {
     }
 
     boolean puedeAgregarPreguntas(Usuario usuario) {
-        if (usuario.esPremium()) {
-            true
-        } else {
-            if ((!usuario.esPremium()) && (cantidadPreguntas()) < 5) {
-                true
-            } else {
-                false
-            }
-        }
-    }
-
-    boolean vigenciaCorrecta(Vigencia vigencia){
-        //if(vigencia.fechaInicio)
-
+        usuario.esPremium() || cantidadPreguntas() < limitePreguntasSiNoPremium
     }
 
     String toString() {

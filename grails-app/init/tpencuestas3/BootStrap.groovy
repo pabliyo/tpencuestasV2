@@ -3,24 +3,23 @@ package tpencuestas3
 class BootStrap {
 
     def init = { servletContext ->
-        initUsersAndRoles()
-
+        initUsersRolesAndEncuestas()
     }
 
     private static crearEncuestas(Usuario creador) {
         Date ahora = new Date()
         int z = 0
-        3.times { encuestaIndex ->
+        3.times {
             z = z + 1
             Encuesta encuesta = new Encuesta(usuario: creador, titulo: "encuesta ${z}", descripcion: "la encuesta se trata de..")
             int x = 0
-            5.times { preguntaIndex ->
+            5.times {
                 x = x + 1
                 Pregunta pregunta = new Pregunta(enunciado: "pregunta ${x}", orden: x)
                 pregunta.save()
                 encuesta.addToPreguntas(pregunta)
                 int y = 0
-                3.times { opcionIndex ->
+                3.times {
                     y = y + 1
                     Opcion opcion = new Opcion(descripcion: "opcion ${y}", orden: y)
                     opcion.save()
@@ -33,7 +32,7 @@ class BootStrap {
         }
     }
 
-    private static initUsersAndRoles() {
+    private static initUsersRolesAndEncuestas() {
         Rol adminRol = new Rol(authority: 'ROLE_ADMIN').save()
         Rol userRol = new Rol(authority: 'ROLE_USER').save()
 

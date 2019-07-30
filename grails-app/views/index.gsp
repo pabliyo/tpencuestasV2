@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Question</title>
-    <asset:stylesheet src="application.css"/>
 </head>
 
 <body>
@@ -29,24 +28,22 @@
                 </li>
             </ul>
         </div>
-
     </nav>
 </sec:ifNotLoggedIn>
 
 <div id="content" role="main">
     <section class="row colset-2-its">
         <h1>Bienvenido a Question</h1>
-
         <div id="controllers" role="navigation">
             <sec:ifLoggedIn>
                 <h2>Elige que hacer:</h2>
                 <ul>
                    <sec:ifAnyGranted roles='ROLE_ADMIN'>
                     <li>
-                       <g:link controller="encuesta" action="index">Todas las encuestas</g:link>
+                       <g:link controller="encuesta" action="index">Ver todas las encuestas</g:link>
                     </li>
                     <li>
-                       <g:link controller="usuario" action="index">Todos los usuarios</g:link>
+                       <g:link controller="usuario" action="index">Ver todos los usuarios</g:link>
                     </li>
                    </sec:ifAnyGranted>
                     <li>

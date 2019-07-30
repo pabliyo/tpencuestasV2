@@ -36,7 +36,6 @@
 <div id="content" role="main">
     <section class="row colset-2-its">
         <h1>Bienvenido a Question</h1>
-
         <div id="controllers" role="navigation">
             <sec:ifLoggedIn>
                 <h2>Elige que hacer:</h2>

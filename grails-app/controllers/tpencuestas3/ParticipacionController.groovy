@@ -2,6 +2,8 @@ package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
 
+import java.util.Map
+
 @Secured('permitAll')
 class ParticipacionController {
 
@@ -26,15 +28,15 @@ class ParticipacionController {
     def guardarRespuestas(){
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.id)
-        def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
+        def respuesta = new Respuesta(votante: usuario, encuesta: encuesta)
 
         println("ids de respuestas!!")
         println(params)
 
-        respuestas = participacionService.guardarVotacion(respuestas,params)
+        respuesta = participacionService.guardarVotacion(respuesta, generarMapFromParams)
 
         println("guardado")
-        println(respuestas.respuestas)
+        println(respuesta.respuestas)
 
         //falta implementar busquedas para quitar la encuesta respondida por el usuario
 
@@ -43,6 +45,16 @@ class ParticipacionController {
 
     def resultados(){
         [encuesta: participacionService.getRespondidas()]
+    }
+
+    private Map generarMapFromParams
+    {
+        Map paramsMap = new HashMap()
+
+        params.each { key, value ->
+            paramsMap.put(key, value)
+        }
+        paramsMap
     }
 
 }

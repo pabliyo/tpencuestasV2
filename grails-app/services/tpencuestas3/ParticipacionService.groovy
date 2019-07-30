@@ -2,7 +2,7 @@ package tpencuestas3
 
 import grails.gorm.services.Service
 import grails.plugin.springsecurity.SpringSecurityService
-import org.hibernate.mapping.Map
+import java.util.Map
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
@@ -26,11 +26,11 @@ class ParticipacionService {
     }
 
     List getRespondidas() {
-        Respuesta.findAllByVotante(springSecurityService.getCurrentUser())
+        Respuesta.findAllByVotante(springSecurityService.getCurrentUser() as Usuario)
     }
 
     Respuesta guardarVotacion(Respuesta respuesta, Map params) {
-        params.each { Serializable preguntaId, Serializable opcionId ->
+        params.each { preguntaId, opcionId ->
             if (preguntaId.isLong())
                 respuesta.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
         }

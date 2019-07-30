@@ -14,6 +14,12 @@ class Usuario implements Serializable {
     String email
     boolean cuentaPremium
 
+    //Variables de manejo de cuenta usado por spring security core
+    boolean enabled = true
+    boolean accountExpired = false
+    private boolean accountLocked = false
+    private boolean passwordExpired = false
+
     static hasMany = [encuestas: Encuesta]
 
     static constraints = {
@@ -31,6 +37,10 @@ class Usuario implements Serializable {
 
     boolean esPremium() {
         cuentaPremium
+    }
+
+    Set<Rol> getAuthorities() {//usado por spring security core
+        (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
     }
 
     int cantidadEncuestas() {

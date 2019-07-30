@@ -50,11 +50,14 @@ class ParticipacionController {
             return
         }
 
+        println(participacionService.getRespondidas())
+
         [encuesta: encuesta]
     }
 
     def resultados(){
-        [encuesta: participacionService.getRespondidas()]
+        println(participacionService.getRespondidas())
+        [respuestas: participacionService.getRespondidas()]
     }
 
     private Map generarMapFromParams

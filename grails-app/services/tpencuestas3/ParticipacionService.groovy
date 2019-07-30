@@ -34,14 +34,14 @@ class ParticipacionService {
         int cantPreg = encuesta.cantidadPreguntas()
         int i = 0
         params.each{ preguntaId, opcionId ->
-            if(i <= cantPreg) {
+            if(i < cantPreg) {
                 if ((!preguntaId.isLong())||(!opcionId.isLong())) {
                     noRespondio = false
                 }
                 i=i+1
             }
         }
-        println(noRespondio)
+        return noRespondio
     }
 
     Respuesta guardarVotacion(Respuesta respuesta, Map params) {

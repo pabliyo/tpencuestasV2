@@ -6,6 +6,8 @@ class BootStrap {
         initUsersRolesAndEncuestas()
     }
 
+
+
     private static crearEncuestas(Usuario creador) {
         Date ahora = new Date()
         int z = 0

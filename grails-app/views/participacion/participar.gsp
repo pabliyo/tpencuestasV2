@@ -13,8 +13,10 @@
             <g:radioGroup name="${pregunta.orden}"
                           labels="${pregunta.opciones}"
                           values="${pregunta.opciones}">
-                <p>  ${it.label.descripcion} <input type="radio" name="${pregunta.getId()}" value="${it.label.getId()}"/> </p>
+                <p>  ${it.label.descripcion} <input type="radio" name="${pregunta.getId()}" value="${it.label.getId()}" /> </p>
+                 ${pregunta.respondio}
             </g:radioGroup>
+
         </li>
     </g:each>
      <br/>

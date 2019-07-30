@@ -4,6 +4,7 @@ class Pregunta {
 
     String enunciado
     int orden
+    boolean respondio=false //atributo para validacion
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]

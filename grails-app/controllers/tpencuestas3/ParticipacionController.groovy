@@ -5,12 +5,16 @@ import jdk.nashorn.internal.runtime.options.Option
 import org.hibernate.mapping.List
 import org.hibernate.mapping.Map
 
+import static org.springframework.http.HttpStatus.NOT_FOUND
+
 @Secured('permitAll')
 class ParticipacionController {
 
     ParticipacionService participacionService
     UsuarioService usuarioService
     EncuestaService encuestaService
+
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(){
         redirect(uri:"/")
@@ -28,14 +32,44 @@ class ParticipacionController {
         [encuesta: Encuesta.get(id)]
     }
 
+    def noRespondio(Encuesta encuesta){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'Debe elegir al menos una opcion en cada pregunta', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
+                redirect action: "create", method: "GET"
+            }
+            '*' { render status: NOT_FOUND }
+        }
+    }
+
+    def validacion(Encuesta encuesta){
+        int cantPreg = encuesta.cantidadPreguntas()
+        int i = 0
+        params.each{ preguntaId, opcionId ->
+            if(i < cantPreg) {
+                println(i)
+                if ((!preguntaId.isLong())||(!opcionId.isLong())) {
+                    noRespondio(encuesta)
+                    return
+                }
+                i=i+1
+            }
+        }
+    }
+
     def guardarRespuestas(){
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
+        //println("respondio")
+        //println(encuesta.preguntas.respondio)
 
         println("ids de respuestas!!")
         println(params)
+
+        validacion(encuesta)
+
 
         respuestas = participacionService.guardarVotacion(respuestas,params)
 

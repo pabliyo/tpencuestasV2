@@ -5,6 +5,9 @@
 </head>
 
 <body>
+<g:if test="${flash.message}">
+     <div class="message" role="status">${flash.message}</div>
+</g:if>
 <g:hiddenField name="encuestaId" value="${encuesta.id}"/>
 <g:form action="guardarRespuestas" id="${encuesta.id}">
     <g:each in="${encuesta.preguntas.sort { it.orden }}" var="pregunta">

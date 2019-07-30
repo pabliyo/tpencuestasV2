@@ -1,17 +1,16 @@
 package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
+import static org.springframework.http.HttpStatus.*
 
-import java.util.Map
 
-import static org.springframework.http.HttpStatus.NOT_FOUND
-
-@Secured('permitAll')
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class ParticipacionController {
 
     ParticipacionService participacionService
-    UsuarioService usuarioService
-    EncuestaService encuestaService
+
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(){
         redirect(uri:"/")
@@ -33,24 +32,9 @@ class ParticipacionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'Debe elegir al menos una opcion en cada pregunta', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
-                redirect action: "create", method: "GET"
+                redirect action: "participar", id: encuesta.id, method: "GET"
             }
             '*' { render status: NOT_FOUND }
-        }
-    }
-
-    def validacion(Encuesta encuesta){
-        int cantPreg = encuesta.cantidadPreguntas()
-        int i = 0
-        params.each{ preguntaId, opcionId ->
-            if(i < cantPreg) {
-                println(i)
-                if ((!preguntaId.isLong())||(!opcionId.isLong())) {
-                    noRespondio(encuesta)
-                    return
-                }
-                i=i+1
-            }
         }
     }
 
@@ -59,20 +43,12 @@ class ParticipacionController {
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-
-        println("ids de respuestas!!")
-        println(params)
-
-        validacion(encuesta)
-
-
-        respuestas = participacionService.guardarVotacion(respuestas,params)
-
-        println("guardado")
-        println(respuestas.respuestas)
-
-        //falta implementar busquedas para quitar la encuesta respondida por el usuario
-
+        if(participacionService.respuestasValidas(encuesta, params))
+            respuestas = participacionService.guardarVotacion(respuestas,params)
+        else {
+            noRespondio(encuesta)
+            return
+        }
 
         [encuesta: encuesta]
     }
@@ -89,6 +65,16 @@ class ParticipacionController {
             paramsMap.put(key, value)
         }
         paramsMap
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*' { render status: NOT_FOUND }
+        }
     }
 
 }

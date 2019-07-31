@@ -9,6 +9,7 @@ import static org.springframework.http.HttpStatus.*
 class ParticipacionController {
 
     ParticipacionService participacionService
+    RespuestaService respuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,6 +23,10 @@ class ParticipacionController {
 
     def propias(){
         [encuestas: participacionService.getEncuestasUsuarioActual()]
+    }
+
+    def resultados(){
+        [respuestas: participacionService.getRespondidas()]
     }
 
     def participar(Long id){
@@ -43,21 +48,15 @@ class ParticipacionController {
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-        if(participacionService.respuestasValidas(encuesta, params))
-            respuestas = participacionService.guardarVotacion(respuestas,params)
-        else {
+        if(participacionService.respuestasValidas(encuesta, params)) {
+            participacionService.ingresarVotacion(respuestas, params)
+            respuestaService.save(respuestas)
+        }else {
             noRespondio(encuesta)
             return
         }
 
-        println(participacionService.getRespondidas())
-
         [encuesta: encuesta]
-    }
-
-    def resultados(){
-        println(participacionService.getRespondidas())
-        [respuestas: participacionService.getRespondidas()]
     }
 
     private Map generarMapFromParams

@@ -5,9 +5,7 @@ class BootStrap {
     def init = { servletContext ->
         initUsersRolesAndEncuestas()
     }
-
-
-
+    
     private static crearEncuestas(Usuario creador) {
         Date ahora = new Date()
         int z = 0
@@ -49,6 +47,7 @@ class BootStrap {
         crearEncuestas(admin)
         crearEncuestas(usuario)
         crearEncuestas(nopremium)
+
     }
 
     def destroy = {

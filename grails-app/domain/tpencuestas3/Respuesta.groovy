@@ -11,4 +11,5 @@ class Respuesta {
         fechaVoto nullable: true
         respuestas nullable: true
     }
+
 }

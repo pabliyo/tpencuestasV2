@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Question - Mis Encuestas</title>
+    <title>Question - Mis Respuestas</title>
     <meta name="layout" content="main"/>
 </head>
 
@@ -10,19 +10,10 @@
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li></ul>
 </div>
 
-<h1>Respuestas Realizadas</h1>
-<g:each in="${respuestas}" var="respuesta">
-    <div id="list-respuesta" class="content scaffold-list" role="main">
-        <f:table collection="${respuestaList}" properties="encuesta, votante"/>
-        <div class="pagination">
-            <li>
-                <g:link action="participar" id="${encuesta.id}">
-                    <b>${respuesta.encuesta}</b>
-                    ${respuesta.votante}
-                </g:link>
-            </li
-        </div>
-    </div>
-</g:each>
+<h1>Encuestas Respondidas</h1>
+<div class="content scaffold-list" role="main">
+    <f:table collection="${respuestas}" properties="fechaVoto, encuesta, respuestas"/>
+</div>
+
 </body>
 </html>

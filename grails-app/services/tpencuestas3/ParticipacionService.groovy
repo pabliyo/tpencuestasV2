@@ -44,13 +44,11 @@ class ParticipacionService {
         return noRespondio
     }
 
-    Respuesta guardarVotacion(Respuesta respuesta, Map params) {
+    void ingresarVotacion(Respuesta respuesta, Map params) {
         params.each { preguntaId, opcionId ->
             if (preguntaId.isLong())
                 respuesta.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
         }
-        respuesta.save()
-        respuesta
     }
 
 }

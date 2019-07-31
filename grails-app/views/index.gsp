@@ -54,8 +54,7 @@
                                 usuario="${currentUsuario}">Crear nueva encuesta</g:link>
                     </li>
                     <li>
-                        <g:link controller="participacion" action="propias"
-                                id="${usuarioInstance?.id}">Mis Encuestas</g:link>
+                        <g:link controller="participacion" action="propias">Mis Encuestas</g:link>
                     </li>
                     <li>
                         <g:link controller="participacion" action="resultados">Ver resultados</g:link>

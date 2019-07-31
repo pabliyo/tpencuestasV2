@@ -15,10 +15,8 @@ class ParticipacionService {
         springSecurityService.getCurrentUser() as Usuario
     }
 
-    List encuestasValidas() {
-        //def now = new Date()
-        Encuesta.findAll()
-        //Encuesta.findAllByStartDateLessThanAndExpirationDateGreaterThan(now, now)
+    List encuestasValidas(){
+        Encuesta.findAllByIdNotInList(getRespondidas().encuesta.id)
     }
 
     List getEncuestasUsuarioActual() {

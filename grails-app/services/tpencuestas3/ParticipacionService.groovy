@@ -2,6 +2,8 @@ package tpencuestas3
 
 import grails.gorm.services.Service
 import grails.plugin.springsecurity.SpringSecurityService
+
+import javax.xml.bind.ValidationException
 import java.util.Map
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -43,9 +45,12 @@ class ParticipacionService {
     }
 
     void ingresarVotacion(Respuesta respuesta, Map params) {
+        respuesta.agregarFechaVotacion()
         params.each { preguntaId, opcionId ->
             if (preguntaId.isLong())
-                respuesta.respuestas.put(Pregunta.get(preguntaId), Opcion.get(opcionId))
+                respuesta.agregarRespuesta(Pregunta.get(preguntaId), Opcion.get(opcionId))
+            else
+                throw new ValidationException("Ocurrio un error al guardar las respuestas")
         }
     }
 

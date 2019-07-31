@@ -11,7 +11,7 @@
 </div>
 
 <div class="content scaffold-list" role="main">
-    <f:table collection="${encuestas}"/>
+    <f:table collection="${encuestas}" properties="titulo, descripcion, preguntas, vigencia"/>
 </div>
 
 <div class="pagination">

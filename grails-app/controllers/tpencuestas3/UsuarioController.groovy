@@ -1,5 +1,6 @@
 package tpencuestas3
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
@@ -9,6 +10,7 @@ import static org.springframework.http.HttpStatus.*
 class UsuarioController {
 
     UsuarioService usuarioService
+    SpringSecurityService springSecurityService
     Rol userRole = new Rol(authority: 'ROLE_USER').save()
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -57,6 +59,10 @@ class UsuarioController {
 
     def edit(Long id) {
         respond usuarioService.get(id)
+    }
+
+    def perfil(){
+        [usuario: springSecurityService.getCurrentUser() as Usuario]
     }
 
     def update(Usuario usuario) {

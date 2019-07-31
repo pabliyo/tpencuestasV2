@@ -12,4 +12,12 @@ class Respuesta {
         respuestas nullable: true
     }
 
+    protected void agregarRespuesta(Pregunta pregunta, Opcion opcion){
+        respuestas.put(pregunta, opcion)
+    }
+
+    protected void agregarFechaVotacion(){
+        fechaVoto = new Date()
+    }
+
 }

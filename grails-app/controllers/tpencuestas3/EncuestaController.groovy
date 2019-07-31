@@ -44,8 +44,11 @@ class EncuestaController {
             return
         }
 
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+        encuesta.usuario = usuario
+
         try {
-            if (encuesta.puedeCrearEncuesta(springSecurityService.getCurrentUser() as Usuario)) {
+            if (encuesta.puedeCrearEncuesta(usuario)) {
                 encuestaService.save(encuesta)
             } else {
                 validacion()

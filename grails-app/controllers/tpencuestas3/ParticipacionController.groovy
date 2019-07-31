@@ -48,11 +48,16 @@ class ParticipacionController {
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-        if(participacionService.respuestasValidas(encuesta, params)) {
-            participacionService.ingresarVotacion(respuestas, params)
-            respuestaService.save(respuestas)
-        }else {
-            noRespondio(encuesta)
+        try{
+            if(participacionService.respuestasValidas(encuesta, params)) {
+                participacionService.ingresarVotacion(respuestas, params)
+                respuestaService.save(respuestas)
+            }else {
+                noRespondio(encuesta)
+                return
+            }
+        } catch (ValidationException e) {
+            respond respuestas.errors, view: 'show'
             return
         }
 

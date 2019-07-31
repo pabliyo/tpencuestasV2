@@ -27,7 +27,6 @@
             </g:hasErrors>
             <g:form resource="${this.encuesta}" method="POST">
                 <fieldset class="formulario" >
-                    <!--f:field bean="encuesta" property="usuario" default="${currentUsuario}"/-->
                     <f:field bean="encuesta" property="titulo"/>
                     <f:field bean="encuesta" property="descripcion"/>
                     <f:field bean="encuesta" property="vigencia.fechaInicio">

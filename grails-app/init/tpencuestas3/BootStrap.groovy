@@ -8,20 +8,14 @@ class BootStrap {
     
     private static crearEncuestas(Usuario creador) {
         Date ahora = new Date()
-        int z = 0
-        3.times {
-            z = z + 1
-            Encuesta encuesta = new Encuesta(usuario: creador, titulo: "encuesta ${z}", descripcion: "la encuesta se trata de..")
-            int x = 0
-            5.times {
-                x = x + 1
-                Pregunta pregunta = new Pregunta(enunciado: "pregunta ${x}", orden: x)
+        3.times { encuestaIndex ->
+            Encuesta encuesta = new Encuesta(usuario: creador, titulo: "encuesta ${encuestaIndex+1}", descripcion: "la encuesta se trata de..")
+            5.times { preguntaIndex->
+                Pregunta pregunta = new Pregunta(enunciado: "pregunta ${preguntaIndex+1}", orden: preguntaIndex+1)
                 pregunta.save()
                 encuesta.addToPreguntas(pregunta)
-                int y = 0
-                3.times {
-                    y = y + 1
-                    Opcion opcion = new Opcion(descripcion: "opcion ${y}", orden: y)
+                3.times { opcionIndex ->
+                    Opcion opcion = new Opcion(descripcion: "opcion ${opcionIndex+1}", orden: opcionIndex+1)
                     opcion.save()
                     pregunta.addToOpciones(opcion)
                 }

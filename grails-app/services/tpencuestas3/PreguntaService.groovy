@@ -1,18 +1,19 @@
 package tpencuestas3
 
 import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
 @Service(Pregunta)
-interface PreguntaService {
+abstract class PreguntaService implements IPreguntaService{
 
-    Pregunta get(Serializable id)
-
-    List<Pregunta> list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    Pregunta save(Pregunta pregunta)
+    @Transactional
+    Pregunta save(Pregunta pregunta,Usuario usuario,Encuesta encuesta){
+        if(encuesta.puedeAgregarPreguntas(usuario)){
+            super.save(pregunta)
+        }
+        else{
+            throw new NoPremiumException()
+        }
+    }
 
 }

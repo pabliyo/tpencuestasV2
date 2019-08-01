@@ -32,15 +32,15 @@ class BootStrap {
 
         Usuario admin = new Usuario(username: 'admin', password: 'admin', cuentaPremium: true, email: 'email@email.com').save()
         Usuario usuario = new Usuario(username: 'usuario', password: 'usuario', cuentaPremium: true, email: 'email2@email.com').save()
-        Usuario nopremium = new Usuario(username: 'nopremium', password: 'nopremium', cuentaPremium: false, email: 'email3@email.com').save()
+        Usuario noPremium = new Usuario(username: 'noPremium', password: 'noPremium', cuentaPremium: false, email: 'email3@email.com').save()
 
         UsuarioRol.create(usuario, userRol, true)
-        UsuarioRol.create(nopremium, userRol, true)
+        UsuarioRol.create(noPremium, userRol, true)
         UsuarioRol.create(admin, adminRol, true)
 
         crearEncuestas(admin)
         crearEncuestas(usuario)
-        crearEncuestas(nopremium)
+        crearEncuestas(noPremium)
 
     }
 

@@ -12,27 +12,27 @@ class ParticipacionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(){
-        redirect(uri:"/")
+    def index() {
+        redirect(uri: "/")
     }
 
-    def show(){
+    def show() {
         [encuestas: participacionService.encuestasValidas()]
     }
 
-    def propias(){
+    def propias() {
         [encuestas: participacionService.getEncuestasUsuarioActual()]
     }
 
-    def resultados(){
+    def resultados() {
         [respuestas: participacionService.getRespondidas()]
     }
 
-    def participar(Long id){
+    def participar(Long id) {
         [encuesta: Encuesta.get(id)]
     }
 
-    def noRespondio(Encuesta encuesta){
+    def noRespondio(Encuesta encuesta) {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'Debe elegir al menos una opcion en cada pregunta', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
@@ -42,16 +42,15 @@ class ParticipacionController {
         }
     }
 
-    def guardarRespuestas(){
+    def guardarRespuestas() {
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
-
-        try{
-            if(participacionService.respuestasValidas(encuesta, params)) {
+        try {
+            if (participacionService.respuestasValidas(encuesta, params)) {
                 participacionService.ingresarVotacion(respuestas, params)
                 respuestaService.save(respuestas)
-            }else {
+            } else {
                 noRespondio(encuesta)
                 return
             }
@@ -59,7 +58,6 @@ class ParticipacionController {
             respond respuestas.errors, view: 'show'
             return
         }
-
         [encuesta: encuesta]
     }
 

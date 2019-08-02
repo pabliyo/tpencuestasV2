@@ -2,8 +2,7 @@ package tpencuestas3
 
 import grails.gorm.services.Service
 import grails.plugin.springsecurity.SpringSecurityService
-
-import javax.xml.bind.ValidationException
+import java.util.Map
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
@@ -16,7 +15,7 @@ class ParticipacionService {
         springSecurityService.getCurrentUser() as Usuario
     }
 
-    List encuestasValidas() {
+    List encuestasValidas(){
         Encuesta.findAllByIdNotInList(getRespondidas().encuesta.id)
     }
 
@@ -28,16 +27,16 @@ class ParticipacionService {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser() as Usuario)
     }
 
-    boolean respuestasValidas(Encuesta encuesta, Map params) {
+    boolean respuestasValidas(Encuesta encuesta, Map params){
         boolean noRespondio = true
         int cantPreg = encuesta.cantidadPreguntas()
         int i = 0
-        params.each { preguntaId, opcionId ->
-            if (i < cantPreg) {
-                if ((!preguntaId.isLong()) || (!opcionId.isLong())) {
+        params.each{ preguntaId, opcionId ->
+            if(i < cantPreg) {
+                if ((!preguntaId.isLong())||(!opcionId.isLong())) {
                     noRespondio = false
                 }
-                i = i + 1
+                i=i+1
             }
         }
         return noRespondio
@@ -48,8 +47,6 @@ class ParticipacionService {
         params.each { preguntaId, opcionId ->
             if (preguntaId.isLong())
                 respuesta.agregarRespuesta(Pregunta.get(preguntaId), Opcion.get(opcionId))
-            else
-                throw new ValidationException("Ocurrio un error al guardar las respuestas")
         }
     }
 

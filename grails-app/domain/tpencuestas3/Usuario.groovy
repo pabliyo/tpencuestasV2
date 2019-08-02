@@ -23,10 +23,9 @@ class Usuario implements Serializable {
     static hasMany = [encuestas: Encuesta]
 
     static constraints = {
-        username nullable: false, blank: false, unique: true
-        password nullable: false, blank: false, password: true
-        email nullable: false, blank: false, unique: true, email: true
-        cuentaPremium nullable: false
+        username blank: false, unique: true
+        password blank: false, password: true
+        email blank: false, unique: true, email: true
         encuestas nullable: true
     }
 

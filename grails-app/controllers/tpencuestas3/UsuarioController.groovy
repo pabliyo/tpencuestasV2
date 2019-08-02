@@ -11,7 +11,7 @@ class UsuarioController {
 
     UsuarioService usuarioService
     SpringSecurityService springSecurityService
-    Rol userRole = new Rol(authority: 'ROLE_USER').save()
+    RolService rolService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -39,6 +39,7 @@ class UsuarioController {
             return
         }
 
+
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
@@ -46,6 +47,7 @@ class UsuarioController {
             return
         }
 
+        Rol userRole= rolService.get(2)
         UsuarioRol.create(usuario, userRole, true)
 
         request.withFormat {

@@ -8,8 +8,7 @@ class Vigencia implements Validateable {
     Date fechaFin
 
     static constraints = {
-       // fechaInicio min: (new Date())
-       // fechaFin min: (new Date())
+
     }
 
     boolean estaVigente() {

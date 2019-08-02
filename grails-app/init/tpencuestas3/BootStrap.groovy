@@ -21,7 +21,7 @@ class BootStrap {
                 }
             }
             Vigencia vigencia = new Vigencia(fechaInicio: ahora, fechaFin: new Date(ahora.getTime() + (24 * 60 * 60 * 1000)))
-            encuesta.vigencia = vigencia
+            encuesta.vigencia=vigencia
             encuesta.save()
         }
     }

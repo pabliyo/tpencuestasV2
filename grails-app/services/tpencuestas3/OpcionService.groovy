@@ -1,18 +1,18 @@
 package tpencuestas3
 
 import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
 @Service(Opcion)
-interface OpcionService {
+abstract class OpcionService implements IOpcionService{
 
-    Opcion get(Serializable id)
-
-    List<Opcion> list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    Opcion save(Opcion opcion)
-
+    @Transactional
+    Opcion guardar(Opcion opcion, Usuario usuario, Pregunta pregunta){
+        if(pregunta.puedeAgregarOpciones(usuario)){
+            save(opcion)
+        }
+        else{
+            throw new NoPremiumException()
+        }
+    }
 }

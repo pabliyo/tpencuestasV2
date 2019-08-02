@@ -47,8 +47,7 @@ class UsuarioController {
             return
         }
 
-        Rol userRole= rolService.get(2)
-        UsuarioRol.create(usuario, userRole, true)
+        UsuarioRol.create(usuario, Rol.getUserRol(), true)
 
         request.withFormat {
             form multipartForm {

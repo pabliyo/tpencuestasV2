@@ -7,13 +7,13 @@ import grails.gorm.transactions.Transactional
 abstract class PreguntaService implements IPreguntaService{
 
     @Transactional
-    Pregunta save(Pregunta pregunta,Usuario usuario,Encuesta encuesta){
+    Pregunta guardar(Pregunta pregunta,Usuario usuario,Encuesta encuesta){
         if(encuesta.puedeAgregarPreguntas(usuario)){
-            super.save(pregunta)
+            save(pregunta)
         }
         else{
             throw new NoPremiumException()
         }
     }
-
 }
+

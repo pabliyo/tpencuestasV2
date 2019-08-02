@@ -36,7 +36,7 @@ class PreguntaController {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
         try {
-            preguntaService.save(pregunta, usuario, encuesta)
+            preguntaService.guardar(pregunta,usuario,encuesta)
         } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond pregunta, view: 'create'

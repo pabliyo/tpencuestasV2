@@ -32,9 +32,9 @@ class BootStrap {
         Usuario usuario = new Usuario(username: 'usuario', password: 'usuario', cuentaPremium: true, email: 'email2@email.com').save()
         Usuario noPremium = new Usuario(username: 'noPremium', password: 'noPremium', cuentaPremium: false, email: 'email3@email.com').save()
 
-        UsuarioRol.create(usuario, Rol.getUserRol(), true)
-        UsuarioRol.create(noPremium, Rol.getUserRol(), true)
-        UsuarioRol.create(admin, Rol.getAdminRol(), true)
+        UsuarioRol.create(usuario, Rol.getUserRol().save(), true)
+        UsuarioRol.create(noPremium, Rol.getUserRol().save(), true)
+        UsuarioRol.create(admin, Rol.getAdminRol().save(), true)
 
         crearEncuestas(admin)
         crearEncuestas(usuario)

@@ -27,16 +27,6 @@ class EncuestaController {
         respond new Encuesta(params)
     }
 
-    def validacion() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'Ha superado el limite de creacion de encuestas, Usuario no premium', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
-                redirect action: "create", method: "GET"
-            }
-            '*' { render status: NOT_FOUND }
-        }
-    }
-
     def save(Encuesta encuesta) {
         if (encuesta == null) {
             notFound()
@@ -47,14 +37,10 @@ class EncuestaController {
         encuesta.usuario = usuario
 
         try {
-            if (encuesta.puedeCrearEncuesta(usuario)) {
-                encuestaService.save(encuesta)
-            } else {
-                validacion()
-                return
-            }
-        } catch (ValidationException e) {
-            respond encuesta.errors, view: 'create'
+            encuestaService.guardar(encuesta,usuario)
+        } catch (NoPremiumException e) {
+            flash.message = e.getMessage()
+            respond encuesta, view: 'create'
             return
         }
 

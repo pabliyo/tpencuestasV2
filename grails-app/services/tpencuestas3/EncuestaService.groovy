@@ -1,18 +1,18 @@
 package tpencuestas3
 
 import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
 @Service(Encuesta)
-interface EncuestaService {
+abstract class EncuestaService implements IEncuestaService{
 
-    Encuesta get(Serializable id)
-
-    List<Encuesta> list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    Encuesta save(Encuesta encuesta)
-
+    @Transactional
+    Encuesta guardar(Encuesta encuesta, Usuario usuario){
+        if (encuesta.puedeCrearEncuesta(usuario)){
+            save(encuesta)
+        }
+        else {
+            throw new NoPremiumException()
+        }
+    }
 }

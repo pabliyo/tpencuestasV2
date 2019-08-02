@@ -27,16 +27,14 @@ class BootStrap {
     }
 
     private static initUsersRolesAndEncuestas() {
-        Rol adminRol = new Rol(authority: 'ROLE_ADMIN').save()
-        Rol userRol = new Rol(authority: 'ROLE_USER').save()
 
         Usuario admin = new Usuario(username: 'admin', password: 'admin', cuentaPremium: true, email: 'email@email.com').save()
         Usuario usuario = new Usuario(username: 'usuario', password: 'usuario', cuentaPremium: true, email: 'email2@email.com').save()
         Usuario noPremium = new Usuario(username: 'noPremium', password: 'noPremium', cuentaPremium: false, email: 'email3@email.com').save()
 
-        UsuarioRol.create(usuario, userRol, true)
-        UsuarioRol.create(noPremium, userRol, true)
-        UsuarioRol.create(admin, adminRol, true)
+        UsuarioRol.create(usuario, Rol.getUserRol(), true)
+        UsuarioRol.create(noPremium, Rol.getUserRol(), true)
+        UsuarioRol.create(admin, Rol.getAdminRol(), true)
 
         crearEncuestas(admin)
         crearEncuestas(usuario)

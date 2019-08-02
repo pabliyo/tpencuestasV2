@@ -10,8 +10,10 @@ import grails.compiler.GrailsCompileStatic
 class Rol implements Serializable {
 
     private static final long serialVersionUID = 1
-
     String authority
+
+    static final Rol adminRol = new Rol(authority: 'ROLE_ADMIN').save()
+    static final Rol userRol = new Rol(authority: 'ROLE_USER').save()
 
     static constraints = {
         authority nullable: false, blank: false, unique: true

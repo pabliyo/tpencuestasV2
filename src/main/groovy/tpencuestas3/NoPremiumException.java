@@ -7,3 +7,4 @@ public class NoPremiumException extends Exception{
     }
 
 }
+

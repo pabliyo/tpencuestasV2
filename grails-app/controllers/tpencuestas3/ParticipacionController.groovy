@@ -33,40 +33,20 @@ class ParticipacionController {
         [encuesta: Encuesta.get(id)]
     }
 
-    def noRespondio(Encuesta encuesta){
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'Debe elegir al menos una opcion en cada pregunta', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
-                redirect action: "participar", id: encuesta.id, method: "GET"
-            }
-            '*' { render status: NOT_FOUND }
-        }
-    }
-
     def guardarRespuestas(){
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.id)
         def respuestas = new Respuesta(votante: usuario, encuesta: encuesta)
 
-        if(participacionService.respuestasValidas(encuesta, params)) {
-            participacionService.ingresarVotacion(respuestas, params)
-            respuestaService.save(respuestas)
-        }else {
-            noRespondio(encuesta)
+        try{
+            participacionService.guardar(encuesta,params,respuestas)
+        } catch (NoRespondioException e) {
+            flash.message = e.getMessage()
+            respond encuesta, view: 'participar', id: encuesta.id
             return
         }
 
         [encuesta: encuesta]
-    }
-
-    private Map generarMapFromParams
-    {
-        Map paramsMap = new HashMap()
-
-        params.each { key, value ->
-            paramsMap.put(key, value)
-        }
-        paramsMap
     }
 
     protected void notFound() {

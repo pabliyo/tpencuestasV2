@@ -11,6 +11,8 @@ class ParticipacionService {
     @Autowired
     SpringSecurityService springSecurityService
 
+    RespuestaService respuestaService
+
     Usuario getUsuarioActual() {
         springSecurityService.getCurrentUser() as Usuario
     }
@@ -27,27 +29,35 @@ class ParticipacionService {
         Respuesta.findAllByVotante(springSecurityService.getCurrentUser() as Usuario)
     }
 
-    boolean respuestasValidas(Encuesta encuesta, Map params){
-        boolean noRespondio = true
+    Respuesta guardar(Encuesta encuesta, Map params, Respuesta respuesta){
+        if(respuestasValidas(encuesta,params,respuesta)){
+            respuestaService.save(respuesta)
+        }
+        else{
+            throw new NoRespondioException()
+        }
+    }
+
+    boolean respuestasValidas(Encuesta encuesta, Map params, Respuesta respuesta){
+        boolean validas = true
         int cantPreg = encuesta.cantidadPreguntas()
         int i = 0
         params.each{ preguntaId, opcionId ->
             if(i < cantPreg) {
                 if ((!preguntaId.isLong())||(!opcionId.isLong())) {
-                    noRespondio = false
+                    validas = false
+                }
+                if (preguntaId.isLong()) {
+                    respuesta.agregarRespuesta(Pregunta.get(preguntaId), Opcion.get(opcionId))
+                }
+                else{
+                    throw new NoRespondioException()
                 }
                 i=i+1
             }
         }
-        return noRespondio
-    }
-
-    void ingresarVotacion(Respuesta respuesta, Map params) {
         respuesta.agregarFechaVotacion()
-        params.each { preguntaId, opcionId ->
-            if (preguntaId.isLong())
-                respuesta.agregarRespuesta(Pregunta.get(preguntaId), Opcion.get(opcionId))
-        }
+        return validas
     }
 
 }

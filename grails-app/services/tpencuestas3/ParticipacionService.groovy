@@ -42,14 +42,14 @@ class ParticipacionService {
         boolean validas = true
         int cantPreg = encuesta.cantidadPreguntas()
         int i = 0
-        //respuesta.initMap()
+        respuesta.initCollection()
         params.each{ preguntaId, opcionId ->
             if(i < cantPreg) {
                 if ((!preguntaId.isLong())||(!opcionId.isLong())) {
                     validas = false
                 }
                 if (preguntaId.isLong()) {
-                    respuesta.agregarRespuesta(Pregunta.get(preguntaId), Opcion.get(opcionId))
+                    respuesta.agregarRespuesta(Opcion.get(opcionId))
                 }
                 else{
                     throw new NoRespondioException()

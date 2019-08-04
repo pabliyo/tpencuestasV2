@@ -5,16 +5,19 @@ class Respuesta {
     Date fechaVoto
     Usuario votante
     Encuesta encuesta
-    def respuestas = [:]
+    List<Opcion> respuestas
 
     static constraints = {
         fechaVoto nullable: true
         respuestas nullable: true
     }
 
+    protected void initCollection(){
+        respuestas = new ArrayList<Opcion>()
+    }
 
-    protected void agregarRespuesta(Pregunta pregunta, Opcion opcion){
-        respuestas.put(pregunta, opcion)
+    protected void agregarRespuesta(Opcion opcion){
+        respuestas.add(opcion)
     }
 
     protected void agregarFechaVotacion(){

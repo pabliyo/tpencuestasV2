@@ -18,7 +18,7 @@ class ParticipacionService {
     }
 
     List encuestasValidas(){
-        Encuesta.findAllByIdNotInList(getRespondidas().encuesta.id)
+        Encuesta.findAllByIdNotInListAnd (getRespondidas().encuesta.id)
     }
 
     List getEncuestasUsuarioActual() {
@@ -42,6 +42,7 @@ class ParticipacionService {
         boolean validas = true
         int cantPreg = encuesta.cantidadPreguntas()
         int i = 0
+        //respuesta.initMap()
         params.each{ preguntaId, opcionId ->
             if(i < cantPreg) {
                 if ((!preguntaId.isLong())||(!opcionId.isLong())) {

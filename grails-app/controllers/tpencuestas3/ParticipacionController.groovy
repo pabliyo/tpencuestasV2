@@ -9,7 +9,6 @@ import static org.springframework.http.HttpStatus.*
 class ParticipacionController {
 
     ParticipacionService participacionService
-    RespuestaService respuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -47,6 +46,16 @@ class ParticipacionController {
         }
 
         [encuesta: encuesta]
+    }
+
+    private Map generarMapFromParams
+    {
+        Map paramsMap = new HashMap()
+
+        params.each { key, value ->
+            paramsMap.put(key, value)
+        }
+        paramsMap
     }
 
     protected void notFound() {

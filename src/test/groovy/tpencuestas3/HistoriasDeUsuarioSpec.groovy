@@ -2,7 +2,7 @@ package tpencuestas3
 
 import spock.lang.Specification
 
-class HistoriasDeUsuario extends Specification {
+class HistoriasDeUsuarioSpec extends Specification {
 
     void "Loggear un usuario"() {
         given: "un usuario quiere ingresar a la aplicación"

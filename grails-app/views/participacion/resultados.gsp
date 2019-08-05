@@ -13,11 +13,18 @@
     </ul>
 </div>
 
-<h1>Encuestas Respondidas</h1>
+<h1>Encuestas Respondidas Propias</h1>
 
 <div class="content scaffold-list" role="main">
     <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, respuestas"/>
 </div>
+<g:if test="esUsuarioActualPremium">
+    <h1>Encuestas Respondidas Por Todos</h1>
+
+    <div class="content scaffold-list" role="main">
+        <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante,fechaVoto, respuestas"/>
+    </div>
+</g:if>
 
 </body>
 </html>

@@ -16,16 +16,24 @@ class ParticipacionService {
         springSecurityService.getCurrentUser() as Usuario
     }
 
+    boolean esUsuarioActualPremium(){
+        getUsuarioActual().esPremium()
+    }
+
     List encuestasValidas() {
         Encuesta.findAllByIdNotInListAnd(getRespondidasUsuarioActual().encuesta.id)
     }
 
     List getEncuestasUsuarioActual() {
-        Encuesta.findAllByUsuario(springSecurityService.getCurrentUser() as Usuario)
+        Encuesta.findAllByUsuario(getUsuarioActual())
     }
 
     List getRespondidasUsuarioActual() {
-        Respuesta.findAllByVotante(springSecurityService.getCurrentUser() as Usuario)
+        Respuesta.findAllByVotante(getUsuarioActual())
+    }
+
+    List getRespondidasPorTodos() {
+        Respuesta.findAll()
     }
 
     Respuesta guardar(Encuesta encuesta, Map params, Respuesta respuesta) {

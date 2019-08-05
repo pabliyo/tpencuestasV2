@@ -22,7 +22,9 @@ class ParticipacionController {
     }
 
     def resultados(){
-        [respuestasUsuarioActual: participacionService.getRespondidasUsuarioActual()]
+        [respuestasUsuarioActual: participacionService.getRespondidasUsuarioActual(),
+         esUsuarioActualPremium: participacionService.esUsuarioActualPremium(),
+         respuestasTodosUsuarios: participacionService.getRespondidasPorTodos()]
     }
 
     def participar(Long id){

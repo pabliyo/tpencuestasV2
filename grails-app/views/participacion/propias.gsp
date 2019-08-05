@@ -11,11 +11,11 @@
 </div>
 
 <div class="content scaffold-list" role="main">
-    <f:table collection="${encuestas}" properties="titulo, descripcion, preguntas, vigencia"/>
+    <f:table collection="${encuestasUsuarioActual}" properties="titulo, descripcion, preguntas, vigencia"/>
 </div>
 
 <div class="pagination">
-    <g:paginate total="${encuestas ?: 0}"/>
+    <g:paginate total="${encuestasUsuarioActual ?: 0}"/>
 </div>
 </body>
 </html>

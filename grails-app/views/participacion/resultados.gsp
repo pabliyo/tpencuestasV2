@@ -16,7 +16,7 @@
 <h1>Encuestas Respondidas</h1>
 
 <div class="content scaffold-list" role="main">
-    <f:table collection="${respuestas}" properties="encuesta, fechaVoto, respuestas"/>
+    <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, respuestas"/>
 </div>
 
 </body>

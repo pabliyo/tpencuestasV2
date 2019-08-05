@@ -1,9 +1,6 @@
 package tpencuestas3
 
 import grails.plugin.springsecurity.annotation.Secured
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.*
-
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class ParticipacionController {
@@ -21,11 +18,11 @@ class ParticipacionController {
     }
 
     def propias(){
-        [encuestas: participacionService.getEncuestasUsuarioActual()]
+        [encuestasUsuarioActual: participacionService.getEncuestasUsuarioActual()]
     }
 
     def resultados(){
-        [respuestas: participacionService.getRespondidas()]
+        [respuestasUsuarioActual: participacionService.getRespondidasUsuarioActual()]
     }
 
     def participar(Long id){
@@ -44,28 +41,7 @@ class ParticipacionController {
             respond encuesta, view: 'participar', id: encuesta.id
             return
         }
-
         [encuesta: encuesta]
-    }
-
-    private Map generarMapFromParams
-    {
-        Map paramsMap = new HashMap()
-
-        params.each { key, value ->
-            paramsMap.put(key, value)
-        }
-        paramsMap
-    }
-
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NOT_FOUND }
-        }
     }
 
 }

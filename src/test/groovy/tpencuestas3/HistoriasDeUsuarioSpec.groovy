@@ -71,26 +71,37 @@ class HistoriasDeUsuarioSpec extends Specification {
     void "Se quiere crear una encuesta por encima del límite y no es usuario premium"() {
         when: "un usuario que ya creó 3 encuestas quiere crear una 4a"
 
-        then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium"
+        then: "no se le permitirá crear la misma"
 
     }
 
     void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
         given: "encuesta ya tiene 5 preguntas"
+        def encuesta = new Encuesta()
+        encuesta.preguntas = new ArrayList<Pregunta>()
+        encuesta.limitePreguntasSiNoPremium.times {encuesta.add(new Pregunta(orden: it+1))}
+        def usuario = new Usuario(cuentaPremium : false)
 
         when: "quiera crea una nueva"
+        boolean resultado = encuesta.puedeAgregarPreguntas(usuario)
 
-        then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium."
+        then: "no se le permitirá crear la misma"
+        !resultado
 
     }
 
     void "se quiere agregar una opcion a una pregunta por encima del límite y no es usuario premium"() {
         given: "la pregunta ya tiene 3 opciones"
+        def pregunta = new Pregunta()
+        pregunta.opciones = new ArrayList<Opcion>()
+        Pregunta.limiteOpcionesSiNoPremium.times {pregunta.opciones.add(new Opcion())}
+        def usuario = new Usuario(cuentaPremium : false)
 
         when: "quiera crea una nueva"
+        boolean resultado = pregunta.puedeAgregarOpciones(usuario)
 
-        then: "no se le permitirá crear la misma, recordando la limitación de una cuenta no premium."
-
+        then: "no se le permitirá crear la misma"
+        !resultado
     }
 
     void "El usuario premium no tiene restricciones"() {//agregar lo mismo para preg , enc , opc

@@ -15,15 +15,25 @@
 
 <h1>Encuestas Respondidas Propias</h1>
 
-<div class="content scaffold-list" role="main">
-    <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, respuestas"/>
-</div>
-<g:if test="esUsuarioActualPremium">
-    <h1>Encuestas Respondidas Por Todos</h1>
-
+<g:if test="${respuestasUsuarioActual.isEmpty()}">
+    <h3>•No se encontraron datos</h3>
+</g:if>
+<g:else>
     <div class="content scaffold-list" role="main">
-        <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante,fechaVoto, respuestas"/>
+        <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, respuestas"/>
     </div>
+</g:else>
+
+<g:if test="${esUsuarioActualPremium}">
+    <h1>Encuestas Respondidas Por Todos</h1>
+    <g:if test="${respuestasTodosUsuarios.isEmpty()}">
+        <h3>•No se encontraron datos</h3>
+    </g:if>
+    <g:else>
+        <div class="content scaffold-list" role="main">
+            <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante,     fechaVoto, respuestas"/>
+        </div>
+    </g:else>
 </g:if>
 
 </body>

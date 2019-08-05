@@ -5,7 +5,7 @@ class Pregunta {
     String enunciado
     int orden
     public static final int limiteOpcionesSiNoPremium = 3;
-    boolean respondio = false //atributo para validacion
+    boolean respondio=false //atributo para validacion
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]
@@ -18,6 +18,7 @@ class Pregunta {
 
     static mapping = {
         opciones cascade: "all-delete-orphan", sort: "id"
+
     }
 
     int cantidadOpciones() {

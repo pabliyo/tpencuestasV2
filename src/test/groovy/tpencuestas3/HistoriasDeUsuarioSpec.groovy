@@ -5,7 +5,7 @@ import grails.buildtestdata.mixin.Build
 import grails.plugin.springsecurity.SpringSecurityService
 import spock.lang.*
 
-@Build([Usuario, Encuesta, Pregunta, Opcion, UsuarioRol])
+@Build([Usuario, Rol, UsuarioRol])
 class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest {
 
     void "Loggear un usuario"() {

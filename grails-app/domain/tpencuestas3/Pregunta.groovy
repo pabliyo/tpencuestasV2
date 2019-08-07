@@ -5,7 +5,6 @@ class Pregunta {
     String enunciado
     int orden
     public static final int limiteOpcionesSiNoPremium = 3;
-    boolean respondio = false //atributo para validacion
 
     static belongsTo = [encuesta: Encuesta]
     static hasMany = [opciones: Opcion]
@@ -26,6 +25,10 @@ class Pregunta {
 
     boolean puedeAgregarOpciones(Usuario usuario) {
         usuario.esPremium() || cantidadOpciones() < limiteOpcionesSiNoPremium
+    }
+
+    boolean ordenOpcionRepetida(int posicion){
+        opciones.orden.isEqual(posicion)
     }
 
     String toString() {

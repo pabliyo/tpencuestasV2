@@ -21,7 +21,7 @@ class ParticipacionService {
     }
 
     List encuestasValidas() {
-        Encuesta.findAllByIdNotInListAnd(getRespondidasUsuarioActual().encuesta.id)
+        Encuesta.findAllByIdNotInListAndFechaInicioLessThanAndFechaFinGreaterThan(getRespondidasUsuarioActual().encuesta.id, new Date(), new Date())
     }
 
     List getEncuestasUsuarioActual() {

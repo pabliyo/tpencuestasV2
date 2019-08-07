@@ -14,14 +14,16 @@
 <g:each in="${encuestas}" var="encuesta">
     <div id="list-encuesta" class="content scaffold-list" role="main">
         <f:table collection="${encuestaList}" properties="titulo, descipcion"/>
-        <div class="pagination">
+        <g:if test="${encuesta.cantidadPreguntas()>0}">
+         <div class="pagination">
             <li>
                 <g:link action="participar" id="${encuesta.id}">
                     <b>${encuesta.titulo}</b>
                     ${encuesta.descripcion}
                 </g:link>
-            </li
-        </div>
+            </li>
+         </div>
+        </g:if>
     </div>
 </g:each>
 </body>

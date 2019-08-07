@@ -5,7 +5,7 @@ import grails.buildtestdata.mixin.Build
 import grails.plugin.springsecurity.SpringSecurityService
 import spock.lang.*
 
-@Build([Usuario, Pregunta])
+@Build([Usuario, Encuesta, Pregunta, Opcion])
 class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
 
     SpringSecurityService springSecurityService
@@ -152,7 +152,7 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
         !resultado
     }
 
-    void "Modificar una encuesta votada"() {
+    void "Modificar una encuesta votada"() { //esta mal
 
         given: "la encuesta recibio al menos 1 votacion"
         def usuario = new Usuario(cuentaPremium: false)

@@ -8,7 +8,7 @@ class Opcion {
     static belongsTo = [pregunta: Pregunta]
 
     static constraints = {
-        pregunta nullable: true, editable: false
+        pregunta nullable: true
         orden min: 1
         descripcion()
     }

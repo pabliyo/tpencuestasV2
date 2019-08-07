@@ -13,7 +13,6 @@ class Encuesta {
     static embedded = ['vigencia']
 
     static constraints = {
-        usuario editable: false //whether it can be edited from scaffolding views
         preguntas nullable: true
         vigencia nullable: true
     }

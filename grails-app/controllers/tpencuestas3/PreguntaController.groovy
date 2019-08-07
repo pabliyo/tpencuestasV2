@@ -38,8 +38,8 @@ class PreguntaController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new ModificarEncuestaVotadaException()
-        } catch (ModificarEncuestaVotadaException e) {
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond pregunta, view: 'create'
             return
@@ -77,8 +77,8 @@ class PreguntaController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new ModificarEncuestaVotadaException()
-        } catch (ModificarEncuestaVotadaException e) {
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond pregunta, view: 'edit'
             return

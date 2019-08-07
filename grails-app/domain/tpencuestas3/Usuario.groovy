@@ -3,7 +3,7 @@ package tpencuestas3
 import grails.compiler.GrailsCompileStatic
 import groovy.transform.EqualsAndHashCode
 
-@GrailsCompileStatic
+
 @EqualsAndHashCode(includes = 'username')
 class Usuario implements Serializable {
 

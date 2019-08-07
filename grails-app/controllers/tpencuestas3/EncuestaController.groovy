@@ -65,8 +65,8 @@ class EncuestaController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new ModificarEncuestaVotadaException()
-        } catch (ModificarEncuestaVotadaException e) {
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond encuesta, view: 'edit'
             return

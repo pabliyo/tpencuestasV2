@@ -35,15 +35,14 @@ class OpcionController {
 
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
         Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
-
         Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new ModificarEncuestaVotadaException()
-        } catch (ModificarEncuestaVotadaException e) {
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
             flash.message = e.getMessage()
-            respond opcion, view: 'create'
+            respond opcion, view: 'edit'
             return
         }
 
@@ -79,8 +78,8 @@ class OpcionController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new ModificarEncuestaVotadaException()
-        } catch (ModificarEncuestaVotadaException e) {
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond opcion, view: 'edit'
             return

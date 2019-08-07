@@ -13,7 +13,7 @@ class Vigencia implements Validateable {
 
     boolean estaVigente() {
         def fechaHoy = new Date()
-        (fechaInicio <= fechaHoy && fechaHoy <= fechaFin)
+        (fechaInicio <= fechaHoy && fechaHoy < fechaFin)
     }
 
     String toString() {

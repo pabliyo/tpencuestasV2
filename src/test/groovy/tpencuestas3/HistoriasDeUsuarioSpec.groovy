@@ -152,12 +152,22 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
         !resultado
     }
 
-    void "Modificar una encuesta"() {
-        given: "no entró en vigencia"
+    void "Modificar una encuesta votada"() {
 
-        when: "seleccione una encuesta creada"
+        given: "la encuesta recibio al menos 1 votacion"
+        def usuario = new Usuario(cuentaPremium: false)
+        usuario.encuestas = new ArrayList<Encuesta>()
+        def encuesta = new Encuesta(titulo: "nombre")
+        usuario.encuestas.add(encuesta)
+        def respuesta = new Respuesta(encuesta: encuesta)
 
-        then: "debe poder modificarla"
+        when: "seleccione para modificar los datos de la encuesta"
+        boolean resultado = false
+        encuesta.setTitulo("nuevoNombre")
+        if(encuesta.titulo == "nuevoNombre")
+            resultado = true
+        then: "no podra modificarla"
+        resultado
 
     }
 

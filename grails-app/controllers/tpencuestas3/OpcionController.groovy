@@ -10,6 +10,7 @@ class OpcionController {
 
     OpcionService opcionService
     SpringSecurityService springSecurityService
+    EncuestaService encuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -35,6 +36,17 @@ class OpcionController {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
         Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
 
+        Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
+
+        try {
+            if (encuestaService.tieneVotaciones(encuesta))
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
+            flash.message = e.getMessage()
+            respond opcion, view: 'create'
+            return
+        }
+
         try {
             opcionService.guardar(opcion,usuario,pregunta)
         } catch (NoPremiumException e) {
@@ -59,6 +71,18 @@ class OpcionController {
     def update(Opcion opcion) {
         if (opcion == null) {
             notFound()
+            return
+        }
+
+        Pregunta pregunta = Pregunta.get(opcion.pregunta.getId())
+        Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
+
+        try {
+            if (encuestaService.tieneVotaciones(encuesta))
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
+            flash.message = e.getMessage()
+            respond opcion, view: 'edit'
             return
         }
 

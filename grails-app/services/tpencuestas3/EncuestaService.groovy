@@ -15,4 +15,10 @@ abstract class EncuestaService implements IEncuestaService{
             throw new NoPremiumException()
         }
     }
+
+    boolean tieneVotaciones(Encuesta encuesta){
+        List<Respuesta> lista = Respuesta.findAllWhere(encuesta: encuesta)
+        return !lista.isEmpty()
+    }
+
 }

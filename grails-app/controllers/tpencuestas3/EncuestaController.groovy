@@ -64,6 +64,16 @@ class EncuestaController {
         }
 
         try {
+            if (encuestaService.tieneVotaciones(encuesta))
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
+            flash.message = e.getMessage()
+            respond encuesta, view: 'edit'
+            return
+        }
+
+
+        try {
             encuestaService.save(encuesta)
         } catch (ValidationException e) {
             respond encuesta.errors, view: 'edit'

@@ -10,6 +10,7 @@ class PreguntaController {
 
     SpringSecurityService springSecurityService
     PreguntaService preguntaService
+    EncuestaService encuestaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -36,6 +37,16 @@ class PreguntaController {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
         try {
+            if (encuestaService.tieneVotaciones(encuesta))
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
+            flash.message = e.getMessage()
+            respond pregunta, view: 'create'
+            return
+        }
+
+
+        try {
             preguntaService.guardar(pregunta,usuario,encuesta)
         } catch (NoPremiumException e) {
             flash.message = e.getMessage()
@@ -59,6 +70,17 @@ class PreguntaController {
     def update(Pregunta pregunta) {
         if (pregunta == null) {
             notFound()
+            return
+        }
+
+        Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
+
+        try {
+            if (encuestaService.tieneVotaciones(encuesta))
+                throw new EdicionEncuestaVotadaException()
+        } catch (EdicionEncuestaVotadaException e) {
+            flash.message = e.getMessage()
+            respond pregunta, view: 'edit'
             return
         }
 

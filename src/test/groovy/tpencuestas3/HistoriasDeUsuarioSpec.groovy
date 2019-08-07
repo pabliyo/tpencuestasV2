@@ -92,31 +92,33 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
     }
 
     void "Agregar una opción a una pregunta"() {
-        given: "un usuario está creando una pregunta "
+        given: "un usuario está creando una pregunta"
+        def pregunta = new Pregunta()
+        pregunta.opciones = new ArrayList<Opcion>()
 
         when: "haya creado la pregunta e ingrese los datos para la opción"
+        def opcion = new Opcion()
+        pregunta.opciones.add(opcion)
+        boolean resultado=false
+        if(pregunta.cantidadOpciones()==1)
+            resultado = true
 
         then: "debe poder asignar la opción a la pregunta"
-
-    }
-
-    void "Finalizar la creación de la encuesta"() {
-        given:
-        "un usuario quiere terminar de crear una encuesta" +
-                "y por lo menos tiene una pregunta" +
-                "y se indicó la fecha de inicio y finalización"
-
-        when: "selecciona finalizar creación"
-
-        then: "la encuesta debe quedar habilitada para ser respondida por otros usuarios"
-
+        resultado
     }
 
     void "Se quiere crear una encuesta por encima del límite y no es usuario premium"() {
-        when: "un usuario que ya creó 3 encuestas quiere crear una 4a"
+        given:"usuario NO premium ya tiene 3 encuestas"
+        def usuario = new Usuario(cuentaPremium: false)
+        usuario.encuestas = new ArrayList<Encuesta>()
+        Encuesta.limiteEncuestasSiNoPremium.times{ usuario.encuestas.add(new Encuesta())}
+
+        when: "quiere crear una 4a"
+        def encuesta = new Encuesta()
+        boolean resultado = encuesta.puedeCrearEncuesta(usuario)
 
         then: "no se le permitirá crear la misma"
-
+        !resultado
     }
 
     void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
@@ -148,20 +150,6 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
 
         then: "no se le permitirá crear la misma"
         !resultado
-    }
-
-    void "El usuario premium no tiene restricciones"() {//agregar lo mismo para preg , enc , opc
-        given: "la pregunta ya tiene 3 opciones"
-        def pregunta = new Pregunta()
-        pregunta.opciones = new ArrayList<Opcion>()
-        Pregunta.limiteOpcionesSiNoPremium.times {pregunta.opciones.add(new Opcion())}
-        def usuario = new Usuario(cuentaPremium : true)
-
-        when: "quiera crea una nueva"
-        boolean resultado = pregunta.puedeAgregarOpciones(usuario)
-
-        then: "debe poder hacerlo"
-        resultado
     }
 
     void "Modificar una encuesta"() {

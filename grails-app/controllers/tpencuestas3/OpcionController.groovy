@@ -40,8 +40,8 @@ class OpcionController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
+                throw new ModificarEncuestaVotadaException()
+        } catch (ModificarEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond opcion, view: 'create'
             return
@@ -79,8 +79,8 @@ class OpcionController {
 
         try {
             if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
+                throw new ModificarEncuestaVotadaException()
+        } catch (ModificarEncuestaVotadaException e) {
             flash.message = e.getMessage()
             respond opcion, view: 'edit'
             return

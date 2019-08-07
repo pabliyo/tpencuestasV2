@@ -37,33 +37,26 @@ class ParticipacionService {
     }
 
     Respuesta guardar(Encuesta encuesta, Map params, Respuesta respuesta) {
-        if (respuestasValidas(encuesta, params, respuesta)) {
-            respuestaService.save(respuesta)
-        } else {
-            throw new NoRespondioException()
-        }
+        respuestasValidas(encuesta, params, respuesta)
+        respuestaService.save(respuesta)
     }
 
-    boolean respuestasValidas(Encuesta encuesta, Map params, Respuesta respuesta) {
-        boolean validas = true
+    void respuestasValidas(Encuesta encuesta, Map params, Respuesta respuesta) {
         int cantPreg = encuesta.cantidadPreguntas()
-        int i = 0
         respuesta.initCollection()
-        params.each { preguntaId, opcionId ->
+        params.eachWithIndex { preguntaId, opcionId, i ->
             if (i < cantPreg) {
                 if ((!preguntaId.isLong()) || (!opcionId.isLong())) {
-                    validas = false
+                    throw new NoRespondioException()
                 }
                 if (preguntaId.isLong()) {
                     respuesta.agregarRespuesta(Opcion.get(opcionId))
                 } else {
                     throw new NoRespondioException()
                 }
-                i = i + 1
             }
         }
         respuesta.agregarFechaVotacion()
-        return validas
     }
 
 }

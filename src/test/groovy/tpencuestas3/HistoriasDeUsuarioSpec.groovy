@@ -121,9 +121,12 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
 
     void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
         given: "encuesta ya tiene 5 preguntas"
+        def usuario = new Usuario(cuentaPremium: false)
+        usuario.encuestas= new ArrayList<Encuesta>()
         def encuesta = new Encuesta()
         encuesta.preguntas= new ArrayList<Pregunta>()
-        encuesta.limitePreguntasSiNoPremium.times {encuesta.add(new Pregunta(orden: it+1))}
+        usuario.encuestas.add(encuesta)
+        encuesta.limitePreguntasSiNoPremium.times {encuesta.preguntas.add(new Pregunta(orden: it+1))}
 
         when: "quiera crea una nueva"
         boolean resultado = encuesta.puedeAgregarPreguntas(usuario)

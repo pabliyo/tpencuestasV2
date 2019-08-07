@@ -2,31 +2,53 @@ package tpencuestas3
 
 import grails.buildtestdata.BuildDataTest
 import grails.buildtestdata.mixin.Build
+import grails.plugin.springsecurity.SpringSecurityService
 import spock.lang.*
 
 @Build([Usuario])
 class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
 
+    SpringSecurityService springSecurityService
+
 
     void "Loggear un usuario"() {
         given: "un usuario quiere ingresar a la aplicación"
-        def usuario = new Usuario(username:"usuario1")
-        boolean resultado= false
+        def usuario = new Usuario(username:"usuario", password:"usuario")
 
         when: "deberá poner su usuario único y su contraseña."
-        if(usuario.username=="usuario1")
-            resultado=true
+
         then: "puede ingresar a su cuenta "
-        resultado
+        boolean resultado= springSecurityService.isLoggedIn()
     }
 
     void "Cambiar la contraseña"() {
         given: "un usuario necesita cambiar su contraseña"
+        def usuario = new Usuario(username:"usuario", password:"oldPass")
 
         when: "ingresando deberá seleccionar \"cambiar su contraseña\""
+        usuario.setPassword("newPass")
+        boolean resultado = false
+        if(usuario.getPassword() == "newPass")
+            resultado=true
 
         then: "debe poder tener una contraseña distinta"
+        resultado
+    }
 
+    void "Cambiar email" (){
+        given:"dado un usuario que tiene un email definido"
+        def usuario = new Usuario()
+        usuario.setEmail("oldEmail@email.com")
+
+        when:"elige el nuevo email"
+        String nuevoEmail = "newEmail@email.com"
+        usuario.setEmail(nuevoEmail)
+        boolean resultado = false
+        if(usuario.getEmail()==nuevoEmail)
+            resultado=true
+
+        then:"debe poder cambiarlo"
+        resultado
     }
 
     void "Adquirir membresía premium"() {
@@ -38,20 +60,35 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
 
     void "Crear una encuesta"() {
         given: "un usuario entra para crear una encuesta"
+        def usuario = new Usuario()
+        usuario.encuestas=new ArrayList<Encuesta>()
+
 
         when: "él llena los datos de la misma"
+        def encuesta = new Encuesta(titulo: "encuesta1")
+        encuesta.usuario = usuario
+        usuario.encuestas.add(encuesta)
+        boolean resultado = false
+        if(usuario.cantidadEncuestas()==1)
+            resultado=true
 
         then: "debe tener una nueva encuesta vinculada con los datos correspondientes"
-
+        resultado
     }
 
     void "Crear una pregunta en una encuesta"() {
         given: "un usuario está creando una encuesta"
+        def encuesta = new Encuesta()
+        encuesta.preguntas=new ArrayList<Pregunta>()
 
         when: "haya creado la encuesta e ingrese los datos para la pregunta"
-
+        def pregunta = new Pregunta()
+        encuesta.preguntas.add(pregunta)
+        boolean resultado = false
+        if(encuesta.cantidadPreguntas()==1)
+            resultado=true
         then: "debe tener la pregunta asignada a la encuesta creada"
-
+        resultado
     }
 
     void "Agregar una opción a una pregunta"() {

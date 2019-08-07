@@ -37,7 +37,7 @@ class EncuestaController {
         encuesta.usuario = usuario
 
         try {
-            encuestaService.guardar(encuesta,usuario)
+            encuestaService.guardar(encuesta, usuario)
         } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond encuesta, view: 'create'

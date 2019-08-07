@@ -12,15 +12,15 @@ class Respuesta {
         respuestas nullable: true
     }
 
-    protected void initCollection(){
+    protected void initCollection() {
         respuestas = new ArrayList<Opcion>()
     }
 
-    protected void agregarRespuesta(Opcion opcion){
+    protected void agregarRespuesta(Opcion opcion) {
         respuestas.add(opcion)
     }
 
-    protected void agregarFechaVotacion(){
+    protected void agregarFechaVotacion() {
         fechaVoto = new Date()
     }
 

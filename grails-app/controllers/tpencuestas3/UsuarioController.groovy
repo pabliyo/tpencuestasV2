@@ -62,7 +62,7 @@ class UsuarioController {
         respond usuarioService.get(id)
     }
 
-    def perfil(){
+    def perfil() {
         [usuario: springSecurityService.getCurrentUser() as Usuario]
     }
 

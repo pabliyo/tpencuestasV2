@@ -9,14 +9,13 @@ class ParticipacionService {
 
     @Autowired
     SpringSecurityService springSecurityService
-
     RespuestaService respuestaService
 
     Usuario getUsuarioActual() {
         springSecurityService.getCurrentUser() as Usuario
     }
 
-    boolean esUsuarioActualPremium(){
+    boolean esUsuarioActualPremium() {
         getUsuarioActual().esPremium()
     }
 
@@ -58,5 +57,4 @@ class ParticipacionService {
         }
         respuesta.agregarFechaVotacion()
     }
-
 }

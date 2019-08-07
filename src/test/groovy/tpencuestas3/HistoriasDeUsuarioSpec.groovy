@@ -1,16 +1,23 @@
 package tpencuestas3
 
-import spock.lang.Specification
+import grails.buildtestdata.BuildDataTest
+import grails.buildtestdata.mixin.Build
+import spock.lang.*
 
-class HistoriasDeUsuarioSpec extends Specification {
+@Build([Usuario])
+class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
+
 
     void "Loggear un usuario"() {
         given: "un usuario quiere ingresar a la aplicación"
+        def usuario = new Usuario(username:"usuario1")
+        boolean resultado= false
 
         when: "deberá poner su usuario único y su contraseña."
-
+        if(usuario.username=="usuario1")
+            resultado=true
         then: "puede ingresar a su cuenta "
-
+        resultado
     }
 
     void "Cambiar la contraseña"() {
@@ -78,9 +85,8 @@ class HistoriasDeUsuarioSpec extends Specification {
     void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
         given: "encuesta ya tiene 5 preguntas"
         def encuesta = new Encuesta()
-        encuesta.preguntas = new ArrayList<Pregunta>()
+        encuesta.preguntas= new ArrayList<Pregunta>()
         encuesta.limitePreguntasSiNoPremium.times {encuesta.add(new Pregunta(orden: it+1))}
-        def usuario = new Usuario(cuentaPremium : false)
 
         when: "quiera crea una nueva"
         boolean resultado = encuesta.puedeAgregarPreguntas(usuario)

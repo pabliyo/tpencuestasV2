@@ -36,18 +36,15 @@ class PreguntaController {
         Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
-        try {
-            if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
-            flash.message = e.getMessage()
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
             respond pregunta, view: 'create'
             return
         }
 
 
         try {
-            preguntaService.guardar(pregunta,usuario,encuesta)
+            preguntaService.guardar(pregunta, usuario, encuesta)
         } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond pregunta, view: 'create'
@@ -75,11 +72,8 @@ class PreguntaController {
 
         Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
 
-        try {
-            if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
-            flash.message = e.getMessage()
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
             respond pregunta, view: 'edit'
             return
         }

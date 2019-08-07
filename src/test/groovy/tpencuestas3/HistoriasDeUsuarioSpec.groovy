@@ -5,50 +5,42 @@ import grails.buildtestdata.mixin.Build
 import grails.plugin.springsecurity.SpringSecurityService
 import spock.lang.*
 
-@Build([Usuario, Encuesta, Pregunta, Opcion])
-class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
-
-    SpringSecurityService springSecurityService
-
+@Build([Usuario, Encuesta, Pregunta, Opcion, UsuarioRol])
+class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest {
 
     void "Loggear un usuario"() {
         given: "un usuario quiere ingresar a la aplicación"
-        def usuario = new Usuario(username:"usuario", password:"usuario")
-
+        def usuario = new Usuario(username: "usuario", password: "usuario")
+        UsuarioRol.create(usuario, Rol.getUserRol().save(), true)
+        def springSecurityService = Mock(SpringSecurityService)
         when: "deberá poner su usuario único y su contraseña."
-
+        springSecurityService.reauthenticate(usuario.getUsername())
         then: "puede ingresar a su cuenta "
-        boolean resultado= springSecurityService.isLoggedIn()
+        springSecurityService.isLoggedIn()
     }
 
     void "Cambiar la contraseña"() {
         given: "un usuario necesita cambiar su contraseña"
-        def usuario = new Usuario(username:"usuario", password:"oldPass")
+        def usuario = new Usuario(username: "usuario", password: "oldPass")
 
         when: "ingresando deberá seleccionar \"cambiar su contraseña\""
         usuario.setPassword("newPass")
-        boolean resultado = false
-        if(usuario.getPassword() == "newPass")
-            resultado=true
 
         then: "debe poder tener una contraseña distinta"
-        resultado
+        usuario.getPassword() == "newPass"
     }
 
-    void "Cambiar email" (){
-        given:"dado un usuario que tiene un email definido"
+    void "Cambiar email"() {
+        given: "dado un usuario que tiene un email definido"
         def usuario = new Usuario()
         usuario.setEmail("oldEmail@email.com")
 
-        when:"elige el nuevo email"
+        when: "elige el nuevo email"
         String nuevoEmail = "newEmail@email.com"
         usuario.setEmail(nuevoEmail)
-        boolean resultado = false
-        if(usuario.getEmail()==nuevoEmail)
-            resultado=true
 
-        then:"debe poder cambiarlo"
-        resultado
+        then: "debe poder cambiarlo"
+        usuario.getEmail() == nuevoEmail
     }
 
     void "Adquirir membresía premium"() {
@@ -61,34 +53,28 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
     void "Crear una encuesta"() {
         given: "un usuario entra para crear una encuesta"
         def usuario = new Usuario()
-        usuario.encuestas=new ArrayList<Encuesta>()
-
+        usuario.encuestas = new ArrayList<Encuesta>()
 
         when: "él llena los datos de la misma"
         def encuesta = new Encuesta(titulo: "encuesta1")
         encuesta.usuario = usuario
         usuario.encuestas.add(encuesta)
-        boolean resultado = false
-        if(usuario.cantidadEncuestas()==1)
-            resultado=true
 
         then: "debe tener una nueva encuesta vinculada con los datos correspondientes"
-        resultado
+        usuario.cantidadEncuestas() == 1
     }
 
     void "Crear una pregunta en una encuesta"() {
         given: "un usuario está creando una encuesta"
         def encuesta = new Encuesta()
-        encuesta.preguntas=new ArrayList<Pregunta>()
+        encuesta.preguntas = new ArrayList<Pregunta>()
 
         when: "haya creado la encuesta e ingrese los datos para la pregunta"
         def pregunta = new Pregunta()
         encuesta.preguntas.add(pregunta)
-        boolean resultado = false
-        if(encuesta.cantidadPreguntas()==1)
-            resultado=true
+
         then: "debe tener la pregunta asignada a la encuesta creada"
-        resultado
+        encuesta.cantidadPreguntas() == 1
     }
 
     void "Agregar una opción a una pregunta"() {
@@ -99,36 +85,32 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
         when: "haya creado la pregunta e ingrese los datos para la opción"
         def opcion = new Opcion()
         pregunta.opciones.add(opcion)
-        boolean resultado=false
-        if(pregunta.cantidadOpciones()==1)
-            resultado = true
 
         then: "debe poder asignar la opción a la pregunta"
-        resultado
+        pregunta.cantidadOpciones() == 1
     }
 
     void "Se quiere crear una encuesta por encima del límite y no es usuario premium"() {
-        given:"usuario NO premium ya tiene 3 encuestas"
+        given: "usuario NO premium ya tiene 3 encuestas"
         def usuario = new Usuario(cuentaPremium: false)
         usuario.encuestas = new ArrayList<Encuesta>()
-        Encuesta.limiteEncuestasSiNoPremium.times{ usuario.encuestas.add(new Encuesta())}
+        Encuesta.limiteEncuestasSiNoPremium.times { usuario.encuestas.add(new Encuesta()) }
 
         when: "quiere crear una 4a"
         def encuesta = new Encuesta()
-        boolean resultado = encuesta.puedeCrearEncuesta(usuario)
 
         then: "no se le permitirá crear la misma"
-        !resultado
+        !encuesta.puedeCrearEncuesta(usuario)
     }
 
     void "se quiere agregar una pregunta a una encuesta por encima del límite y no es usuario premium"() {
         given: "encuesta ya tiene 5 preguntas"
         def usuario = new Usuario(cuentaPremium: false)
-        usuario.encuestas= new ArrayList<Encuesta>()
+        usuario.encuestas = new ArrayList<Encuesta>()
         def encuesta = new Encuesta()
-        encuesta.preguntas= new ArrayList<Pregunta>()
+        encuesta.preguntas = new ArrayList<Pregunta>()
         usuario.encuestas.add(encuesta)
-        encuesta.limitePreguntasSiNoPremium.times {encuesta.preguntas.add(new Pregunta(orden: it+1))}
+        encuesta.limitePreguntasSiNoPremium.times { encuesta.preguntas.add(new Pregunta(orden: it + 1)) }
 
         when: "quiera crea una nueva"
         boolean resultado = encuesta.puedeAgregarPreguntas(usuario)
@@ -142,8 +124,8 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
         given: "la pregunta ya tiene 3 opciones"
         def pregunta = new Pregunta()
         pregunta.opciones = new ArrayList<Opcion>()
-        Pregunta.limiteOpcionesSiNoPremium.times {pregunta.opciones.add(new Opcion())}
-        def usuario = new Usuario(cuentaPremium : false)
+        Pregunta.limiteOpcionesSiNoPremium.times { pregunta.opciones.add(new Opcion()) }
+        def usuario = new Usuario(cuentaPremium: false)
 
         when: "quiera crea una nueva"
         boolean resultado = pregunta.puedeAgregarOpciones(usuario)
@@ -159,15 +141,12 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest{
         usuario.encuestas = new ArrayList<Encuesta>()
         def encuesta = new Encuesta(titulo: "nombre")
         usuario.encuestas.add(encuesta)
-        def respuesta = new Respuesta(encuesta: encuesta)
 
         when: "seleccione para modificar los datos de la encuesta"
-        boolean resultado = false
         encuesta.setTitulo("nuevoNombre")
-        if(encuesta.titulo == "nuevoNombre")
-            resultado = true
+
         then: "no podra modificarla"
-        resultado
+        encuesta.titulo == "nuevoNombre"
 
     }
 

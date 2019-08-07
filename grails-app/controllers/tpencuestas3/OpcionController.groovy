@@ -37,17 +37,14 @@ class OpcionController {
         Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
         Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
 
-        try {
-            if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
-            flash.message = e.getMessage()
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
             respond opcion, view: 'edit'
             return
         }
 
         try {
-            opcionService.guardar(opcion,usuario,pregunta)
+            opcionService.guardar(opcion, usuario, pregunta)
         } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond opcion, view: 'create'
@@ -76,11 +73,8 @@ class OpcionController {
         Pregunta pregunta = Pregunta.get(opcion.pregunta.getId())
         Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
 
-        try {
-            if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
-            flash.message = e.getMessage()
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
             respond opcion, view: 'edit'
             return
         }

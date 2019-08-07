@@ -63,15 +63,10 @@ class EncuestaController {
             return
         }
 
-        try {
-            if (encuestaService.tieneVotaciones(encuesta))
-                throw new EdicionEncuestaVotadaException()
-        } catch (EdicionEncuestaVotadaException e) {
-            flash.message = e.getMessage()
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
             respond encuesta, view: 'edit'
-            return
         }
-
 
         try {
             encuestaService.save(encuesta)

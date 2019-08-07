@@ -11,6 +11,7 @@
 <g:hiddenField name="encuestaId" value="${encuesta.id}"/>
 <g:form action="guardarRespuestas" id="${encuesta.id}">
     <g:each in="${encuesta.preguntas.sort { it.orden }}" var="pregunta">
+        <g:if test="${encuesta.getVigencia().estaVigente()}">
         <br/>
         <li>
             <h4>${pregunta.orden} ${pregunta.enunciado}</h4>
@@ -24,6 +25,7 @@
             </g:radioGroup>
         </li>
         <br/>
+        </g:if>
     </g:each>
     <br/>
     <g:submitButton name="Responder"/>

@@ -25,6 +25,18 @@ class Encuesta {
         usuario.esPremium() || usuario.cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
+    boolean fechaCorrecta(Encuesta encuesta, Usuario usuario){
+        if(!usuario.esPremium()) {
+            encuesta.vigencia.fechaCorrecta()
+        } else {
+            true
+        }
+    }
+
+    void setUsuario(Usuario usuario){
+        this.usuario=usuario
+    }
+
     int cantidadPreguntas() {
         preguntas.size()
     }

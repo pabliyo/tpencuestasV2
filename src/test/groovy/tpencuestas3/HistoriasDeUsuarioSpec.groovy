@@ -1,11 +1,13 @@
 package tpencuestas3
 
+
 import grails.buildtestdata.BuildDataTest
 import grails.buildtestdata.mixin.Build
 import grails.plugin.springsecurity.SpringSecurityService
 import spock.lang.*
 
-@Build([Usuario, Rol, UsuarioRol])
+
+@Build([Usuario, Rol, UsuarioRol, Encuesta])
 class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest {
 
     void "Loggear un usuario"() {
@@ -52,12 +54,12 @@ class HistoriasDeUsuarioSpec extends Specification implements BuildDataTest {
 
     void "Crear una encuesta"() {
         given: "un usuario entra para crear una encuesta"
-        def usuario = new Usuario()
+        def usuario = new Usuario(username:"usuario", password:"usuario", cuentaPremium: true)
         usuario.encuestas = new ArrayList<Encuesta>()
 
         when: "él llena los datos de la misma"
         def encuesta = new Encuesta(titulo: "encuesta1")
-        encuesta.usuario = usuario
+        encuesta.setUsuario(usuario)
         usuario.encuestas.add(encuesta)
 
         then: "debe tener una nueva encuesta vinculada con los datos correspondientes"

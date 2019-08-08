@@ -42,6 +42,10 @@ class EncuestaController {
             flash.message = e.getMessage()
             respond encuesta, view: 'create'
             return
+        } catch (VigenciaNopremiumException e) {
+            flash.message = e.getMessage()
+            respond encuesta, view: 'create'
+            return
         }
 
         request.withFormat {

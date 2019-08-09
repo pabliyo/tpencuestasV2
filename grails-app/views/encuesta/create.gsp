@@ -39,9 +39,7 @@
     </g:hasErrors>
     <g:form resource="${this.encuesta}" method="POST">
         <fieldset class="formulario" >
-        <f:field bean="encuesta" property="usuario">
-            <g:field name="${property}" readOnly="true" value="${sec.loggedInUserInfo(field: 'id')}"/>
-        </f:field>
+        <g:field name="usuario.id" hidden="true" value="${sec.loggedInUserInfo(field: 'id')}"/>
         <f:field bean="encuesta" property="titulo"/>
         <f:field bean="encuesta" property="descripcion"/>
         <f:field bean="encuesta" property="vigencia.fechaInicio">

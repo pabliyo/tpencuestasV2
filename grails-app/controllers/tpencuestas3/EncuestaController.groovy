@@ -63,7 +63,13 @@ class EncuestaController {
     }
 
     def edit(Long id) {
-        respond encuestaService.get(id)
+        Encuesta encuesta=encuestaService.get(id)
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
+            respond encuesta, view: 'show'
+        }else {
+            respond encuesta
+        }
     }
 
     def update(Encuesta encuesta) {

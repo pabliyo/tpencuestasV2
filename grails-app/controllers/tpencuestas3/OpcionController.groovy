@@ -65,7 +65,7 @@ class OpcionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'opcion.label', default: 'Opcion'), opcion.id])
-                redirect opcion
+                redirect controller: "pregunta", action:"show", id: params.get("pregunta.id")
             }
             '*' { respond opcion, [status: CREATED] }
         }
@@ -100,7 +100,7 @@ class OpcionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'opcion.label', default: 'Opcion'), opcion.id])
-                redirect opcion
+                redirect controller: "pregunta", action:"show", id: opcion.pregunta.getId()
             }
             '*' { respond opcion, [status: OK] }
         }
@@ -112,12 +112,14 @@ class OpcionController {
             return
         }
 
+        def preguntaId = opcionService.get(id).getProperty("pregunta").getId()
+
         opcionService.delete(id)
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'opcion.label', default: 'Opcion'), id])
-                redirect action: "index", method: "GET"
+                redirect controller: "pregunta", action:"show", id: preguntaId
             }
             '*' { render status: NO_CONTENT }
         }

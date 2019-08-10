@@ -37,7 +37,7 @@
             <f:field bean="pregunta" property="encuesta"><f:display bean="pregunta" property="encuesta"/></f:field>
             <f:field bean="pregunta" property="enunciado"/>
             <f:field bean="pregunta" property="orden"/>
-            <f:field bean="pregunta" property="opciones"/>
+
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save"

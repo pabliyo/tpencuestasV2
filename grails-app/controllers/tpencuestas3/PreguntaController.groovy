@@ -99,7 +99,7 @@ class PreguntaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), pregunta.id])
-                redirect pregunta
+                redirect controller: "encuesta", action:"show", id: pregunta.encuesta.getId()
             }
             '*' { respond pregunta, [status: OK] }
         }
@@ -111,12 +111,15 @@ class PreguntaController {
             return
         }
 
+        def pregunta = preguntaService.get(id)
+        def encuestaId= pregunta.getProperty("encuesta").getId()
+
         preguntaService.delete(id)
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), id])
-                redirect action: "index", method: "GET"
+                redirect controller: "encuesta", action:"show", id: encuestaId
             }
             '*' { render status: NO_CONTENT }
         }

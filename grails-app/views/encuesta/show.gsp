@@ -24,7 +24,8 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <f:display bean="encuesta" order="titulo,descripcion,preguntas,vigencia"/>
+    <f:display bean="encuesta" order="titulo,descripcion,vigencia"/>
+        <f:field bean="encuesta" property="preguntas" />
     <g:form resource="${this.encuesta}" method="DELETE">
         <fieldset class="buttons">
             <g:link class="edit" action="edit" resource="${this.encuesta}"><g:message code="default.button.edit.label"

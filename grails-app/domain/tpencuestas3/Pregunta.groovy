@@ -10,7 +10,7 @@ class Pregunta {
     static hasMany = [opciones: Opcion]
 
     static constraints = {
-        orden min: 1
+        orden nullable:true
         opciones nullable: true
         encuesta nullable: true
     }

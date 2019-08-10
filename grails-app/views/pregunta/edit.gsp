@@ -29,7 +29,9 @@
             <g:form resource="${this.pregunta}" method="PUT">
                 <g:hiddenField name="version" value="${this.pregunta?.version}" />
                 <fieldset class="form">
-                    <f:all bean="pregunta" order="enunciado,orden,opciones"/>
+                    <f:field bean="pregunta" property="enunciado"/>
+                    <f:field bean="pregunta" property="orden"><g:field type="number" readOnly="true" name="orden" value="${pregunta.orden}"/></f:field>
+                    <f:field bean="pregunta" property="opciones"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

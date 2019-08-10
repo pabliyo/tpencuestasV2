@@ -9,7 +9,7 @@ class Opcion {
 
     static constraints = {
         pregunta nullable: true
-        orden min: 1
+        orden nullable:true
         descripcion()
     }
 

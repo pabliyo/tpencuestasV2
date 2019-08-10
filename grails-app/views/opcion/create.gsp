@@ -30,7 +30,11 @@
                     <g:hiddenField name="pregunta.id" value="${params.get("pregunta.id")}" />
                     <f:field bean="opcion" property="pregunta"><f:display bean="opcion" property="pregunta"/></f:field>
                     <f:field bean="opcion" property="descripcion"/>
-                    <f:field bean="opcion" property="orden"/>
+                    <g:set var="i" value="${1}"/>
+                    <g:each in="${opcion.pregunta.opciones}">
+                        <g:set var="i" value="${i+1}"/>
+                    </g:each>
+                    <f:field bean="opcion" property="orden"><g:field type="number" readOnly="true" name="orden" value="${i}"/></f:field>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

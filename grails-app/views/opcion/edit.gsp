@@ -30,7 +30,7 @@
                 <fieldset class="form">
                     <f:field bean="opcion" property="pregunta"><f:display bean="opcion" property="pregunta"/></f:field>
                     <f:field bean="opcion" property="descripcion"/>
-                    <f:field bean="opcion" property="orden"/>
+                    <f:field bean="opcion" property="orden"><g:field type="number" readOnly="true" name="orden" value="${opcion.orden}"/></f:field>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

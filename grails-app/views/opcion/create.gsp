@@ -27,7 +27,8 @@
             </g:hasErrors>
             <g:form resource="${this.opcion}" method="POST">
                 <fieldset class="form">
-                    <f:field bean="opcion" property="pregunta"/>
+                    <g:hiddenField name="pregunta.id" value="${params.get("pregunta.id")}" />
+                    <f:field bean="opcion" property="pregunta"><f:display bean="opcion" property="pregunta"/></f:field>
                     <f:field bean="opcion" property="descripcion"/>
                     <f:field bean="opcion" property="orden"/>
                 </fieldset>

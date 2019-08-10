@@ -36,6 +36,7 @@ class OpcionController {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
         Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
         Encuesta encuesta = Encuesta.get(pregunta.encuesta.getId())
+        opcion.pregunta=pregunta
 
         if (encuestaService.tieneVotaciones(encuesta)) {
             flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"

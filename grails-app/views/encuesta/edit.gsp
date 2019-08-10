@@ -58,6 +58,7 @@
             <f:field bean="encuesta" property="vigencia.fechaFin">
                 <g:datePicker name="${property}" value="${value}"/>
             </f:field>
+
             <!--p>Preguntas:</p-->
             <f:field bean="encuesta" property="preguntas"/>
         </fieldset>

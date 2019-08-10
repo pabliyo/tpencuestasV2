@@ -24,7 +24,16 @@ class EncuestaController {
     }
 
     def create() {
-        respond new Encuesta(params)
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+        try {
+            if (usuario.puedeCrearEncuesta())
+                respond new Encuesta(params)
+            else
+                throw new NoPremiumException()
+        }catch (NoPremiumException e) {
+            flash.message = e.getMessage()
+            redirect(controller: "participacion", action: "propias")
+        }
     }
 
     def save(Encuesta encuesta) {

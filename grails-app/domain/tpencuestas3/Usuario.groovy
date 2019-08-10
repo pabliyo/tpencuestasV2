@@ -19,6 +19,7 @@ class Usuario implements Serializable {
     private boolean passwordExpired = false
 
     static hasMany = [encuestas: Encuesta]
+    public static final int limiteEncuestasSiNoPremium = 3;
 
     static constraints = {
         username blank: false, unique: true
@@ -34,6 +35,10 @@ class Usuario implements Serializable {
 
     boolean esPremium() {
         cuentaPremium
+    }
+
+    boolean puedeCrearEncuesta() {
+        esPremium() || cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
     Set<Rol> getAuthorities() {//usado por spring security core

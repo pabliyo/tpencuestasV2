@@ -24,7 +24,17 @@ class PreguntaController {
     }
 
     def create() {
-        respond new Pregunta(params)
+        Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+        try{
+            if(encuesta.puedeAgregarPreguntas(usuario))
+                respond new Pregunta(params)
+            else
+                throw new NoPremiumException()
+        }catch (NoPremiumException e) {
+            flash.message = e.getMessage()
+            redirect (controller:"encuesta", action:"show", id: params.get("encuesta.id"))
+        }
     }
 
     def save(Pregunta pregunta) {

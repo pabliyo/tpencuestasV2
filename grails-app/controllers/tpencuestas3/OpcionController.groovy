@@ -24,7 +24,17 @@ class OpcionController {
     }
 
     def create() {
-        respond new Opcion(params)
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+        Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
+        try{
+            if(pregunta.puedeAgregarOpciones(usuario))
+                respond new Opcion(params)
+            else
+                throw new NoPremiumException()
+        }catch (NoPremiumException e) {
+            flash.message = e.getMessage()
+            redirect (controller:"pregunta", action:"show", id: params.get("pregunta.id"))
+        }
     }
 
     def save(Opcion opcion) {

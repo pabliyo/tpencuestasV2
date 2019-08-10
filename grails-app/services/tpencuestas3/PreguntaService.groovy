@@ -14,5 +14,6 @@ abstract class PreguntaService implements IPreguntaService {
             throw new NoPremiumException()
         }
     }
+
 }
 

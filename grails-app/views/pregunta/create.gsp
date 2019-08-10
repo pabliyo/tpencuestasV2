@@ -33,7 +33,8 @@
     <g:form resource="${this.pregunta}" method="POST">
     <g:hiddenField name="version" value="${this.encuesta?.version}" />
         <fieldset class="form">
-            <f:field bean="pregunta" property="encuesta" />
+            <g:hiddenField name="encuesta.id" value="${params.get("encuesta.id")}" />
+            <f:field bean="pregunta" property="encuesta"><f:display bean="pregunta" property="encuesta"/></f:field>
             <f:field bean="pregunta" property="enunciado"/>
             <f:field bean="pregunta" property="orden"/>
             <f:field bean="pregunta" property="opciones"/>

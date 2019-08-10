@@ -34,6 +34,7 @@ class PreguntaController {
         }
 
         Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
+        pregunta.encuesta=encuesta
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
         if (encuestaService.tieneVotaciones(encuesta)) {

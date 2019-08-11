@@ -12,11 +12,10 @@
 <g:form action="guardarRespuestas" id="${encuesta.id}">
     <g:set var="i" value="${0}"/>
     <g:each in="${encuesta.preguntas.sort { it.orden }}" var="pregunta">
-        <g:if test="${encuesta.getVigencia().estaVigente()}">
-        <g:if test="${pregunta.cantidadOpciones()>1}">
-        <g:set var="i" value="${i+1}"/>
+        <g:if test="${encuesta.getVigencia().estaVigente() && pregunta.cantidadOpciones() > 1}">
+            <g:set var="i" value="${i + 1}"/>
             <br/>
-            <li>
+            <div class="form-check">
                 <h4>${i} ${pregunta.enunciado}</h4>
                 <g:radioGroup name="${pregunta.orden}"
                               labels="${pregunta.opciones}"
@@ -26,9 +25,8 @@
                         ${it.label.descripcion}
                     </p>
                 </g:radioGroup>
-            </li>
-            <br/>
-         </g:if>
+                <br/>
+            </div>
         </g:if>
     </g:each>
     <br/>

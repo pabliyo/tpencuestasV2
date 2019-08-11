@@ -34,7 +34,9 @@
     <g:hiddenField name="version" value="${this.encuesta?.version}" />
         <fieldset class="form">
             <g:hiddenField name="encuesta.id" value="${params.get("encuesta.id")}" />
-            <f:field bean="pregunta" property="encuesta"><f:display bean="pregunta" property="encuesta"/></f:field>
+            <f:field bean="pregunta" property="encuesta">
+                <f:display bean="pregunta" property="encuesta"/>
+            </f:field>
             <f:field bean="pregunta" property="enunciado"/>
             <g:set var="i" value="${1}"/>
             <g:each in="${pregunta.encuesta.preguntas}">

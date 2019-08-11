@@ -58,9 +58,13 @@
             <f:field bean="encuesta" property="vigencia.fechaFin">
                 <g:datePicker name="${property}" value="${value}"/>
             </f:field>
+            <div class="fieldcontain">
+                <span class="property-label">Preguntas</span>
 
-            <!--p>Preguntas:</p-->
-            <f:field bean="encuesta" property="preguntas"/>
+                <div class="property-value">
+                    <f:field label=" " bean="encuesta" property="preguntas"/>
+                </div>
+            </div>
         </fieldset>
         <fieldset class="buttons">
             <input class="save" type="submit"

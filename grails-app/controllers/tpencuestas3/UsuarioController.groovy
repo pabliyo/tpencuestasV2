@@ -58,11 +58,7 @@ class UsuarioController {
         }
     }
 
-    def edit(Long id) {
-        respond usuarioService.get(id)
-    }
-
-    def perfil() {
+    def edit() {
         [usuario: springSecurityService.getCurrentUser() as Usuario]
     }
 

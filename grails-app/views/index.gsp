@@ -24,7 +24,7 @@
                     </li>
                    </sec:ifAnyGranted>
                     <li>
-                        <g:link controller="usuario" action="perfil">Editar Perfil</g:link>
+                        <g:link controller="usuario" action="edit">Editar Perfil</g:link>
                     </li>
                     <li>
                         <g:link controller="participacion" action="show">Participar en encuestas disponibles</g:link>

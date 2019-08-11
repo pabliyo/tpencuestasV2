@@ -33,7 +33,7 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <f:table collection="${encuestaList}"/>
+    <f:table collection="${encuestaList}" order="titulo,descripcion,vigencia,preguntas,usuario"/>
     <div class="pagination">
         <g:paginate total="${encuestaCount ?: 0}"/>
     </div>

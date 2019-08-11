@@ -32,38 +32,10 @@
     <g:form resource="${this.usuario}" method="PUT">
         <g:hiddenField name="version" value="${this.usuario?.version}"/>
         <fieldset class="form">
-            <div class="fieldcontain">
-                <span class="property-label">Nombre de usuario</span>
-
-                <div class="property-value">
-                    <g:field name="username" type="text" value="${this.usuario.username}"/>
-                </div>
-            </div>
-
-            <div class="fieldcontain">
-                <span class="property-label">Contraseña</span>
-
-                <div class="property-value">
-                    <g:field name="password" type="password" value="${this.usuario.password}" />
-                </div>
-            </div>
-
-            <div class="fieldcontain">
-                <span class="property-label">Email</span>
-
-                <div class="property-value">
-                    <g:field name="mail" type="email" value="${this.usuario.email}"/>
-                </div>
-            </div>
-
-            <div class="fieldcontain">
-                <span class="property-label">Cuenta Premium</span>
-
-                <div class="property-value">
-                    <g:field name="premium" type="checkbox" value="${this.usuario.cuentaPremium}"/>
-                </div>
-            </div>
-
+            <f:field property="username" bean="usuario"/>
+            <f:field property="password" bean="usuario"/>
+            <f:field property="email" bean="usuario"/>
+            <f:field property="cuentaPremium" bean="usuario"/>
         </fieldset>
         <fieldset class="buttons">
             <input class="save" type="submit"

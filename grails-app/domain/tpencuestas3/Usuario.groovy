@@ -10,7 +10,7 @@ class Usuario implements Serializable {
     String username
     String password
     String email
-    boolean cuentaPremium
+    Boolean cuentaPremium
 
     //Variables de manejo de cuenta usado por spring security core
     boolean enabled = true
@@ -38,7 +38,7 @@ class Usuario implements Serializable {
     }
 
     boolean puedeCrearEncuesta() {
-        esPremium() || cantidadEncuestas() < limiteEncuestasSiNoPremium
+        cuentaPremium || cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
     Set<Rol> getAuthorities() {//usado por spring security core

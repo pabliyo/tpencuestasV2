@@ -39,7 +39,6 @@ class UsuarioController {
             return
         }
 
-
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
@@ -59,7 +58,7 @@ class UsuarioController {
     }
 
     def edit() {
-        [usuario: springSecurityService.getCurrentUser() as Usuario]
+        respond usuarioService.get((springSecurityService.getCurrentUser() as Usuario).getId())
     }
 
     def update(Usuario usuario) {

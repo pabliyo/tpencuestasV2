@@ -15,11 +15,13 @@
             </ul>
         </div>
         <div id="show-opcion" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>
+                <f:display bean="opcion" property="descripcion"/>
+            </h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="opcion" order="pregunta,descripcion,orden"/>
+            <f:display bean="opcion" order="pregunta,orden"/>
             <g:form resource="${this.opcion}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.opcion}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

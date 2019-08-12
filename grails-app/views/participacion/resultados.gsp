@@ -20,7 +20,7 @@
 </g:if>
 <g:else>
     <div class="content scaffold-list" role="main">
-        <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, respuestas"/>
+        <f:table collection="${respuestasUsuarioActual}" properties="encuesta, fechaVoto, encuesta.preguntas, respuestas"/>
     </div>
 </g:else>
 
@@ -31,7 +31,7 @@
     </g:if>
     <g:else>
         <div class="content scaffold-list" role="main">
-            <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante,     fechaVoto, respuestas"/>
+            <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante, fechaVoto, encuesta.preguntas, respuestas"/>
         </div>
     </g:else>
 </g:if>

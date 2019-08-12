@@ -27,6 +27,14 @@ class OpcionController {
     def create() {
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
         Pregunta pregunta = Pregunta.get(params.get("pregunta.id"))
+        Encuesta encuesta = encuestaService.get(pregunta.encuesta.getId())
+
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
+            redirect controller: 'pregunta', action: 'show', id: pregunta.id
+            return
+        }
+
         try{
             if(pregunta.puedeAgregarOpciones(usuario))
                 respond new Opcion(params)

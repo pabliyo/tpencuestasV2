@@ -92,6 +92,11 @@ class BootStrap {
         opcion4 = new Opcion(descripcion: "Ninguno", orden: 4)
         opcion4.save()
 
+        pregunta.addToOpciones(opcion)
+        pregunta.addToOpciones(opcion2)
+        pregunta.addToOpciones(opcion3)
+        pregunta.addToOpciones(opcion4)
+
         pregunta = new Pregunta(enunciado: "¿Como considera su situacion economica Personal HOY?", orden: 4)
         pregunta.save()
         encuesta.addToPreguntas(pregunta)
@@ -101,6 +106,9 @@ class BootStrap {
         opcion2 = new Opcion(descripcion: "Mala", orden: 2)
         opcion2.save()
 
+        pregunta.addToOpciones(opcion)
+        pregunta.addToOpciones(opcion2)
+
         pregunta = new Pregunta(enunciado: "¿Como considera la situacion economica actual del país?", orden: 5)
         pregunta.save()
         encuesta.addToPreguntas(pregunta)
@@ -109,6 +117,9 @@ class BootStrap {
         opcion.save()
         opcion2 = new Opcion(descripcion: "Mala", orden: 2)
         opcion2.save()
+
+        pregunta.addToOpciones(opcion)
+        pregunta.addToOpciones(opcion2)
 
         Date ahora = new Date()
         Date fechaFin = new Date()

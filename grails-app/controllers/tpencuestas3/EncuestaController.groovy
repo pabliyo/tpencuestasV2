@@ -111,14 +111,19 @@ class EncuestaController {
             return
         }
 
-        encuestaService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), id])
-                redirect controller: "participacion", action:"propias"
+        Encuesta encuesta=encuestaService.get(id)
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede ELIMINAR"
+            respond encuesta, view: 'show'
+        }else {
+            encuestaService.delete(id)
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'encuesta.label', default: 'Encuesta'), id])
+                    redirect controller: "participacion", action: "propias"
+                }
+                '*' { render status: NO_CONTENT }
             }
-            '*' { render status: NO_CONTENT }
         }
     }
 

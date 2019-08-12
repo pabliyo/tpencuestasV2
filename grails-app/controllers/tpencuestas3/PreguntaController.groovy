@@ -72,7 +72,14 @@ class PreguntaController {
     }
 
     def edit(Long id) {
-        respond preguntaService.get(id)
+        Pregunta pregunta = preguntaService.get(id)
+        Encuesta encuesta = encuestaService.get(pregunta.encuesta.getId())
+
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar sus preguntas"
+            respond pregunta, view: 'show'
+        }else
+            respond pregunta
     }
 
     def update(Pregunta pregunta) {
@@ -111,17 +118,21 @@ class PreguntaController {
             return
         }
 
-        def pregunta = preguntaService.get(id)
-        def encuestaId= pregunta.getProperty("encuesta").getId()
+        Pregunta pregunta = preguntaService.get(id)
+        Encuesta encuesta = encuestaService.get(pregunta.encuesta.getId())
 
-        preguntaService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), id])
-                redirect controller: "encuesta", action:"show", id: encuestaId
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede eliminar sus preguntas"
+            respond pregunta, view: 'show'
+        }else{
+            preguntaService.delete(id)
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), id])
+                    redirect controller: "encuesta", action: "show", id: encuestaId
+                }
+                '*' { render status: NO_CONTENT }
             }
-            '*' { render status: NO_CONTENT }
         }
     }
 

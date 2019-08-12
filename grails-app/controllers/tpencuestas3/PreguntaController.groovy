@@ -26,6 +26,13 @@ class PreguntaController {
     def create() {
         Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
+            redirect controller:'encuesta', action: 'show', id: encuesta.getId()
+            return
+        }
+
         try{
             if(encuesta.puedeAgregarPreguntas(usuario))
                 respond new Pregunta(params)

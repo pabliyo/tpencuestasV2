@@ -11,6 +11,7 @@ class OpcionController {
     OpcionService opcionService
     SpringSecurityService springSecurityService
     EncuestaService encuestaService
+    PreguntaService preguntaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -72,7 +73,15 @@ class OpcionController {
     }
 
     def edit(Long id) {
-        respond opcionService.get(id)
+        Opcion opcion = opcionService.get(id)
+        Pregunta pregunta = preguntaService.get(opcion.pregunta.getId())
+        Encuesta encuesta = encuestaService.get(pregunta.encuesta.getId())
+
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
+            respond opcion, view: 'show'
+        }else
+            respond opcion
     }
 
     def update(Opcion opcion) {
@@ -112,16 +121,22 @@ class OpcionController {
             return
         }
 
-        def preguntaId = opcionService.get(id).getProperty("pregunta").getId()
+        Opcion opcion = opcionService.get(id)
+        Pregunta pregunta = preguntaService.get(opcion.pregunta.getId())
+        Encuesta encuesta = encuestaService.get(pregunta.encuesta.getId())
 
-        opcionService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'opcion.label', default: 'Opcion'), id])
-                redirect controller: "pregunta", action:"show", id: preguntaId
+        if (encuestaService.tieneVotaciones(encuesta)) {
+            flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
+            respond opcion, view: 'show'
+        }else {
+            opcionService.delete(id)
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'opcion.label', default: 'Opcion'), id])
+                    redirect controller: "pregunta", action: "show", id: preguntaId
+                }
+                '*' { render status: NO_CONTENT }
             }
-            '*' { render status: NO_CONTENT }
         }
     }
 

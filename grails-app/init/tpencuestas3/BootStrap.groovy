@@ -36,10 +36,11 @@ class BootStrap {
         UsuarioRol.create(noPremium, Rol.getUserRol().save(), true)
         UsuarioRol.create(admin, Rol.getAdminRol().save(), true)
 
+        creadorEncuestas(admin)
+        creadorEncuestas2(usuario)
         crearEncuestas(admin)
         crearEncuestas(usuario)
         crearEncuestas(noPremium)
-        creadorEncuestas(admin)
 
     }
 
@@ -65,6 +66,33 @@ class BootStrap {
         pregunta= creaPregunta(encuesta,"¿Como considera la situacion economica actual del país?", 5)
         creaOpcion(pregunta, "Buena", 1)
         creaOpcion(pregunta, "Mala", 2)
+        encuesta.save()
+    }
+
+    private static creadorEncuestas2(Usuario usuario){
+        def encuesta= creaEncuesta(usuario,"Productos y marcas de Alimentos", "encuesta sobre los productos que comemos a diario")
+        def pregunta= creaPregunta(encuesta,"¿Que mayonesa consume normalmente?", 1)
+        creaOpcion(pregunta, "Natura", 1)
+        creaOpcion(pregunta, "Hellmans", 2)
+        creaOpcion(pregunta, "Ninguno", 3)
+        pregunta= creaPregunta(encuesta,"¿Que bebida consume con la comida?", 2)
+        creaOpcion(pregunta, "Gaseosa", 1)
+        creaOpcion(pregunta, "Jugo", 2)
+        creaOpcion(pregunta, "Agua", 3)
+        creaOpcion(pregunta, "Cerveza", 4)
+        pregunta= creaPregunta(encuesta,"¿Con que Jabon lava su ropa?", 3)
+        creaOpcion(pregunta, "Jabon a mano", 1)
+        creaOpcion(pregunta, "Jabon en polvo", 2)
+        creaOpcion(pregunta, "Jabon liquido", 3)
+        pregunta= creaPregunta(encuesta,"¿Que marca de desodorante prefiere?", 4)
+        creaOpcion(pregunta, "Axe", 1)
+        creaOpcion(pregunta, "Nivea", 2)
+        creaOpcion(pregunta, "Rexona", 3)
+        creaOpcion(pregunta, "Otro", 4)
+        pregunta= creaPregunta(encuesta,"¿Que detergente utiliza?", 5)
+        creaOpcion(pregunta, "Magistral", 1)
+        creaOpcion(pregunta, "Ala", 2)
+        creaOpcion(pregunta, "Otro", 3)
         encuesta.save()
     }
 

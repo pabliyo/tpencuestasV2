@@ -84,7 +84,7 @@ class BootStrap {
     }
 
     private static creadorEncuestas2(Usuario usuario){
-        def encuesta= creaEncuesta(usuario,"Productos y marcas de Alimentos", "encuesta sobre los productos que comemos a diario")
+        def encuesta= creaEncuesta(usuario,"Productos y marcas de Alimentos", "encuesta sobre los productos que utilizamos a diario")
         def pregunta= creaPregunta(encuesta,"¿Que mayonesa consume normalmente?", 1)
         creaOpcion(pregunta, "Natura", 1)
         creaOpcion(pregunta, "Hellmans", 2)

@@ -30,9 +30,32 @@
         <h3>•No se encontraron datos</h3>
     </g:if>
     <g:else>
-        <div class="content scaffold-list" role="main">
-            <f:table collection="${respuestasTodosUsuarios}" properties="encuesta, votante, fechaVoto, encuesta.preguntas, respuestas"/>
-        </div>
+        <g:each in="${respuestasTodosUsuarios}" var="respuesta">
+            <div id="list-respuesta" class="content scaffold-list" role="main">
+                <f:table collection="${respuestaList}" properties="encuesta, votante, fechaVoto, encuesta.preguntas, respuestas"/>
+                 <div class="pagination">
+                    <li>
+                        <b>Usuario :</b> ${respuesta.votante}
+                        <br>
+                        <b>Fecha de Voto :</b> ${respuesta.fechaVoto}
+                        <br>
+                        <b>Descripcion :</b> ${respuesta.encuesta.descripcion}
+                        <br>
+                    </li>
+                    <li>
+                            <b>${respuesta.encuesta}</b>
+                    </li>
+                    <li>
+                    <g:set var="i" value="${0}" />
+                    <g:each in="${respuesta.respuestas}" var="rta">
+                        ${respuesta.encuesta.preguntas[i]} <b>${rta}</b>
+                        <br>
+                        <g:set var="i" value="${i+1}" />
+                    </g:each>
+                    </li>
+                 </div>
+            </div>
+        </g:each>
     </g:else>
 </g:if>
 

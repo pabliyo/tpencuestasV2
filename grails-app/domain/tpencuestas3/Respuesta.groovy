@@ -13,7 +13,7 @@ class Respuesta {
     }
 
     protected void initCollection() {
-        respuestas = new ArrayList<Opcion>()
+        respuestas = []
     }
 
     protected void agregarRespuesta(Opcion opcion) {

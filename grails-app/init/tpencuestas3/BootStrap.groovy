@@ -49,9 +49,10 @@ class BootStrap {
     private static respondeEncuestas(Usuario usuario){
         def lista = Encuesta.findAll()
         lista.each() { encuesta ->
-            def respuesta = new Respuesta(votante: usuario, encuesta: encuesta, fechaVoto: new Date(), respuestas: new ArrayList<Opcion>())
+            def respuesta = new Respuesta(votante: usuario, encuesta: encuesta, fechaVoto: new Date())
+            respuesta.initCollection()
             encuesta.preguntas.each() { pregunta ->
-                respuesta.respuestas.add(pregunta.opciones[1])
+                respuesta.agregarRespuesta(pregunta.opciones[1])
             }
             respuesta.save()
         }

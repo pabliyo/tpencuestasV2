@@ -31,6 +31,11 @@ class ParticipacionController {
         [encuesta: Encuesta.get(id)]
     }
 
+    def detallesEncuesta(Long id){
+        [respuestasPorEncuesta: participacionService.getRespondidasPorEncuesta(Encuesta.get(id)),
+         encuesta: Encuesta.get(id)]
+    }
+
     def guardarRespuestas() {
         Usuario usuario = participacionService.getUsuarioActual()
         Encuesta encuesta = Encuesta.get(params.id)

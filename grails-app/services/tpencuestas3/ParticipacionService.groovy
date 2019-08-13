@@ -35,6 +35,12 @@ class ParticipacionService {
         Respuesta.findAll()
     }
 
+    List getRespondidasPorEncuesta(Encuesta encuesta){
+        Respuesta.findAllByEncuesta(encuesta)
+    }
+
+
+
     Respuesta guardar(Encuesta encuesta, Map params, Respuesta respuesta) {
         respuestasValidas(encuesta, params, respuesta)
         respuestaService.save(respuesta)

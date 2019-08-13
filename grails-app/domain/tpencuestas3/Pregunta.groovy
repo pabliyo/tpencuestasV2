@@ -27,10 +27,6 @@ class Pregunta {
         usuario.esPremium() || cantidadOpciones() < limiteOpcionesSiNoPremium
     }
 
-    boolean ordenOpcionRepetida(int posicion){
-        opciones.orden.isEqual(posicion)
-    }
-
     String toString() {
         enunciado
     }

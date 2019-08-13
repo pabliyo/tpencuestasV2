@@ -51,13 +51,11 @@ class ParticipacionService {
         respuesta.initCollection()
         params.eachWithIndex { preguntaId, opcionId, i ->
             if (i < cantPreg) {
-                if ((!preguntaId.isLong()) || (!opcionId.isLong())) {
+                if (!preguntaId.isLong() || !opcionId.isLong()) {
                     throw new NoRespondioException()
                 }
-                if (preguntaId.isLong()) {
+                else {
                     respuesta.agregarRespuesta(Opcion.get(opcionId))
-                } else {
-                    throw new NoRespondioException()
                 }
             }
         }

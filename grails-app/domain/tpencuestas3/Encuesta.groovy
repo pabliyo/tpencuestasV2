@@ -45,6 +45,11 @@ class Encuesta {
         usuario.esPremium() || cantidadPreguntas() < limitePreguntasSiNoPremium
     }
 
+    boolean tieneVotaciones() {
+        List<Respuesta> lista = Respuesta.findAllWhere(encuesta: this)
+        !lista.isEmpty()
+    }
+
     String toString() {
         titulo
     }

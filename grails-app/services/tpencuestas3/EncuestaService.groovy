@@ -24,8 +24,7 @@ abstract class EncuestaService implements IEncuestaService {
     }
 
     boolean tieneVotaciones(Encuesta encuesta) {
-        List<Respuesta> lista = Respuesta.findAllWhere(encuesta: encuesta)
-        return !lista.isEmpty()
+        encuesta.tieneVotaciones()
     }
 
 }

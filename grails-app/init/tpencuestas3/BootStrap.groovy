@@ -38,10 +38,23 @@ class BootStrap {
 
         creadorEncuestas(admin)
         creadorEncuestas2(usuario)
+
         crearEncuestas(admin)
         crearEncuestas(usuario)
         crearEncuestas(noPremium)
 
+        respondeEncuestas(usuario)
+    }
+
+    private static respondeEncuestas(Usuario usuario){
+        def lista = Encuesta.findAll()
+        lista.each() { encuesta ->
+            def respuesta = new Respuesta(votante: usuario, encuesta: encuesta, fechaVoto: new Date(), respuestas: new ArrayList<Opcion>())
+            encuesta.preguntas.each() { pregunta ->
+                respuesta.respuestas.add(pregunta.opciones[1])
+            }
+            respuesta.save()
+        }
     }
 
     private static creadorEncuestas(Usuario usuario){

@@ -13,7 +13,7 @@
     </ul>
 </div>
 
-<h1>Encuestas Respondidas Propias</h1>
+<h1><b>Mis Respuestas</b></h1>
 
 <g:if test="${respuestasUsuarioActual.isEmpty()}">
     <h3>•No se encontraron datos</h3>
@@ -25,7 +25,7 @@
 </g:else>
 
 <g:if test="${esUsuarioActualPremium}">
-    <h1>Encuestas Respondidas Por Todos</h1>
+    <h1><b>Respuestas de Todos los Usuarios</b></h1>
     <g:if test="${respuestasTodosUsuarios.isEmpty()}">
         <h3>•No se encontraron datos</h3>
     </g:if>
@@ -43,7 +43,7 @@
                         <br>
                     </li>
                     <li>
-                            <b>${respuesta.encuesta}</b>
+                            <b>${respuesta.encuesta} : </b>
                     </li>
                     <li>
                     <g:set var="i" value="${0}" />

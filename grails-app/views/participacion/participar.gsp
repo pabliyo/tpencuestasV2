@@ -8,11 +8,11 @@
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
-<g:hiddenField name="encuestaId" value="${encuesta.id}"/>
-<g:form action="guardarRespuestas" id="${encuesta.id}">
+<g:hiddenField name="encuestaId" value="${encuesta?.id}"/>
+<g:form action="guardarRespuestas" id="${encuesta?.id}">
     <g:set var="i" value="${0}"/>
-    <g:each in="${encuesta.preguntas.sort { it.orden }}" var="pregunta">
-        <g:if test="${encuesta.getVigencia().estaVigente() && pregunta.cantidadOpciones() > 1}">
+    <g:each in="${encuesta?.preguntas?.sort { it.orden }}" var="pregunta">
+        <g:if test="${encuesta?.getVigencia()?.estaVigente() && pregunta.cantidadOpciones() > 1}">
             <g:set var="i" value="${i + 1}"/>
             <br/>
             <div class="form-check">

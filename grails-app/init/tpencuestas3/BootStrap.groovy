@@ -39,95 +39,57 @@ class BootStrap {
         crearEncuestas(admin)
         crearEncuestas(usuario)
         crearEncuestas(noPremium)
-        encuesta1(admin)
+        creadorEncuestas(admin)
 
     }
 
-    private static encuesta1(Usuario creador){
-        Encuesta encuesta = new Encuesta(usuario: creador, titulo: "Votacion Presidencial 2019", descripcion: "encuesta sobre elecciones en Argentina y distintos candidatos")
+    private static creadorEncuestas(Usuario usuario){
+        def encuesta= creaEncuesta(usuario,"Votacion Presidencial 2019", "encuesta sobre elecciones en Argentina y distintos candidatos")
+        def pregunta= creaPregunta(encuesta,"¿Que Presidente eligiría?", 1)
+        creaOpcion(pregunta, "Alberto Fernandez", 1)
+        creaOpcion(pregunta, "Mauricio Macri", 2)
+        creaOpcion(pregunta, "Ninguno", 3)
+        pregunta= creaPregunta(encuesta,"¿Que candidato a Gobernador eligiría?", 2)
+        creaOpcion(pregunta, "Lamens", 1)
+        creaOpcion(pregunta, "Tombolini", 2)
+        creaOpcion(pregunta, "Larreta", 3)
+        creaOpcion(pregunta, "Ninguno", 4)
+        pregunta= creaPregunta(encuesta,"¿Cual de los siguientes politicos le inspira mas confianza?", 3)
+        creaOpcion(pregunta, "Cristina Kirchner", 1)
+        creaOpcion(pregunta, "Sergio Massa", 2)
+        creaOpcion(pregunta, "Jose Espert", 3)
+        creaOpcion(pregunta, "Ninguno", 4)
+        pregunta= creaPregunta(encuesta,"¿Como considera su situacion economica Personal HOY?", 4)
+        creaOpcion(pregunta, "Buena", 1)
+        creaOpcion(pregunta, "Mala", 2)
+        pregunta= creaPregunta(encuesta,"¿Como considera la situacion economica actual del país?", 5)
+        creaOpcion(pregunta, "Buena", 1)
+        creaOpcion(pregunta, "Mala", 2)
+        encuesta.save()
+    }
 
-        Pregunta pregunta = new Pregunta(enunciado: "¿Que Presidente eligiría?", orden: 1)
-        pregunta.save()
-        encuesta.addToPreguntas(pregunta)
-
-        Opcion opcion = new Opcion(descripcion: "Alberto Fernandez", orden: 1)
-        opcion.save()
-        Opcion opcion2 = new Opcion(descripcion: "Mauricio Macri", orden: 2)
-        opcion2.save()
-        Opcion opcion3 = new Opcion(descripcion: "Ninguno", orden: 3)
-        opcion3.save()
-
-        pregunta.addToOpciones(opcion)
-        pregunta.addToOpciones(opcion2)
-        pregunta.addToOpciones(opcion3)
-
-        pregunta = new Pregunta(enunciado: "¿Que Gobernador eligiría?", orden: 2)
-        pregunta.save()
-        encuesta.addToPreguntas(pregunta)
-
-        opcion = new Opcion(descripcion: "Lamens", orden: 1)
-        opcion.save()
-        opcion2 = new Opcion(descripcion: "Tombolini", orden: 2)
-        opcion2.save()
-        opcion3 = new Opcion(descripcion: "Larreta", orden: 3)
-        opcion3.save()
-        Opcion opcion4 = new Opcion(descripcion: "Ninguno", orden: 4)
-        opcion4.save()
-
-        pregunta.addToOpciones(opcion)
-        pregunta.addToOpciones(opcion2)
-        pregunta.addToOpciones(opcion3)
-        pregunta.addToOpciones(opcion4)
-
-        pregunta = new Pregunta(enunciado: "¿Cual de los siguientes politicos le inspira mas confianza?", orden: 3)
-        pregunta.save()
-        encuesta.addToPreguntas(pregunta)
-
-        opcion = new Opcion(descripcion: "Cristina Kirchner", orden: 1)
-        opcion.save()
-        opcion2 = new Opcion(descripcion: "Sergio Massa", orden: 2)
-        opcion2.save()
-        opcion3 = new Opcion(descripcion: "Jose Espert", orden: 3)
-        opcion3.save()
-        opcion4 = new Opcion(descripcion: "Ninguno", orden: 4)
-        opcion4.save()
-
-        pregunta.addToOpciones(opcion)
-        pregunta.addToOpciones(opcion2)
-        pregunta.addToOpciones(opcion3)
-        pregunta.addToOpciones(opcion4)
-
-        pregunta = new Pregunta(enunciado: "¿Como considera su situacion economica Personal HOY?", orden: 4)
-        pregunta.save()
-        encuesta.addToPreguntas(pregunta)
-
-        opcion = new Opcion(descripcion: "Buena", orden: 1)
-        opcion.save()
-        opcion2 = new Opcion(descripcion: "Mala", orden: 2)
-        opcion2.save()
-
-        pregunta.addToOpciones(opcion)
-        pregunta.addToOpciones(opcion2)
-
-        pregunta = new Pregunta(enunciado: "¿Como considera la situacion economica actual del país?", orden: 5)
-        pregunta.save()
-        encuesta.addToPreguntas(pregunta)
-
-        opcion = new Opcion(descripcion: "Buena", orden: 1)
-        opcion.save()
-        opcion2 = new Opcion(descripcion: "Mala", orden: 2)
-        opcion2.save()
-
-        pregunta.addToOpciones(opcion)
-        pregunta.addToOpciones(opcion2)
-
+    private static Encuesta creaEncuesta(Usuario usuario, String titulo, String descripcion){
+        Encuesta encuesta = new Encuesta(usuario: usuario, titulo: titulo, descripcion: descripcion)
         Date ahora = new Date()
         Date fechaFin = new Date()
         def dias = 90
         fechaFin.setDate(ahora.getDate()+dias)
         Vigencia vigencia = new Vigencia(fechaInicio: ahora, fechaFin: fechaFin)
         encuesta.vigencia = vigencia
-        encuesta.save()
+        encuesta
+    }
+
+    private static Pregunta creaPregunta(Encuesta encuesta, String enunciado, int orden){
+        Pregunta pregunta = new Pregunta(enunciado: enunciado, orden: orden)
+        pregunta.save()
+        encuesta.addToPreguntas(pregunta)
+        pregunta
+    }
+
+    private static creaOpcion(Pregunta pregunta, String enunciado, int orden){
+        Opcion opcion = new Opcion(descripcion: enunciado, orden: orden)
+        opcion.save()
+        pregunta.addToOpciones(opcion)
     }
 
     def destroy = {

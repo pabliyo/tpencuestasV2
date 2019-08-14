@@ -17,12 +17,14 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
-    <a class="navbar-brand" href="/#"><asset:image src="IJIJI.png" alt="Question Logo"/></a>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation"><asset:image src="fondo2.jpg" width="1800" height="150"/>
+
+    <a class="navbar-brand" href="/#"><asset:image src="IJIJI.png" width="120" height="150" alt="Question Logo"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <sec:ifNotLoggedIn>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
@@ -61,9 +63,12 @@
             </sec:ifLoggedIn>
         </ul>
     </div>
+
 </nav>
 
+
 <g:layoutBody/>
+
 
 <div class="footer row" role="contentinfo">
     <div class="col">
@@ -75,6 +80,7 @@
 <div id="spinner" class="spinner" style="display:none;">
     <g:message code="spinner.alt" default="Loading&hellip;"/>
 </div>
+
 
 <asset:javascript src="application.js"/>
 

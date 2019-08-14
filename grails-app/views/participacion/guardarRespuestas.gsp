@@ -17,12 +17,13 @@
 
 <div role="mail">
     <p>
-        Gracias por participar en Question
+       <h4 align="center"><b> Gracias por participar en Question</b></h4>
     </p>
-
     <p>
-        Responder mas encuestas <g:link action="show">Aqui</g:link>
+        <h4 align="center"><b>Responder mas encuestas <g:link action="show">Aqui</g:link></b></h4>
     </p>
+       <br>
+       <h4 align="center"><asset:image src="quest2.png" align="center" width="350" height="300"/></h4>
 </div>
 </body>
 </html>

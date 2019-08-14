@@ -9,6 +9,7 @@
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 <g:hiddenField name="encuestaId" value="${encuesta?.id}"/>
+<div id="content" role="main" style="background-image:url('${resource(dir: "images", file: "fondo1.jpg")}');height: 400px;background-repeat: no-repeat;background-position: center;width:1400px;">
 <g:form action="guardarRespuestas" id="${encuesta?.id}">
     <g:set var="i" value="${0}"/>
     <g:each in="${encuesta?.preguntas?.sort { it.orden }}" var="pregunta">
@@ -32,5 +33,6 @@
     <br/>
     <g:submitButton name="Responder"/>
 </g:form>
+</div>
 </body>
 </html>

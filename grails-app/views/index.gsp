@@ -8,7 +8,7 @@
 <body>
 
 
-<div id="content" role="main">
+<div id="content" role="main" style="background-image:url('${resource(dir: "images", file: "fondo3.jpg")}');height: 500px;width:1300px;">
    <div id="controllers" role="navigation">
     <sec:ifAnyGranted roles='ROLE_ADMIN'>
         <h1 align="left"><b> Administracion: </b>
@@ -22,7 +22,7 @@
     </sec:ifAnyGranted>
    </div>
     <section class="row colset-2-its">
-        <h1>Bienvenido a Question</h1>
+        <h1 align="center">Bienvenido a Question</h1>
         <div id="controllers" role="navigation">
             <sec:ifLoggedIn>
                 <h2><b>Elige que hacer: </b></h2>

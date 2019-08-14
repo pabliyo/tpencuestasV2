@@ -9,12 +9,20 @@ class Opcion {
 
     static constraints = {
         pregunta nullable: true
-        orden nullable:true
+        orden nullable: true
         descripcion()
     }
 
     String toString() {
         descripcion
+    }
+
+    int contarRepuestas(List<Respuesta> respuestas) {
+        int acum = 0;
+        respuestas.each {
+            acum += it.respuestas.count(this)
+        }
+        acum
     }
 
 }

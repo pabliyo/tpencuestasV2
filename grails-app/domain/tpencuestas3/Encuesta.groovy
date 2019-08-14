@@ -41,6 +41,15 @@ class Encuesta {
         preguntas.size()
     }
 
+    boolean tieneOpciones(){
+        boolean check = true
+        preguntas.each {
+            if(!it.tieneOpciones())
+                check= false
+        }
+        check
+    }
+
     boolean puedeAgregarPreguntas(Usuario usuario) {
         usuario.esPremium() || cantidadPreguntas() < limitePreguntasSiNoPremium
     }

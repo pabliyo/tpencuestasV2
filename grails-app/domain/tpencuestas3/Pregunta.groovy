@@ -23,6 +23,10 @@ class Pregunta {
         opciones.size()
     }
 
+    boolean tieneOpciones(){
+        cantidadOpciones()>=2
+    }
+
     boolean puedeAgregarOpciones(Usuario usuario) {
         usuario.esPremium() || cantidadOpciones() < limiteOpcionesSiNoPremium
     }

@@ -14,7 +14,7 @@
 <g:each in="${encuestas}" var="encuesta">
     <div id="list-encuesta" class="content scaffold-list" role="main">
         <f:table collection="${encuestaList}" properties="titulo, descipcion"/>
-        <g:if test="${encuesta.cantidadPreguntas()>0}">
+        <g:if test="${encuesta.cantidadPreguntas()>0 && encuesta.tieneOpciones()}">
          <div class="pagination">
             <li>
                 <g:link action="participar" id="${encuesta.id}">

@@ -14,7 +14,8 @@ class ParticipacionController {
     }
 
     def show() {
-        [encuestas: participacionService.encuestasValidas()]
+        [encuestas: participacionService.encuestasValidas(),
+         votaciones: participacionService.getRespondidasPorTodos()]
     }
 
     def propias() {

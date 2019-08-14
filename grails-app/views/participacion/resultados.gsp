@@ -65,8 +65,10 @@
                         <br>
                     </li>
                     <li>
+                      <b>Encuesta : </b>
+                      <br>
                       <g:link action="detallesEncuesta" id="${respuesta.encuesta.id}">
-                            <b>${respuesta.encuesta} : </b>
+                            <button type="button" ><b>${respuesta.encuesta} </b></button>
                       </g:link>
                     </li>
                     <li>

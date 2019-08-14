@@ -11,12 +11,17 @@ class Vigencia implements Validateable {
 
     }
 
+    boolean vigenciaCorrecta(){
+        def ahora = new Date()
+        fechaFin>fechaInicio && fechaFin>ahora && fechaInicio>=ahora
+    }
+
     boolean estaVigente() {
         def fechaHoy = new Date()
         (fechaInicio <= fechaHoy && fechaHoy < fechaFin)
     }
 
-    boolean fechaCorrecta(){
+    boolean vigenciaPremium(){
         def fechaElegida = new Date()
         def dias = 30
         fechaElegida.setDate(fechaInicio.getDate()+dias)

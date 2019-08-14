@@ -19,7 +19,7 @@
 
 <div id="show-pregunta" class="content scaffold-show" role="main">
     <h1>
-        <f:display bean="pregunta" property="enunciado"/>
+        Pregunta : <f:display bean="pregunta" property="enunciado"/>
     </h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
@@ -31,6 +31,14 @@
             <f:display bean="pregunta" property="encuesta"/>
         </div>
     </div>
+
+    <div class="fieldcontain">
+            <span class="property-label">Pregunta</span>
+
+            <div class="property-value">
+                <f:display bean="pregunta" property="enunciado"/>
+            </div>
+        </div>
 
     <div class="fieldcontain">
         <span class="property-label">Orden</span>

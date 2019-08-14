@@ -8,19 +8,15 @@ abstract class EncuestaService implements IEncuestaService {
 
     @Transactional
     Encuesta guardar(Encuesta encuesta, Usuario usuario) {
-        if (encuesta.puedeCrearEncuesta(usuario) && vigenciaDelUsuario(encuesta, usuario)) {
+        if (encuesta.puedeCrearEncuesta(usuario)) {
             save(encuesta)
         } else {
             throw new NoPremiumException()
         }
     }
 
-    boolean vigenciaDelUsuario(Encuesta encuesta, Usuario usuario) {
-        if (encuesta.fechaCorrecta(encuesta, usuario)) {
-            true
-        } else {
-            throw new VigenciaNopremiumException()
-        }
+    void validacionVigencia(Encuesta encuesta, Usuario usuario){
+        usuario.vigenciaDelUsuario(encuesta)
     }
 
     boolean tieneVotaciones(Encuesta encuesta) {

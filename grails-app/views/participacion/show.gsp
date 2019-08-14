@@ -18,8 +18,10 @@
          <div class="pagination">
             <li>
                 <g:link action="participar" id="${encuesta.id}">
-                    <b>${encuesta.titulo}</b>
-                    ${encuesta.descripcion}
+                    <h1>Encuesta : <b>${encuesta.titulo}</b></h1>
+                    <h1>Descripcion : <b> ${encuesta.descripcion}</b></h1>
+                    <h1>Finaliza : <b>${encuesta.vigencia.fechaFin}</b> </h1>
+                    <h1>Votaciones : <b>${encuesta.cantidadVotaciones(votaciones)} </b></h1>
                 </g:link>
             </li>
          </div>

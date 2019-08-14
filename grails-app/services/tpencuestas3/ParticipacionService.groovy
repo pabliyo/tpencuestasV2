@@ -40,7 +40,6 @@ class ParticipacionService {
     }
 
 
-
     Respuesta guardar(Encuesta encuesta, Map params, Respuesta respuesta) {
         respuestasValidas(encuesta, params, respuesta)
         respuestaService.save(respuesta)

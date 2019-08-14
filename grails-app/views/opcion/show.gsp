@@ -15,7 +15,7 @@
         </div>
         <div id="show-opcion" class="content scaffold-show" role="main">
             <h1>
-                <f:display bean="opcion" property="descripcion"/>
+               Opcion : <f:display bean="opcion" property="descripcion"/>
             </h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>

@@ -25,12 +25,12 @@ class Encuesta {
         usuario.esPremium() || usuario.cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
-    boolean fechaCorrecta(Encuesta encuesta, Usuario usuario){
-        if(!usuario.esPremium()) {
-            encuesta.vigencia.fechaCorrecta()
-        } else {
-            true
-        }
+    boolean vigenciaValida(){
+        vigencia.vigenciaCorrecta()
+    }
+
+    boolean vigenciaPremium(){
+        vigencia.vigenciaPremium()
     }
 
     void setUsuario(Usuario usuario){
@@ -48,6 +48,15 @@ class Encuesta {
     boolean tieneVotaciones() {
         List<Respuesta> lista = Respuesta.findAllWhere(encuesta: this)
         !lista.isEmpty()
+    }
+
+    int cantidadVotaciones(List<Respuesta> respuestas) {
+        int acum = 0;
+        respuestas.each {
+            if(it.encuesta==this)
+                acum+=1
+        }
+        acum
     }
 
     String toString() {

@@ -41,6 +41,27 @@ class Usuario implements Serializable {
         cuentaPremium || cantidadEncuestas() < limiteEncuestasSiNoPremium
     }
 
+
+    boolean vigenciaDelUsuario(Encuesta encuesta) {
+        if (encuesta.vigenciaValida()) {
+            if (vigenciaPremium(encuesta)) {
+                true
+            } else {
+                throw new VigenciaNopremiumException()
+            }
+        }else {
+            throw new VigenciaIncorrectaException()
+        }
+    }
+
+    boolean vigenciaPremium(Encuesta encuesta){
+        if(esPremium()) {
+            true
+        } else {
+            encuesta.vigenciaPremium()
+        }
+    }
+
     Set<Rol> getAuthorities() {//usado por spring security core
         (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
     }

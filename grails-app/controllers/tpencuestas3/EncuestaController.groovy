@@ -46,8 +46,16 @@ class EncuestaController {
         encuesta.usuario = usuario
 
         try {
+            encuestaService.validacionVigencia(encuesta, usuario)
+        } catch (VigenciaIncorrectaException|VigenciaNopremiumException e) {
+            flash.message = e.getMessage()
+            respond encuesta, view: 'create'
+            return
+        }
+
+        try {
             encuestaService.guardar(encuesta, usuario)
-        } catch (NoPremiumException|VigenciaNopremiumException e) {
+        } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond encuesta, view: 'create'
             return

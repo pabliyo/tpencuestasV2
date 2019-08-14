@@ -59,15 +59,6 @@ class Encuesta {
         !lista.isEmpty()
     }
 
-    int cantidadVotaciones(List<Respuesta> respuestas) {
-        int acum = 0;
-        respuestas.each {
-            if(it.encuesta==this)
-                acum+=1
-        }
-        acum
-    }
-
     String toString() {
         titulo
     }

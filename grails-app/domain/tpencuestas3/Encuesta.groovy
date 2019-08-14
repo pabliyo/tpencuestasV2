@@ -68,6 +68,22 @@ class Encuesta {
         acum
     }
 
+    void respuestasValidas(Map params, Respuesta respuesta) {
+        int cantPreg = this.cantidadPreguntas()
+        respuesta.initCollection()
+        params.eachWithIndex { preguntaId, opcionId, i ->
+            if (i < cantPreg) {
+                if (!preguntaId.isLong() || !opcionId.isLong()) {
+                    throw new NoRespondioException()
+                }
+                else {
+                    respuesta.agregarRespuesta(Opcion.get(opcionId))
+                }
+            }
+        }
+        respuesta.agregarFechaVotacion()
+    }
+
     String toString() {
         titulo
     }

@@ -29,18 +29,18 @@ class PreguntaController {
 
         if (encuestaService.tieneVotaciones(encuesta)) {
             flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar"
-            redirect controller:'encuesta', action: 'show', id: encuesta.getId()
+            redirect controller: 'encuesta', action: 'show', id: encuesta.getId()
             return
         }
 
-        try{
-            if(encuesta.puedeAgregarPreguntas(usuario))
+        try {
+            if (encuesta.puedeAgregarPreguntas(usuario))
                 respond new Pregunta(params)
             else
                 throw new NoPremiumException()
-        }catch (NoPremiumException e) {
+        } catch (NoPremiumException e) {
             flash.message = e.getMessage()
-            redirect (controller:"encuesta", action:"show", id: params.get("encuesta.id"))
+            redirect(controller: "encuesta", action: "show", id: params.get("encuesta.id"))
         }
     }
 
@@ -51,7 +51,7 @@ class PreguntaController {
         }
 
         Encuesta encuesta = Encuesta.get(params.get("encuesta.id"))
-        pregunta.encuesta=encuesta
+        pregunta.encuesta = encuesta
         Usuario usuario = springSecurityService.getCurrentUser() as Usuario
 
         if (encuestaService.tieneVotaciones(encuesta)) {
@@ -59,7 +59,6 @@ class PreguntaController {
             respond pregunta, view: 'create'
             return
         }
-
 
         try {
             preguntaService.guardar(pregunta, usuario, encuesta)
@@ -85,7 +84,7 @@ class PreguntaController {
         if (encuestaService.tieneVotaciones(encuesta)) {
             flash.message = "Esta encuesta ya recibio votaciones, NO se puede modificar sus preguntas"
             respond pregunta, view: 'show'
-        }else
+        } else
             respond pregunta
     }
 
@@ -113,7 +112,7 @@ class PreguntaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), pregunta.id])
-                redirect controller: "encuesta", action:"show", id: pregunta.encuesta.getId()
+                redirect controller: "encuesta", action: "show", id: pregunta.encuesta.getId()
             }
             '*' { respond pregunta, [status: OK] }
         }
@@ -131,7 +130,7 @@ class PreguntaController {
         if (encuestaService.tieneVotaciones(encuesta)) {
             flash.message = "Esta encuesta ya recibio votaciones, NO se puede eliminar sus preguntas"
             respond pregunta, view: 'show'
-        }else{
+        } else {
             preguntaService.delete(id)
             request.withFormat {
                 form multipartForm {

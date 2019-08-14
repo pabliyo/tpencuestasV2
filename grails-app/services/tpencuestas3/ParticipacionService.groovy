@@ -35,7 +35,7 @@ class ParticipacionService {
         Respuesta.findAll()
     }
 
-    List getRespondidasPorEncuesta(Encuesta encuesta){
+    List getRespondidasPorEncuesta(Encuesta encuesta) {
         Respuesta.findAllByEncuesta(encuesta)
     }
 
@@ -46,18 +46,8 @@ class ParticipacionService {
     }
 
     void respuestasValidas(Encuesta encuesta, Map params, Respuesta respuesta) {
-        int cantPreg = encuesta.cantidadPreguntas()
-        respuesta.initCollection()
-        params.eachWithIndex { preguntaId, opcionId, i ->
-            if (i < cantPreg) {
-                if (!preguntaId.isLong() || !opcionId.isLong()) {
-                    throw new NoRespondioException()
-                }
-                else {
-                    respuesta.agregarRespuesta(Opcion.get(opcionId))
-                }
-            }
+        if (encuesta != null) {
+            encuesta.respuestasValidas(params, respuesta)
         }
-        respuesta.agregarFechaVotacion()
     }
 }

@@ -136,7 +136,7 @@ class PreguntaController {
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.deleted.message', args: [message(code: 'pregunta.label', default: 'Pregunta'), id])
-                    redirect controller: "encuesta", action: "show", id: encuestaId
+                    redirect controller: "encuesta", action: "show", id: encuesta.getId()
                 }
                 '*' { render status: NO_CONTENT }
             }

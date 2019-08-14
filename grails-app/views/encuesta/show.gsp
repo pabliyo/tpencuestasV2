@@ -28,7 +28,7 @@
 
 <div id="show-encuesta" class="content scaffold-show" role="main">
     <h1>
-        <f:display bean="encuesta" property="titulo"/>
+        Encuesta : <f:display bean="encuesta" property="titulo"/>
     </h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>

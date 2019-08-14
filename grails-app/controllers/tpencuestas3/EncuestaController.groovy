@@ -91,14 +91,23 @@ class EncuestaController {
             respond encuesta, view: 'edit'
         }
 
+        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
+
+        try {
+            encuestaService.validacionVigencia(encuesta, usuario)
+        } catch (VigenciaIncorrectaException|VigenciaNopremiumException e) {
+            flash.message = e.getMessage()
+            redirect action: 'edit', id: encuesta.id
+            return
+        }
+
         Vigencia vigenciaNueva= new Vigencia(fechaInicio: params.get("vigencia.fechaInicio"), fechaFin: params.get("vigencia.fechaFin"))
         encuesta.vigencia= vigenciaNueva
-        Usuario usuario = springSecurityService.getCurrentUser() as Usuario
         encuesta.usuario = usuario
 
         try {
             encuestaService.guardar(encuesta, usuario)
-        } catch (NoPremiumException|VigenciaNopremiumException e) {
+        } catch (NoPremiumException e) {
             flash.message = e.getMessage()
             respond encuesta, view: 'create'
             return

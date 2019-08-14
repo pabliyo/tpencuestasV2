@@ -13,6 +13,8 @@ class Vigencia implements Validateable {
 
     boolean vigenciaCorrecta(){
         def ahora = new Date()
+        def resta = 1
+        ahora.setDate(ahora.getDate()-resta)
         fechaFin>fechaInicio && fechaFin>ahora && fechaInicio>=ahora
     }
 

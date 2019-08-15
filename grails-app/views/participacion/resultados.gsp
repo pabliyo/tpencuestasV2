@@ -23,10 +23,10 @@
                 <div id="list-respuesta" class="content scaffold-list" role="main">
                     <f:table collection="${respuestaList}" properties="encuesta, votante, fechaVoto, encuesta.preguntas, respuestas"/>
                      <div class="pagination">
-                     <li>
+                     <li class>
                           <b>${respuesta.encuesta} : </b>
                      </li>
-                     <li>
+                     <li style="margin-left: 1%">
                         <g:set var="i" value="${0}" />
                         <g:each in="${respuesta.respuestas}" var="rta">
                             ${respuesta.encuesta.preguntas[i]} <b>${rta}</b>
@@ -34,13 +34,12 @@
                             <g:set var="i" value="${i+1}" />
                         </g:each>
                      </li>
-                        <li>
+                        <li style="margin-left: 1%">
                             <b>Fecha de Voto :</b> ${respuesta.fechaVoto}
                             <br>
                             <b>Descripcion :</b> ${respuesta.encuesta.descripcion}
                             <br>
                         </li>
-
                      </div>
                 </div>
             </g:each>

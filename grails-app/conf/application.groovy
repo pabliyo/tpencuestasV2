@@ -1,9 +1,9 @@
 
 
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'tpencuestas3.Usuario'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'tpencuestas3.UsuarioRol'
-grails.plugin.springsecurity.authority.className = 'tpencuestas3.Rol'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'santander.Usuario'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'santander.UsuarioRol'
+grails.plugin.springsecurity.authority.className = 'santander.Rol'
 grails.plugin.springsecurity.logout.postOnly = false
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
@@ -17,7 +17,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/js/**',       access: ['permitAll']],
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
-	[pattern: '/**/favicon.ico', access: ['permitAll']]
+	[pattern: '/**/Paomedia-Small-N-Flat-Beer.ico', access: ['permitAll']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
@@ -25,7 +25,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/js/**',       filters: 'none'],
 	[pattern: '/**/css/**',      filters: 'none'],
 	[pattern: '/**/images/**',   filters: 'none'],
-	[pattern: '/**/favicon.ico', filters: 'none'],
+	[pattern: '/**/Paomedia-Small-N-Flat-Beer.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 

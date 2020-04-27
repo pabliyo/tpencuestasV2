@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: tpencuestas3
+        defaultPackage: santander
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -126,3 +126,9 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+---
+openweather:
+    appid: 2160122c0251f1b3ebf3af8ceaef8cb0
+    cityId: 3433955 #https://openweathermap.org/city/3433955 Ciudad Autónoma de Buenos Aires, AR
+

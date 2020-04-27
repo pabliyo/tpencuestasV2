@@ -12,7 +12,7 @@ buildscript {
 }
 
 version "0.1"
-group "tpencuestas"
+group "santander"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -28,6 +28,7 @@ repositories {
 }
 
 dependencies {
+    compile "io.micronaut:micronaut-http-client:1.3.4"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
@@ -67,9 +68,6 @@ dependencies {
 
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.grails.plugins:spring-security-core:3.2.3"
-    
-
-
 }
 
 bootRun {
@@ -78,7 +76,6 @@ bootRun {
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }
-
 
 assets {
     minifyJs = true

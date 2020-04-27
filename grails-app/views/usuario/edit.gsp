@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.validation.FieldError" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
     <g:hasErrors bean="${this.usuario}">
         <ul class="errors" role="alert">
             <g:eachError bean="${this.usuario}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+                <li <g:if test="${error in FieldError}">data-field-id="${error.field}"</g:if>><g:message
                         error="${error}"/></li>
             </g:eachError>
         </ul>
@@ -34,8 +35,6 @@
         <fieldset class="form">
             <f:field property="username" bean="usuario"/>
             <f:field property="password" bean="usuario"/>
-            <f:field property="email" bean="usuario"/>
-            <f:field property="cuentaPremium" bean="usuario"/>
         </fieldset>
         <fieldset class="buttons">
             <input class="save" type="submit"
